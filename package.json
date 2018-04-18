@@ -1,0 +1,9 @@
+{
+  "name": "redux-saga-statechart",
+  "version": "0.0.1",
+  "description": "Statechart based sagas",
+  "main": "index.js",
+  "repository": "git@github.com:karl/redux-saga-statechart.git",
+  "author": "Karl O'Keeffe <karl@geckoboard.com>",
+  "license": "MIT"
+}
