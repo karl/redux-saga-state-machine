@@ -5,5 +5,8 @@
   "main": "index.js",
   "repository": "git@github.com:karl/redux-saga-statechart.git",
   "author": "Karl O'Keeffe <karl@geckoboard.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "xstate": "^3.1.1"
+  }
 }
