@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-state-machine",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Redux Saga based state machines",
   "main": "dist/redux-saga-state-machine.cjs.js",
   "module": "dist/redux-saga-state-machine.esm.js",
@@ -11,7 +11,9 @@
     "build": "rollup -c",
     "dev": "rollup -c -w"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "rollup": "^0.58.0",
     "rollup-plugin-commonjs": "^9.1.0",
