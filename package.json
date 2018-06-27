@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-state-machine",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Redux Saga based state machines",
   "main": "dist/redux-saga-state-machine.cjs.js",
   "module": "dist/redux-saga-state-machine.esm.js",
@@ -9,12 +9,14 @@
   "license": "MIT",
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c -w"
+    "dev": "rollup -c -w",
+    "test": "jest"
   },
   "files": [
     "dist"
   ],
   "devDependencies": {
+    "jest": "^22.4.3",
     "redux-saga": "^0.16.0",
     "rollup": "^0.58.0",
     "rollup-plugin-commonjs": "^9.1.0",
@@ -22,6 +24,12 @@
     "xstate": "^3.1.1"
   },
   "peerDependencies": {
+    "redux-saga": "^0.16.0",
     "xstate": "^3.1.1"
+  },
+  "dependencies": {
+    "babel-plugin-external-helpers": "^6.22.0",
+    "babel-preset-env": "^1.7.0",
+    "rollup-plugin-babel": "^3.0.5"
   }
 }

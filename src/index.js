@@ -1,15 +1,9 @@
 import { Machine } from 'xstate';
 
-export const createStateMachineSaga = () => {
+export const createStateMachineSaga = (description) => {
   console.log('createStateMachineSaga');
 
-  const machine = Machine({
-    states: {
-      green: {},
-      yellow: {},
-      red: {},
-    },
-  });
+  const machine = Machine(description);
 
   return function*() {
     console.log('running saga');
