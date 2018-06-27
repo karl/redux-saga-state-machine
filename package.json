@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-state-machine",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Redux Saga based state machines",
   "main": "dist/redux-saga-state-machine.cjs.js",
   "module": "dist/redux-saga-state-machine.esm.js",
