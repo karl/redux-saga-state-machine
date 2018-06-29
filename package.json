@@ -1,35 +1,4 @@
 {
-  "name": "redux-saga-state-machine",
-  "version": "0.0.4",
-  "description": "Redux Saga based state machines",
-  "main": "dist/redux-saga-state-machine.cjs.js",
-  "module": "dist/redux-saga-state-machine.esm.js",
-  "repository": "git@github.com:karl/redux-saga-state-machine.git",
-  "author": "Karl O'Keeffe <karl@geckoboard.com>",
-  "license": "MIT",
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "jest"
-  },
-  "files": [
-    "dist"
-  ],
-  "devDependencies": {
-    "jest": "^22.4.3",
-    "redux-saga": "^0.16.0",
-    "rollup": "^0.58.0",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "xstate": "^3.1.1"
-  },
-  "peerDependencies": {
-    "redux-saga": "^0.16.0",
-    "xstate": "^3.1.1"
-  },
-  "dependencies": {
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-preset-env": "^1.7.0",
-    "rollup-plugin-babel": "^3.0.5"
-  }
+  "private": true,
+  "workspaces": ["redux-saga-state-machine", "example"]
 }
