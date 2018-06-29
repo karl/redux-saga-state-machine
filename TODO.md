@@ -7,5 +7,6 @@
 
 ## Infrastructure
 
-- Add ESLint
+- Add Jest
+- Add TSLint
 - Add Prettier
