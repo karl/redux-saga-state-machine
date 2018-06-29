@@ -9,5 +9,4 @@
 
 - Get source maps working
 - Add Jest
-- Add Prettier
 - Publish type definition
