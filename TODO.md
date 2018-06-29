@@ -9,5 +9,5 @@
 
 - Get source maps working
 - Add Jest
-- Add TSLint
 - Add Prettier
+- Publish type definition

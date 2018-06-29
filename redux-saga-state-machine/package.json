@@ -7,14 +7,17 @@
   "author": "Karl O'Keeffe <karl@geckoboard.com>",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc --watch"
+    "build": "yarn run lint && tsc",
+    "dev": "tsc --watch",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'"
   },
   "files": [
     "dist"
   ],
   "devDependencies": {
     "redux-saga": "^0.16.0",
+    "tslint": "^5.10.0",
     "typescript": "^2.9.2",
     "xstate": "^3.3.2"
   },
