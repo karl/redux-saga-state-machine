@@ -1,8 +1,9 @@
 {
   "name": "redux-saga-state-machine",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Redux Saga based state machines",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:karl/redux-saga-state-machine.git",
   "author": "Karl O'Keeffe <karl@geckoboard.com>",
   "license": "MIT",
