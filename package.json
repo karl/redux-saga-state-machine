@@ -1,4 +1,6 @@
 {
   "private": true,
-  "workspaces": ["redux-saga-state-machine", "example"]
+  "workspaces": {
+    "packages": ["redux-saga-state-machine", "example"]
+  }
 }

@@ -8,5 +8,4 @@
 ## Infrastructure
 
 - Get source maps working
-- Add Jest
 - Publish type definition
