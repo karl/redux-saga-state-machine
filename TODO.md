@@ -8,4 +8,3 @@
 ## Infrastructure
 
 - Get source maps working
-- Publish type definition
