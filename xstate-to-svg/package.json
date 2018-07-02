@@ -1,0 +1,35 @@
+{
+  "name": "xstate-to-svg",
+  "version": "0.0.1",
+  "description": "Generate svg image from xstate json",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "git@github.com:karl/redux-saga-state-machine.git",
+  "author": "Karl O'Keeffe <karl@geckoboard.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn run lint && tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/jest": "20.0.4",
+    "jest": "20.0.4",
+    "jest-cli": "20.0.4",
+    "prettier": "^1.13.7",
+    "ts-jest": "^22.4.6",
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "tslint-plugin-prettier": "^1.3.0",
+    "typescript": "^2.9.2",
+    "xstate": "^3.3.2"
+  },
+  "dependencies": {
+    "state-machine-cat": "^2.6.9"
+  }
+}

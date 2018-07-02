@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "strictNullChecks": true,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "declaration": true,
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules/**/*", "src/**/*.test.ts"]
+}
