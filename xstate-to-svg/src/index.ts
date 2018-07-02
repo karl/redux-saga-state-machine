@@ -1,7 +1,13 @@
 import { render } from 'state-machine-cat';
 
 export const xstateToSvg = (description) => {
-  const smcDescription: Array<{ from: string; to: string; event: string }> = [];
+  const smcDescription: Array<{
+    from: string;
+    to: string;
+    event?: string;
+  }> = [];
+
+  smcDescription.push({ from: 'initial', to: description.initial });
 
   Object.keys(description.states).forEach((stateName) => {
     const state = description.states[stateName];
@@ -28,7 +34,8 @@ export const xstateToSvg = (description) => {
 
   const smcString = smcDescription
     .map(({ from, to, event }) => {
-      return `${from} => ${to} : ${event};`;
+      const eventString = event ? ': ' + event : '';
+      return `${from} => ${to}${eventString};`;
     })
     .join('\n');
 

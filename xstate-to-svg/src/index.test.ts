@@ -29,31 +29,46 @@ describe('xstateToSvg', () => {
     expect(xstateToSvg(description)).toMatchSnapshot();
   });
 
-  // it('guards', () => {
-  //   const description = {
-  //     id: 'guards',
-  //     initial: 'closed',
+  // it('nested', () => {
+  //   const pedestrianStates = {
+  //     initial: 'walk',
   //     states: {
-  //       closed: {
-  //         initial: 'idle',
-  //         states: {
-  //           idle: {},
-  //           error: {},
-  //         },
+  //       walk: {
   //         on: {
-  //           OPEN: [
-  //             { target: 'opened', cond: (extState) => extState.isAdmin },
-  //             { target: 'closed.error' },
-  //           ],
+  //           PED_TIMER: 'wait',
   //         },
   //       },
-  //       opened: {
+  //       wait: {
   //         on: {
-  //           CLOSE: 'closed',
+  //           PED_TIMER: 'stop',
   //         },
+  //       },
+  //       stop: {},
+  //     },
+  //   };
+
+  //   const nested = {
+  //     key: 'light',
+  //     initial: 'green',
+  //     states: {
+  //       green: {
+  //         on: {
+  //           TIMER: 'yellow',
+  //         },
+  //       },
+  //       yellow: {
+  //         on: {
+  //           TIMER: 'red',
+  //         },
+  //       },
+  //       red: {
+  //         on: {
+  //           TIMER: 'green',
+  //         },
+  //         ...pedestrianStates,
   //       },
   //     },
   //   };
-  //   expect(xstateToSvg(description)).toMatchSnapshot();
+  //   expect(xstateToSvg(nested)).toMatchSnapshot();
   // });
 });
