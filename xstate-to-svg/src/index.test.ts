@@ -1,31 +1,59 @@
 import { xstateToSvg } from './index';
 
 describe('xstateToSvg', () => {
-  it('...', () => {
+  it('simple', () => {
     const description = {
-      id: 'guards',
-      initial: 'closed',
+      key: 'light',
+      initial: 'green',
       states: {
-        closed: {
-          initial: 'idle',
-          states: {
-            idle: {},
-            error: {},
-          },
+        green: {
           on: {
-            OPEN: [
-              { target: 'opened', cond: (extState) => extState.isAdmin },
-              { target: 'closed.error' },
-            ],
+            TIMER: 'yellow',
+            POWER_OUTAGE: 'red',
           },
         },
-        opened: {
+        yellow: {
           on: {
-            CLOSE: 'closed',
+            TIMER: 'red',
+            POWER_OUTAGE: 'red',
+          },
+        },
+        red: {
+          on: {
+            TIMER: 'green',
+            POWER_OUTAGE: 'red',
           },
         },
       },
     };
     expect(xstateToSvg(description)).toMatchSnapshot();
   });
+
+  // it('guards', () => {
+  //   const description = {
+  //     id: 'guards',
+  //     initial: 'closed',
+  //     states: {
+  //       closed: {
+  //         initial: 'idle',
+  //         states: {
+  //           idle: {},
+  //           error: {},
+  //         },
+  //         on: {
+  //           OPEN: [
+  //             { target: 'opened', cond: (extState) => extState.isAdmin },
+  //             { target: 'closed.error' },
+  //           ],
+  //         },
+  //       },
+  //       opened: {
+  //         on: {
+  //           CLOSE: 'closed',
+  //         },
+  //       },
+  //     },
+  //   };
+  //   expect(xstateToSvg(description)).toMatchSnapshot();
+  // });
 });
