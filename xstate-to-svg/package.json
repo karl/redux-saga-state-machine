@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "repository": "git@github.com:karl/redux-saga-state-machine.git",
-  "author": "Karl O'Keeffe <karl@geckoboard.com>",
+  "author": "Karl O'Keeffe <github@monket.net>",
   "license": "MIT",
   "scripts": {
     "build": "yarn run lint && tsc",
