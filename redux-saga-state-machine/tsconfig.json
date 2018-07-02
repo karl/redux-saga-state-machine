@@ -7,7 +7,23 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "declaration": true,
+    "allowSyntheticDefaultImports": true, // allows import React from 'react' rather than import * as React from 'react'
+    "noImplicitReturns": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "experimentalDecorators": true,
+    "preserveConstEnums": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "alwaysStrict": true,
+    "baseUrl": ".", // allow absolute imports to compile eg import Button from 'src/comps/Button'   
+    "paths": {
+      "src/*": ["src/*"] // makes VSCode Auto-Import use absolute imports (from 'src/blah') rather than relative (from '../../blah')
+    },
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules/**/*", "src/**/*.test.ts"]
+  "exclude": ["node_modules/**/*", "src/**/*.test.ts"],
+  "compileOnSave": true
 }
