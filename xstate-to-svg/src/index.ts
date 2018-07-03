@@ -1,17 +1,28 @@
 import { render } from 'state-machine-cat';
 
 export const xstateToSvg = (description) => {
-  const smcDescription: Array<{
-    from: string;
-    to: string;
-    event?: string;
-  }> = [];
+  const smcDescription = xstateToSmcDescription(description);
+  const smcString = smcDescriptionToString(smcDescription);
 
-  smcDescription.push({ from: 'initial', to: description.initial });
+  // console.log(smcString);
+
+  const svg = render(smcString, {
+    outputType: 'svg',
+  });
+
+  return svg;
+};
+
+const xstateToSmcDescription = (description, root = true) => {
+  const smcDescription: any = [];
+
+  if (description.initial && root) {
+    smcDescription.push({ from: 'initial', to: description.initial });
+  }
 
   Object.keys(description.states).forEach((stateName) => {
     const state = description.states[stateName];
-    Object.keys(state.on).forEach((eventName) => {
+    Object.keys(state.on || {}).forEach((eventName) => {
       const transition = state.on[eventName];
 
       if (typeof transition === 'string') {
@@ -30,21 +41,32 @@ export const xstateToSvg = (description) => {
         });
       }
     });
+
+    if (state.states) {
+      const subDescription = xstateToSmcDescription(state, false);
+      smcDescription.unshift({
+        state: stateName,
+        description: subDescription,
+      });
+    }
   });
 
-  const smcString = smcDescription
-    .map(({ from, to, event }) => {
-      const eventString = event ? ': ' + event : '';
-      return `${from} => ${to}${eventString};`;
+  return smcDescription;
+};
+
+const smcDescriptionToString = (smcDescription, indent = 0) => {
+  return smcDescription
+    .map((node) => {
+      if (node.state) {
+        return `"${node.state}" {
+${smcDescriptionToString(node.description, indent + 2)}
+};`;
+      }
+
+      const eventString = node.event ? ': "' + node.event + '"' : '';
+      return `${' '.repeat(indent)}"${node.from}" => "${
+        node.to
+      }"${eventString};`;
     })
     .join('\n');
-
-  console.log('smcString\n', smcString);
-
-  const svg = render(smcString, {
-    outputType: 'svg',
-  });
-
-  console.log('svg', svg);
-  return svg;
 };
