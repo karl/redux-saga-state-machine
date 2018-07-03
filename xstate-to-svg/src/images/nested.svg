@@ -62,40 +62,40 @@
 <polygon fill="#000000" stroke="#000000" points="175.6817,-267.0127 181.4661,-258.1362 171.4087,-261.4681 175.6817,-267.0127"/>
 <text text-anchor="start" x="157" y="-279" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TIMER &#160;&#160;</text>
 </g>
-<!-- walk -->
+<!-- red.walk -->
 <g id="node5" class="node">
-<title>walk</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="72,-342 16,-342 16,-306 72,-306 72,-342"/>
-<text text-anchor="start" x="32.0018" y="-320.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">walk</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-307C28.3333,-307 59.6667,-307 59.6667,-307 65.3333,-307 71,-312.6667 71,-318.3333 71,-318.3333 71,-329.6667 71,-329.6667 71,-335.3333 65.3333,-341 59.6667,-341 59.6667,-341 28.3333,-341 28.3333,-341 22.6667,-341 17,-335.3333 17,-329.6667 17,-329.6667 17,-318.3333 17,-318.3333 17,-312.6667 22.6667,-307 28.3333,-307"/>
+<title>red.walk</title>
+<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="82,-342 16,-342 16,-306 82,-306 82,-342"/>
+<text text-anchor="start" x="26.6662" y="-320.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">red.walk</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-307C28.3333,-307 69.6667,-307 69.6667,-307 75.3333,-307 81,-312.6667 81,-318.3333 81,-318.3333 81,-329.6667 81,-329.6667 81,-335.3333 75.3333,-341 69.6667,-341 69.6667,-341 28.3333,-341 28.3333,-341 22.6667,-341 17,-335.3333 17,-329.6667 17,-329.6667 17,-318.3333 17,-318.3333 17,-312.6667 22.6667,-307 28.3333,-307"/>
 </g>
-<!-- wait -->
+<!-- red.wait -->
 <g id="node6" class="node">
-<title>wait</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="72,-174 16,-174 16,-138 72,-138 72,-174"/>
-<text text-anchor="start" x="33.3344" y="-152.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">wait</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-139C28.3333,-139 59.6667,-139 59.6667,-139 65.3333,-139 71,-144.6667 71,-150.3333 71,-150.3333 71,-161.6667 71,-161.6667 71,-167.3333 65.3333,-173 59.6667,-173 59.6667,-173 28.3333,-173 28.3333,-173 22.6667,-173 17,-167.3333 17,-161.6667 17,-161.6667 17,-150.3333 17,-150.3333 17,-144.6667 22.6667,-139 28.3333,-139"/>
+<title>red.wait</title>
+<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="80,-174 16,-174 16,-138 80,-138 80,-174"/>
+<text text-anchor="start" x="26.9988" y="-152.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">red.wait</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-139C28.3333,-139 67.6667,-139 67.6667,-139 73.3333,-139 79,-144.6667 79,-150.3333 79,-150.3333 79,-161.6667 79,-161.6667 79,-167.3333 73.3333,-173 67.6667,-173 67.6667,-173 28.3333,-173 28.3333,-173 22.6667,-173 17,-167.3333 17,-161.6667 17,-161.6667 17,-150.3333 17,-150.3333 17,-144.6667 22.6667,-139 28.3333,-139"/>
 </g>
-<!-- walk&#45;&gt;wait -->
+<!-- red.walk&#45;&gt;red.wait -->
 <g id="edge5" class="edge">
-<title>walk&#45;&gt;wait</title>
-<path fill="none" stroke="#000000" d="M43.1048,-305.7964C42.4993,-292.5453 41.7551,-274.1653 41.442,-258 41.1321,-242.003 41.1321,-237.997 41.442,-222 41.6818,-209.6234 42.1742,-195.9486 42.6635,-184.2714"/>
-<polygon fill="#000000" stroke="#000000" points="46.1635,-184.3472 43.1048,-174.2036 39.1702,-184.0407 46.1635,-184.3472"/>
+<title>red.walk&#45;&gt;red.wait</title>
+<path fill="none" stroke="#000000" d="M46.3557,-305.8389C44.5673,-292.6083 42.3686,-274.2354 41.442,-258 40.0193,-233.0716 42.1419,-204.7311 44.3422,-184.2607"/>
+<polygon fill="#000000" stroke="#000000" points="47.8507,-184.3862 45.516,-174.0519 40.8966,-183.5866 47.8507,-184.3862"/>
 <text text-anchor="start" x="42" y="-237" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PED_TIMER &#160;&#160;</text>
 </g>
-<!-- stop -->
+<!-- red.stop -->
 <g id="node7" class="node">
-<title>stop</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
-<text text-anchor="start" x="32.6618" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">stop</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-17C28.3333,-17 59.6667,-17 59.6667,-17 65.3333,-17 71,-22.6667 71,-28.3333 71,-28.3333 71,-39.6667 71,-39.6667 71,-45.3333 65.3333,-51 59.6667,-51 59.6667,-51 28.3333,-51 28.3333,-51 22.6667,-51 17,-45.3333 17,-39.6667 17,-39.6667 17,-28.3333 17,-28.3333 17,-22.6667 22.6667,-17 28.3333,-17"/>
+<title>red.stop</title>
+<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="81.5,-52 16.5,-52 16.5,-16 81.5,-16 81.5,-52"/>
+<text text-anchor="start" x="27.8262" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">red.stop</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M28.8333,-17C28.8333,-17 69.1667,-17 69.1667,-17 74.8333,-17 80.5,-22.6667 80.5,-28.3333 80.5,-28.3333 80.5,-39.6667 80.5,-39.6667 80.5,-45.3333 74.8333,-51 69.1667,-51 69.1667,-51 28.8333,-51 28.8333,-51 23.1667,-51 17.5,-45.3333 17.5,-39.6667 17.5,-39.6667 17.5,-28.3333 17.5,-28.3333 17.5,-22.6667 23.1667,-17 28.8333,-17"/>
 </g>
-<!-- wait&#45;&gt;stop -->
+<!-- red.wait&#45;&gt;red.stop -->
 <g id="edge6" class="edge">
-<title>wait&#45;&gt;stop</title>
-<path fill="none" stroke="#000000" d="M44,-137.9985C44,-117.9958 44,-85.4427 44,-62.0831"/>
-<polygon fill="#000000" stroke="#000000" points="47.5001,-62.0753 44,-52.0754 40.5001,-62.0754 47.5001,-62.0753"/>
-<text text-anchor="start" x="44" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PED_TIMER &#160;&#160;</text>
+<title>red.wait&#45;&gt;red.stop</title>
+<path fill="none" stroke="#000000" d="M48.1476,-137.9985C48.3115,-117.9958 48.5783,-85.4427 48.7698,-62.0831"/>
+<polygon fill="#000000" stroke="#000000" points="52.2697,-62.1038 48.8518,-52.0754 45.2699,-62.0463 52.2697,-62.1038"/>
+<text text-anchor="start" x="49" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PED_TIMER &#160;&#160;</text>
 </g>
 </g>
 </svg>
