@@ -32,6 +32,6 @@
     "xstate": "^3.3.2"
   },
   "dependencies": {
-    "state-machine-cat": "^2.6.9"
+    "state-machine-cat": "2.7.0-beta-1"
   }
 }

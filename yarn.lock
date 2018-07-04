@@ -83,13 +83,13 @@ ajv-keywords@^3.0.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/ajv-keywords/-/ajv-keywords-3.2.0.tgz#e86b819c602cf8821ad637413698f1dec021847a"
 
-ajv@6.5.0:
-  version "6.5.0"
-  resolved "https://registry.npmjs.org/ajv/-/ajv-6.5.0.tgz#4c8affdf80887d8f132c9c52ab8a2dc4d0b7b24c"
+ajv@6.5.2:
+  version "6.5.2"
+  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.5.2.tgz#678495f9b82f7cca6be248dd92f59bff5e1f4360"
   dependencies:
     fast-deep-equal "^2.0.1"
     fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.3.0"
+    json-schema-traverse "^0.4.1"
     uri-js "^4.2.1"
 
 ajv@^5.0.0, ajv@^5.1.0, ajv@^5.1.5, ajv@^5.2.0:
@@ -1593,11 +1593,11 @@ combined-stream@1.0.6, combined-stream@~1.0.5:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2.15.1, commander@2.15.x, commander@~2.15.0:
+commander@2.15.x, commander@~2.15.0:
   version "2.15.1"
   resolved "https://registry.npmjs.org/commander/-/commander-2.15.1.tgz#df46e867d0fc2aec66a34662b406a9ccafff5b0f"
 
-commander@^2.11.0, commander@^2.12.1:
+commander@2.16.0, commander@^2.11.0, commander@^2.12.1:
   version "2.16.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
 
@@ -6266,13 +6266,7 @@ right-align@^0.1.1:
   dependencies:
     align-text "^0.1.1"
 
-rimraf@^2.2.8, rimraf@^2.6.1:
-  version "2.6.2"
-  resolved "https://registry.npmjs.org/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
-  dependencies:
-    glob "^7.0.5"
-
-rimraf@^2.6.2:
+rimraf@^2.2.8, rimraf@^2.6.1, rimraf@^2.6.2:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
@@ -6656,12 +6650,12 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-state-machine-cat@^2.6.9:
-  version "2.6.9"
-  resolved "https://registry.npmjs.org/state-machine-cat/-/state-machine-cat-2.6.9.tgz#a7e249d1c5c52e11abd4e60f705ddab2f85e63ed"
+state-machine-cat@2.7.0-beta-1:
+  version "2.7.0-beta-1"
+  resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-2.7.0-beta-1.tgz#f19cbd6f7baa29d3d0316c3e638f5ab4471f1e13"
   dependencies:
-    ajv "6.5.0"
-    commander "2.15.1"
+    ajv "6.5.2"
+    commander "2.16.0"
     handlebars "4.0.11"
     lodash.clonedeep "4.5.0"
     semver "5.5.0"

@@ -4,7 +4,7 @@ export const xstateToSvg = (description) => {
   const smcDescription = xstateToSmcDescription(description);
   const smcString = smcDescriptionToString(smcDescription);
 
-  // console.log(smcString);
+  console.log(smcString);
 
   const svg = render(smcString, {
     outputType: 'svg',
@@ -16,11 +16,11 @@ export const xstateToSvg = (description) => {
 // I've raised an issue with state-machine-cat that might let us do away with
 // the need for a prefix:
 // https://github.com/sverweij/state-machine-cat/issues/17
-const xstateToSmcDescription = (description, root = true, prefix = '') => {
+const xstateToSmcDescription = (description, prefix = '') => {
   const stateDescriptions: any = [];
   const transitions: any = [];
 
-  if (description.initial && root) {
+  if (description.initial && prefix === '') {
     transitions.push({ from: 'initial', to: description.initial });
   }
 
@@ -46,24 +46,24 @@ const xstateToSmcDescription = (description, root = true, prefix = '') => {
       }
     });
 
+    let subDescription: any = null;
     if (state.states) {
-      const subDescription = xstateToSmcDescription(
-        state,
-        false,
-        stateName + '.',
-      );
-      stateDescriptions.unshift({
-        state: prefix + stateName,
-        description: subDescription,
-      });
+      subDescription = xstateToSmcDescription(state, stateName + '.');
     }
+
+    stateDescriptions.unshift({
+      state: prefix + stateName,
+      label: stateName,
+      description: subDescription,
+    });
   });
 
   if (description.parallel) {
     return {
       stateDescriptions: [
         {
-          state: 'parallel',
+          state: prefix + 'parallel',
+          label: prefix || '(machine)',
           description: { stateDescriptions, transitions },
         },
       ],
@@ -81,9 +81,15 @@ const smcDescriptionToString = (smcDescription, indent = 0) => {
     result =
       smcDescription.stateDescriptions
         .map((node) => {
-          return `${' '.repeat(indent)}"${node.state}" {
+          const labelPart = ` [label="${node.label}"]`;
+          const descriptionPart = node.description
+            ? ` {
 ${smcDescriptionToString(node.description, indent + 2)}
-${' '.repeat(indent)}}`;
+${' '.repeat(indent)}}`
+            : '';
+          return `${' '.repeat(indent)}"${
+            node.state
+          }"${labelPart}${descriptionPart}`;
         })
         .join(',\n') + ';\n';
   }
