@@ -1,0 +1,28 @@
+{
+  "initial": "closed",
+  "states": {
+    "closed": {
+      "id": "closed",
+      "initial": "idle",
+      "states": {
+        "idle": {},
+        "error": {
+          "on": {
+            "CLEAR_ERROR": "#closed"
+          }
+        }
+      },
+      "on": {
+        "OPEN": [
+          { "target": "opened", "cond": "isAdmin" },
+          { "target": "closed.error" }
+        ]
+      }
+    },
+    "opened": {
+      "on": {
+        "CLOSE": "closed"
+      }
+    }
+  }
+}
