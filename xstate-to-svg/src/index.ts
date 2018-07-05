@@ -4,7 +4,7 @@ export const xstateToSvg = (description) => {
   const smcDescription = xstateToSmcDescription(description);
   const smcString = smcDescriptionToString(smcDescription);
 
-  console.log(smcString);
+  // console.log(smcString);
 
   const svg = render(smcString, {
     outputType: 'svg',
