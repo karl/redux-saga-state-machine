@@ -13,9 +13,6 @@ export const xstateToSvg = (description) => {
   return svg;
 };
 
-// I've raised an issue with state-machine-cat that might let us do away with
-// the need for a prefix:
-// https://github.com/sverweij/state-machine-cat/issues/17
 const xstateToSmcDescription = (description, prefix = '') => {
   const stateDescriptions: any = [];
   const transitions: any = [];
