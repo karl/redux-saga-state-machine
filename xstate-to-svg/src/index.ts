@@ -1,6 +1,6 @@
 import { render } from 'state-machine-cat';
 
-export const xstateToSvg = (description) => {
+export const xstateToSvg = (description: any) => {
   const smcDescription = xstateToSmcDescription(description);
   const smcString = smcDescriptionToString(smcDescription);
 
@@ -13,7 +13,7 @@ export const xstateToSvg = (description) => {
   return svg;
 };
 
-const xstateToSmcDescription = (description, prefix = '') => {
+const xstateToSmcDescription = (description: any, prefix = '') => {
   const stateDescriptions: any = [];
   const transitions: any = [];
 
@@ -71,13 +71,13 @@ const xstateToSmcDescription = (description, prefix = '') => {
   return { stateDescriptions, transitions };
 };
 
-const smcDescriptionToString = (smcDescription, indent = 0) => {
+const smcDescriptionToString = (smcDescription: any, indent = 0) => {
   let result = '';
 
   if (smcDescription.stateDescriptions.length > 0) {
     result =
       smcDescription.stateDescriptions
-        .map((node) => {
+        .map((node: any) => {
           const labelPart = ` [label="${node.label}"]`;
           const descriptionPart = node.description
             ? ` {
@@ -102,7 +102,7 @@ ${' '.repeat(indent)}}`
     result =
       result +
       smcDescription.transitions
-        .map((transition) => {
+        .map((transition: any) => {
           const eventString = transition.event
             ? ': "' + transition.event + '"'
             : '';
