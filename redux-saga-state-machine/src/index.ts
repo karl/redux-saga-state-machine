@@ -7,7 +7,7 @@ interface IMachineDescription {
 
 export const createStateMachineSaga = (description: IMachineDescription) => {
   // tslint:disable-next-line:no-console
-  console.log('createStateMachineSaga');
+  console.log('createStateMachineSaga', description);
 
   const config: MachineConfig = {
     states: {},
@@ -15,8 +15,8 @@ export const createStateMachineSaga = (description: IMachineDescription) => {
 
   const machine = Machine(config);
 
-  return function*() {
+  return function*(): IterableIterator<void> {
     // tslint:disable-next-line:no-console
-    console.log('running saga');
+    console.log('running saga', machine);
   };
 };
