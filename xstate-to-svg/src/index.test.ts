@@ -12,7 +12,7 @@ describe('xstateToSvg', () => {
 
   filenames.forEach((filename) => {
     const description = JSON.parse(
-      fs.readFileSync(descriptionsDir + '/' + filename),
+      fs.readFileSync(descriptionsDir + '/' + filename, { encoding: 'utf8' }),
     );
 
     const name = filename.split('.')[0];
@@ -21,7 +21,9 @@ describe('xstateToSvg', () => {
       const svg = xstateToSvg(description);
 
       mkdirp.sync(imagesDir);
-      fs.writeFileSync(imagesDir + '/' + name + '.svg', svg);
+      fs.writeFileSync(imagesDir + '/' + name + '.svg', svg, {
+        encoding: 'utf8',
+      });
 
       expect(svg).toMatchSnapshot();
     });
