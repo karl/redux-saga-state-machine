@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "example/package.json",
+        "package.json",
+        "redux-saga-state-machine/package.json",
+        "xstate-to-svg/package.json"
+      ]
+    }
+  }
+}
