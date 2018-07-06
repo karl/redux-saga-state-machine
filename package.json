@@ -5,5 +5,12 @@
       "redux-saga-state-machine",
       "xstate-to-svg"
     ]
+  },
+  "scripts": {
+    "greenkeeper-lockfile-update": "greenkeeper-lockfile-update",
+    "greenkeeper-lockfile-upload": "greenkeeper-lockfile-upload"
+  },
+  "devDependencies": {
+    "greenkeeper-lockfile": "2"
   }
 }

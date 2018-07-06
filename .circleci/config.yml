@@ -24,6 +24,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
+      - run:
+          name: Update yarn lockfile
+          command: yarn run greenkeeper-lockfile-update
+
       - run: cd xstate-to-svg && yarn run lint
       - run: cd xstate-to-svg && yarn run test
       - run: cd xstate-to-svg && yarn run build
@@ -31,6 +35,10 @@ jobs:
       - run: cd redux-saga-state-machine && yarn run lint
       - run: cd redux-saga-state-machine && yarn run test
       - run: cd redux-saga-state-machine && yarn run build
+
+      - run:
+          name: Upload yarn lockfile
+          command: yarn run greenkeeper-lockfile-upload
 
       - persist_to_workspace:
           root: ~/repo
