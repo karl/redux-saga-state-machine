@@ -3,8 +3,7 @@
   "workspaces": {
     "packages": [
       "redux-saga-state-machine",
-      "xstate-to-svg",
-      "example"
+      "xstate-to-svg"
     ]
   }
 }
