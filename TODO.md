@@ -2,11 +2,18 @@
 
 ## Code
 
+### xstate-to-svg
+
 - Use state machine cat json representation.
-- How to handle state naming clashes? (https://github.com/sverweij/state-machine-cat/issues/17)
+- Handle initial states inside nested state machines.
+
+### redux-saga-state-machine
+
 - Translate description to xstate config.
-- Runner
+- Actually build a runner!
+- Work out the best way to test the runner.
 
 ## Infrastructure
 
-- Get source maps working
+- Do we need to do anything to get sourcemaps working?
+- Add back example project using redux-saga-state-machine.
