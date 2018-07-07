@@ -9,7 +9,7 @@
   "scripts": {
     "greenkeeper-lockfile-update": "greenkeeper-lockfile-update",
     "greenkeeper-lockfile-upload": "greenkeeper-lockfile-upload",
-    "publish": "lerna publish"
+    "publish": "lerna publish --skip-npm"
   },
   "devDependencies": {
     "greenkeeper-lockfile": "2",
