@@ -13,12 +13,19 @@ export const xstateToSvg = (description: any) => {
   return svg;
 };
 
-const xstateToSmcDescription = (description: any, prefix = '') => {
+const xstateToSmcDescription = (
+  description: any,
+  parent: string | null = null,
+) => {
   const stateDescriptions: any = [];
   const transitions: any = [];
+  const prefix = parent === null ? '' : parent + '.';
 
-  if (description.initial && prefix === '') {
-    transitions.push({ from: 'initial', to: description.initial });
+  if (description.initial) {
+    transitions.push({
+      from: prefix + 'initial',
+      to: prefix + description.initial,
+    });
   }
 
   Object.keys(description.states).forEach((stateName) => {
@@ -45,7 +52,7 @@ const xstateToSmcDescription = (description: any, prefix = '') => {
 
     let subDescription: any = null;
     if (state.states) {
-      subDescription = xstateToSmcDescription(state, stateName + '.');
+      subDescription = xstateToSmcDescription(state, prefix + stateName);
     }
 
     stateDescriptions.unshift({
@@ -60,7 +67,7 @@ const xstateToSmcDescription = (description: any, prefix = '') => {
       stateDescriptions: [
         {
           state: prefix + 'parallel',
-          label: prefix || '(machine)',
+          label: parent === null ? '(machine)' : parent,
           description: { stateDescriptions, transitions },
         },
       ],

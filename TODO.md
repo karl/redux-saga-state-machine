@@ -5,7 +5,6 @@
 ### xstate-to-svg
 
 - Use state machine cat json representation.
-- Handle initial states inside nested state machines.
 
 ### redux-saga-state-machine
 
