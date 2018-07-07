@@ -12,4 +12,8 @@ Redux Saga based state machines.
 yarn run publish
 ```
 
-This will ask for the new version number, update the `package.json` files, add a git tag, and push the changes to GitHub. CircleCI will then pick up the tag, build the packages and publish them.
+This will ask for the new version number, update the `package.json` files, and add a git tag.
+
+You then need to push the changes to GitHub, ensure you push tags as well (you can use `git push --follow-tags`).
+
+CircleCI will then pick up the tag, build the packages and publish them.
