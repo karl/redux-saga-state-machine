@@ -2,11 +2,11 @@ import { render } from 'state-machine-cat';
 
 export const xstateToSvg = (description: any) => {
   const smcDescription = xstateToSmcDescription(description);
-  const smcString = smcDescriptionToString(smcDescription);
 
-  // console.log(smcString);
+  // console.log(JSON.stringify(smcDescription, null, 2));
 
-  const svg = render(smcString, {
+  const svg = render(smcDescription, {
+    inputType: 'json',
     outputType: 'svg',
   });
 
@@ -17,11 +17,15 @@ const xstateToSmcDescription = (
   description: any,
   parent: string | null = null,
 ) => {
-  const stateDescriptions: any = [];
+  const states: any = [];
   const transitions: any = [];
   const prefix = parent === null ? '' : parent + '.';
 
   if (description.initial) {
+    states.push({
+      name: prefix + 'initial',
+      type: 'initial',
+    });
     transitions.push({
       from: prefix + 'initial',
       to: prefix + description.initial,
@@ -38,6 +42,7 @@ const xstateToSmcDescription = (
           from: prefix + stateName,
           to: prefix + transition,
           event: eventName,
+          label: eventName,
         });
       } else if (Array.isArray(transition)) {
         transition.forEach((transitionOption) => {
@@ -45,80 +50,42 @@ const xstateToSmcDescription = (
             from: prefix + stateName,
             to: prefix + transitionOption.target,
             event: eventName,
+            label: eventName,
           });
         });
       }
     });
 
-    let subDescription: any = null;
+    const smcState: any = {
+      name: prefix + stateName,
+      type: 'regular',
+      label: stateName,
+    };
+
     if (state.states) {
-      subDescription = xstateToSmcDescription(state, prefix + stateName);
+      smcState.statemachine = xstateToSmcDescription(state, prefix + stateName);
     }
 
-    stateDescriptions.unshift({
-      state: prefix + stateName,
-      label: stateName,
-      description: subDescription,
-    });
+    states.push(smcState);
   });
+
+  const statemachine: any = { states };
+  if (transitions.length > 0) {
+    statemachine.transitions = transitions;
+  }
 
   if (description.parallel) {
     return {
-      stateDescriptions: [
+      states: [
         {
-          state: prefix + 'parallel',
+          name: prefix + 'parallel',
+          type: 'parallel',
           label: parent === null ? '(machine)' : parent,
-          description: { stateDescriptions, transitions },
+          statemachine,
         },
       ],
-      transitions: [],
     };
   }
 
-  return { stateDescriptions, transitions };
-};
-
-const smcDescriptionToString = (smcDescription: any, indent = 0) => {
-  let result = '';
-
-  if (smcDescription.stateDescriptions.length > 0) {
-    result =
-      smcDescription.stateDescriptions
-        .map((node: any) => {
-          const labelPart = ` [label="${node.label}"]`;
-          const descriptionPart = node.description
-            ? ` {
-${smcDescriptionToString(node.description, indent + 2)}
-${' '.repeat(indent)}}`
-            : '';
-          return `${' '.repeat(indent)}"${
-            node.state
-          }"${labelPart}${descriptionPart}`;
-        })
-        .join(',\n') + ';\n';
-  }
-
-  if (
-    smcDescription.stateDescriptions.length > 0 &&
-    smcDescription.transitions.length > 0
-  ) {
-    result = result + '\n';
-  }
-
-  if (smcDescription.transitions.length > 0) {
-    result =
-      result +
-      smcDescription.transitions
-        .map((transition: any) => {
-          const eventString = transition.event
-            ? ': "' + transition.event + '"'
-            : '';
-          return `${' '.repeat(indent)}"${transition.from}" => "${
-            transition.to
-          }"${eventString};`;
-        })
-        .join('\n');
-  }
-
-  return result;
+  return statemachine;
 };

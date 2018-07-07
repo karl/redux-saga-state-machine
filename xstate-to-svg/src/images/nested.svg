@@ -20,7 +20,7 @@
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="165" cy="-433.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- green -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>green</title>
 <polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="189,-380 133,-380 133,-344 189,-344 189,-380"/>
 <text text-anchor="start" x="145.661" y="-358.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">green</text>
@@ -34,11 +34,18 @@
 <text text-anchor="middle" x="164.3895" y="-401" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
 <!-- yellow -->
-<g id="node2" class="node">
+<g id="node3" class="node">
 <title>yellow</title>
 <polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="178,-296 122,-296 122,-260 178,-260 178,-296"/>
 <text text-anchor="start" x="133.335" y="-274.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">yellow</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M134.3333,-261C134.3333,-261 165.6667,-261 165.6667,-261 171.3333,-261 177,-266.6667 177,-272.3333 177,-272.3333 177,-283.6667 177,-283.6667 177,-289.3333 171.3333,-295 165.6667,-295 165.6667,-295 134.3333,-295 134.3333,-295 128.6667,-295 123,-289.3333 123,-283.6667 123,-283.6667 123,-272.3333 123,-272.3333 123,-266.6667 128.6667,-261 134.3333,-261"/>
+</g>
+<!-- green&#45;&gt;yellow -->
+<g id="edge2" class="edge">
+<title>green&#45;&gt;yellow</title>
+<path fill="none" stroke="#000000" d="M158.6132,-343.7733C157.1861,-332.8758 155.3422,-318.7946 153.7267,-306.4587"/>
+<polygon fill="#000000" stroke="#000000" points="157.1511,-305.652 152.3822,-296.1912 150.2103,-306.561 157.1511,-305.652"/>
+<text text-anchor="start" x="156" y="-317" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TIMER &#160;&#160;</text>
 </g>
 <!-- red -->
 <!-- yellow&#45;&gt;red -->
@@ -47,13 +54,6 @@
 <path fill="none" stroke="#000000" d="M124.9567,-296.0259C120.3384,-299.8761 115.4829,-304.2558 110.7657,-309.0782"/>
 <polygon fill="#000000" stroke="#000000" points="108.1821,-306.717 103.997,-316.4502 113.3384,-311.4512 108.1821,-306.717"/>
 <text text-anchor="start" x="86" y="-359" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TIMER &#160;&#160;</text>
-</g>
-<!-- green&#45;&gt;yellow -->
-<g id="edge2" class="edge">
-<title>green&#45;&gt;yellow</title>
-<path fill="none" stroke="#000000" d="M158.6132,-343.7733C157.1861,-332.8758 155.3422,-318.7946 153.7267,-306.4587"/>
-<polygon fill="#000000" stroke="#000000" points="157.1511,-305.652 152.3822,-296.1912 150.2103,-306.561 157.1511,-305.652"/>
-<text text-anchor="start" x="156" y="-317" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">TIMER &#160;&#160;</text>
 </g>
 <!-- red&#45;&gt;green -->
 <g id="edge4" class="edge">
@@ -68,7 +68,7 @@
 <ellipse fill="#000000" stroke="#000000" stroke-width="2" cx="44" cy="-433.5" rx="5.5" ry="5.5"/>
 </g>
 <!-- red.walk -->
-<g id="node8" class="node">
+<g id="node6" class="node">
 <title>red.walk</title>
 <polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="72,-296 16,-296 16,-260 72,-260 72,-296"/>
 <text text-anchor="start" x="32.0018" y="-274.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">walk</text>
@@ -81,13 +81,6 @@
 <polygon fill="#000000" stroke="#000000" points="47.5001,-306.1624 44,-296.1624 40.5001,-306.1625 47.5001,-306.1624"/>
 <text text-anchor="middle" x="45.3895" y="-359" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000"> </text>
 </g>
-<!-- red.stop -->
-<g id="node6" class="node">
-<title>red.stop</title>
-<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
-<text text-anchor="start" x="32.6618" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">stop</text>
-<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-17C28.3333,-17 59.6667,-17 59.6667,-17 65.3333,-17 71,-22.6667 71,-28.3333 71,-28.3333 71,-39.6667 71,-39.6667 71,-45.3333 65.3333,-51 59.6667,-51 59.6667,-51 28.3333,-51 28.3333,-51 22.6667,-51 17,-45.3333 17,-39.6667 17,-39.6667 17,-28.3333 17,-28.3333 17,-22.6667 22.6667,-17 28.3333,-17"/>
-</g>
 <!-- red.wait -->
 <g id="node7" class="node">
 <title>red.wait</title>
@@ -95,19 +88,26 @@
 <text text-anchor="start" x="33.3344" y="-152.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">wait</text>
 <path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-139C28.3333,-139 59.6667,-139 59.6667,-139 65.3333,-139 71,-144.6667 71,-150.3333 71,-150.3333 71,-161.6667 71,-161.6667 71,-167.3333 65.3333,-173 59.6667,-173 59.6667,-173 28.3333,-173 28.3333,-173 22.6667,-173 17,-167.3333 17,-161.6667 17,-161.6667 17,-150.3333 17,-150.3333 17,-144.6667 22.6667,-139 28.3333,-139"/>
 </g>
-<!-- red.wait&#45;&gt;red.stop -->
-<g id="edge7" class="edge">
-<title>red.wait&#45;&gt;red.stop</title>
-<path fill="none" stroke="#000000" d="M44,-137.9985C44,-117.9958 44,-85.4427 44,-62.0831"/>
-<polygon fill="#000000" stroke="#000000" points="47.5001,-62.0753 44,-52.0754 40.5001,-62.0754 47.5001,-62.0753"/>
-<text text-anchor="start" x="44" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PED_TIMER &#160;&#160;</text>
-</g>
 <!-- red.walk&#45;&gt;red.wait -->
 <g id="edge6" class="edge">
 <title>red.walk&#45;&gt;red.wait</title>
 <path fill="none" stroke="#000000" d="M44,-259.9985C44,-239.9958 44,-207.4427 44,-184.0831"/>
 <polygon fill="#000000" stroke="#000000" points="47.5001,-184.0753 44,-174.0754 40.5001,-184.0754 47.5001,-184.0753"/>
 <text text-anchor="start" x="44" y="-214" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PED_TIMER &#160;&#160;</text>
+</g>
+<!-- red.stop -->
+<g id="node8" class="node">
+<title>red.stop</title>
+<polygon fill="#ffffff" stroke="transparent" stroke-width="2" points="72,-52 16,-52 16,-16 72,-16 72,-52"/>
+<text text-anchor="start" x="32.6618" y="-30.2" font-family="Helvetica,sans-Serif" font-size="12.00" fill="#000000">stop</text>
+<path fill="none" stroke="#000000" stroke-width="2" d="M28.3333,-17C28.3333,-17 59.6667,-17 59.6667,-17 65.3333,-17 71,-22.6667 71,-28.3333 71,-28.3333 71,-39.6667 71,-39.6667 71,-45.3333 65.3333,-51 59.6667,-51 59.6667,-51 28.3333,-51 28.3333,-51 22.6667,-51 17,-45.3333 17,-39.6667 17,-39.6667 17,-28.3333 17,-28.3333 17,-22.6667 22.6667,-17 28.3333,-17"/>
+</g>
+<!-- red.wait&#45;&gt;red.stop -->
+<g id="edge7" class="edge">
+<title>red.wait&#45;&gt;red.stop</title>
+<path fill="none" stroke="#000000" d="M44,-137.9985C44,-117.9958 44,-85.4427 44,-62.0831"/>
+<polygon fill="#000000" stroke="#000000" points="47.5001,-62.0753 44,-52.0754 40.5001,-62.0754 47.5001,-62.0753"/>
+<text text-anchor="start" x="44" y="-92" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PED_TIMER &#160;&#160;</text>
 </g>
 </g>
 </svg>

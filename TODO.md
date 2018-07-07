@@ -4,7 +4,8 @@
 
 ### xstate-to-svg
 
-- Use state machine cat json representation.
+- Handle ids.
+- Handle guards.
 
 ### redux-saga-state-machine
 
