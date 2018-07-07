@@ -8,9 +8,11 @@
   },
   "scripts": {
     "greenkeeper-lockfile-update": "greenkeeper-lockfile-update",
-    "greenkeeper-lockfile-upload": "greenkeeper-lockfile-upload"
+    "greenkeeper-lockfile-upload": "greenkeeper-lockfile-upload",
+    "publish": "lerna publish"
   },
   "devDependencies": {
-    "greenkeeper-lockfile": "2"
+    "greenkeeper-lockfile": "2",
+    "lerna": "^2.11.0"
   }
 }
