@@ -46,12 +46,22 @@ const xstateToSmcDescription = (
         });
       } else if (Array.isArray(transition)) {
         transition.forEach((transitionOption) => {
-          transitions.push({
+          const smcTransition: any = {
             from: prefix + stateName,
             to: prefix + transitionOption.target,
             event: eventName,
-            label: eventName,
-          });
+          };
+          let label = eventName;
+          if (transitionOption.cond) {
+            smcTransition.cond = transitionOption.cond;
+            label = label + ` [${transitionOption.cond}]`;
+          }
+          if (transitionOption.action) {
+            smcTransition.action = transitionOption.action;
+            label = label + `/${transitionOption.action}`;
+          }
+          smcTransition.label = label;
+          transitions.push(smcTransition);
         });
       }
     });
