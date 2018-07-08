@@ -6,6 +6,7 @@
 
 - Handle ids.
 - Handle guards.
+- Handle nested parallel machines
 
 ### redux-saga-state-machine
 
@@ -15,5 +16,6 @@
 
 ## Infrastructure
 
+- Check that publishing actually works.
 - Do we need to do anything to get sourcemaps working?
 - Add back example project using redux-saga-state-machine.
