@@ -5,7 +5,6 @@
 ### xstate-to-svg
 
 - Handle ids.
-- Handle guards.
 - Handle nested parallel machines
 
 ### redux-saga-state-machine
