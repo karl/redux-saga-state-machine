@@ -18,7 +18,7 @@
     "dist"
   ],
   "devDependencies": {
-    "@types/jest": "23.1.4",
+    "@types/jest": "23.1.5",
     "jest": "23.3.0",
     "jest-cli": "23.3.0",
     "prettier": "1.13.7",
