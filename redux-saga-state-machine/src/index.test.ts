@@ -6,6 +6,13 @@ describe('createStateMachineSaga', () => {
       key: 'test-state-machine',
     };
     const result = createStateMachineSaga(description);
-    expect(result()).toMatchSnapshot();
+    expect(result()).toMatchInlineSnapshot(`
+Object {
+  "next": [Function],
+  "return": [Function],
+  "throw": [Function],
+  Symbol(Symbol.iterator): [Function],
+}
+`);
   });
 });
