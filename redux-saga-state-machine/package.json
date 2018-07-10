@@ -31,6 +31,6 @@
   },
   "peerDependencies": {
     "redux-saga": "0.16.0",
-    "xstate": "3.3.2"
+    "xstate": "3.3.3"
   }
 }
