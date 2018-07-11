@@ -11,9 +11,7 @@ describe('xstateToSvg', () => {
   rimraf.sync(imagesDir);
 
   filenames.forEach((filename) => {
-    const description = JSON.parse(
-      fs.readFileSync(descriptionsDir + '/' + filename, { encoding: 'utf8' }),
-    );
+    const description = require(descriptionsDir + '/' + filename);
 
     const name = filename.split('.')[0];
 

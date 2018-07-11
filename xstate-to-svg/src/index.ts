@@ -1,6 +1,7 @@
 import { render } from 'state-machine-cat';
+import { MachineConfig } from 'xstate/lib/types';
 
-export const xstateToSvg = (description: any) => {
+export const xstateToSvg = (description: MachineConfig) => {
   const smcDescription = xstateToSmcDescription(description);
 
   // console.log(JSON.stringify(smcDescription, null, 2));
@@ -52,9 +53,15 @@ const xstateToSmcDescription = (
             event: eventName,
           };
           let label = eventName;
+
           if (transitionOption.cond) {
-            smcTransition.cond = transitionOption.cond;
-            label = label + ` [${transitionOption.cond}]`;
+            const cond =
+              typeof transitionOption.cond === 'function'
+                ? transitionOption.cond.name
+                : transitionOption.cond;
+
+            smcTransition.cond = cond;
+            label = label + ` [${cond}]`;
           }
           if (transitionOption.action) {
             smcTransition.action = transitionOption.action;
