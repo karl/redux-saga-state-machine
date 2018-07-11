@@ -72,6 +72,25 @@ const xstateToSmcDescription = (
       label: stateName,
     };
 
+    const triggers = [];
+    if (state.onEntry) {
+      triggers.push({
+        type: 'entry',
+        body: state.onEntry.toString(),
+      });
+    }
+    if (state.onExit) {
+      triggers.push({
+        type: 'exit',
+        body: state.onExit.toString(),
+      });
+    }
+    if (triggers.length > 0) {
+      smcState.triggers = triggers;
+      const activities = triggers.map(({ type, body }) => `${type}/${body}`);
+      smcState.activities = activities.join('\n');
+    }
+
     if (state.states) {
       smcState.statemachine = xstateToSmcDescription(state, prefix + stateName);
     }
