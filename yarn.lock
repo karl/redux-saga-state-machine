@@ -6949,6 +6949,10 @@ xstate@3.3.2:
   version "3.3.2"
   resolved "https://registry.npmjs.org/xstate/-/xstate-3.3.2.tgz#4be8003fef861c5e4dd4ceb1037d9cdd39635316"
 
+xstate@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.npmjs.org/xstate/-/xstate-3.3.3.tgz#64177cd4473d4c2424b3df7d2434d835404b09a9"
+
 xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/xtend/-/xtend-4.0.1.tgz#a5c6d532be656e23db820efb943a1f04998d63af"

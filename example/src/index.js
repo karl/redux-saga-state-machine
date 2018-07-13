@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import { createStateMachineSaga } from 'redux-saga-state-machine';
 
 const initialState = {
   test: 'yes this is a test',
@@ -11,9 +12,9 @@ const reducer = (state = initialState, action) => {
   return state;
 }
 
-const helloSaga = function*() {
-  console.log('hello sagas!');
-}
+const helloSaga = createStateMachineSaga({
+  key: 'example-state-machine',
+});
 
 const sagaMiddleware = createSagaMiddleware()
 const store = createStore(
