@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga'
 import { createStateMachineSaga } from 'redux-saga-state-machine';
 
@@ -29,7 +30,9 @@ const action = type => store.dispatch({type})
 const title = 'My Minimal React Webpack Babel Setup';
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <Provider store={store}>
+    <div>{title}</div>
+  </Provider>,
   document.getElementById('app')
 );
 
