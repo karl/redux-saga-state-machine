@@ -2,3 +2,4 @@
 .DS_Store
 /yarn-error.log
 /lerna-debug.log
+/example/yarn-error.log
