@@ -9,7 +9,7 @@ const initialState = {
   test: 'yes this is a test',
 };
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: any) => {
   if (action.type === 'DO_SOMETHING') {
     return {
       ...state,

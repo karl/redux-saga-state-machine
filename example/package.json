@@ -11,7 +11,10 @@
     "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'"
   },
   "devDependencies": {
-    "@types/webpack-env": "^1.13.6",
+    "@types/react": "16.4.6",
+    "@types/react-dom": "16.0.6",
+    "@types/react-redux": "6.0.4",
+    "@types/webpack-env": "1.13.6",
     "babel-core": "6.26.3",
     "babel-loader": "7.1.5",
     "babel-preset-env": "1.7.0",
