@@ -109,6 +109,7 @@ const onEntryApp = function*() {
 
 const isNext = condRunner(function*(): SagaIterator {
   const numPlayed = yield select(selectNumPlayed);
+  // tslint:disable-next-line:no-console
   console.log('numPlayed', numPlayed, numPlayed < 5);
   return numPlayed < 5;
 });
