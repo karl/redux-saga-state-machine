@@ -1,5 +1,5 @@
 import { SagaIterator } from 'redux-saga';
-import { put, select, take } from 'redux-saga/effects';
+import { fork, put, select, take } from 'redux-saga/effects';
 import { Machine } from 'xstate';
 
 type ActionCreator = (
@@ -26,11 +26,18 @@ export const createStateMachineSaga = (description: IMachineDescription) => {
 
   log('createStateMachineSaga', description);
 
-  const { setState, selectState, ...config } = description;
+  return function*({
+    getState,
+    dispatch,
+  }: {
+    getState: any;
+    dispatch: any;
+  }): SagaIterator {
+    const activities = [];
 
-  const machine = Machine(config);
+    const { setState, selectState, ...config } = description;
+    const machine = Machine(config);
 
-  return function*(): SagaIterator {
     log('running saga', machine);
 
     while (true) {
@@ -41,16 +48,23 @@ export const createStateMachineSaga = (description: IMachineDescription) => {
       const event = yield take(machine.events);
       log('Received event', event);
 
-      const fullState = yield select();
-      const result = machine.transition(state, event, { fullState });
+      const result = machine.transition(state, event, { getState, dispatch });
+
       log('New state', result);
-      log('Actions', result.actions.map((action: any) => action.name));
+      yield put(setState(result.value));
 
       for (const action of result.actions as any[]) {
-        yield* action();
+        if (action.type === 'xstate.start') {
+          log('Start activity', action.data.name);
+          activities[action.data.name] = yield fork(action.data);
+        } else if (action.type === 'xstate.stop') {
+          log('Stop activity', action.data.name);
+          activities[action.data.name].cancel();
+        } else {
+          log('Action', action.name);
+          action({ getState, dispatch }, event);
+        }
       }
-
-      yield put(setState(result.value));
     }
   };
 };

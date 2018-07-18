@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, { delay } from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
 import { put } from 'redux-saga/effects';
 
@@ -79,39 +79,24 @@ const reducer = (state = initialState, action: any) => {
 const selectCurrentState = (state: any) => state.currentState;
 const selectNumPlayed = (state: any) => state.numPlayed;
 
-// const condRunner = (cond: () => SagaIterator) => ({
-//   fullState,
-// }: {
-//   fullState: any;
-// }) => {
-//   const iterator = cond();
-//   let result = iterator.next();
-//   while (!result.done) {
-//     const effect: any = result.value;
-//     if (!effect.SELECT) {
-//       throw new Error('You can only yield select from a conditional');
-//     }
-//     // tslint:disable-next-line:no-console
-//     console.log(effect);
-//     result = iterator.next(
-//       effect.SELECT.selector(fullState, ...effect.SELECT.args),
-//     );
-//   }
-
-//   return result.value;
-// };
-
-const onEntryApp = function*() {
-  // tslint:disable-next-line:no-console
-  console.log('onEntryApp!');
-  yield put(reset());
+const onEntryApp = ({ dispatch }: { dispatch: any }) => {
+  dispatch(reset());
 };
 
-const isNext = ({ fullState }: { fullState: any }) => {
-  const numPlayed = selectNumPlayed(fullState);
-  // tslint:disable-next-line:no-console
-  console.log('numPlayed', numPlayed, numPlayed < 5);
+const isNext = ({ getState }: { getState: any }) => {
+  const numPlayed = selectNumPlayed(getState());
   return numPlayed < 5;
+};
+
+const doStop = () => {
+  // tslint:disable-next-line:no-console
+  console.log('doStop');
+};
+
+const switchTimeout = function*() {
+  console.log('switchTimeout');
+  yield delay(10000);
+  yield put(error());
 };
 
 const helloSaga = createStateMachineSaga({
@@ -137,8 +122,9 @@ const helloSaga = createStateMachineSaga({
       },
     },
     [states.SWITCHING]: {
+      activities: [switchTimeout],
       on: {
-        ['STOP']: states.APP,
+        ['STOP']: [{ target: states.APP, actions: [doStop] }],
         ['ERROR']: states.APP,
         ['PLAY']: states.PLAYING,
       },
@@ -148,7 +134,10 @@ const helloSaga = createStateMachineSaga({
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));
-sagaMiddleware.run(helloSaga);
+sagaMiddleware.run(helloSaga, {
+  getState: store.getState,
+  dispatch: store.dispatch,
+});
 
 const App = ({
   currentState,
