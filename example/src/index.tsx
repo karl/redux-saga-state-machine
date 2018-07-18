@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import createSagaMiddleware, { SagaIterator } from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 
 const states = {
   APP: 'APP',
@@ -12,6 +12,7 @@ const states = {
   SWITCHING: 'SWITCHING',
 };
 
+// Saga actions
 const play = () => {
   return {
     type: 'PLAY',
@@ -27,6 +28,13 @@ const next = () => {
     type: 'NEXT',
   };
 };
+const error = () => {
+  return {
+    type: 'ERROR',
+  };
+};
+
+// Reducer actions
 const reset = () => {
   return {
     type: 'RESET',
@@ -71,11 +79,39 @@ const reducer = (state = initialState, action: any) => {
 const selectCurrentState = (state: any) => state.currentState;
 const selectNumPlayed = (state: any) => state.numPlayed;
 
+const condRunner = (cond: () => SagaIterator) => ({
+  fullState,
+}: {
+  fullState: any;
+}) => {
+  const iterator = cond();
+  let result = iterator.next();
+  while (!result.done) {
+    const effect: any = result.value;
+    if (!effect.SELECT) {
+      throw new Error('You can only yield select from a conditional');
+    }
+    // tslint:disable-next-line:no-console
+    console.log(effect);
+    result = iterator.next(
+      effect.SELECT.selector(fullState, ...effect.SELECT.args),
+    );
+  }
+
+  return result.value;
+};
+
 const onEntryApp = function*() {
   // tslint:disable-next-line:no-console
   console.log('onEntryApp!');
   yield put(reset());
 };
+
+const isNext = condRunner(function*(): SagaIterator {
+  const numPlayed = yield select(selectNumPlayed);
+  console.log('numPlayed', numPlayed, numPlayed < 5);
+  return numPlayed < 5;
+});
 
 const helloSaga = createStateMachineSaga({
   key: 'example-state-machine',
@@ -92,12 +128,17 @@ const helloSaga = createStateMachineSaga({
     [states.PLAYING]: {
       on: {
         ['STOP']: states.APP,
-        ['NEXT']: states.SWITCHING,
+        ['ERROR']: states.APP,
+        ['NEXT']: [
+          { target: states.SWITCHING, cond: isNext },
+          { target: states.APP },
+        ],
       },
     },
     [states.SWITCHING]: {
       on: {
         ['STOP']: states.APP,
+        ['ERROR']: states.APP,
         ['PLAY']: states.PLAYING,
       },
     },
@@ -114,12 +155,14 @@ const App = ({
   onPlay,
   onStop,
   onNext,
+  onError,
 }: {
   currentState: string;
   numPlayed: number;
   onPlay: any;
   onStop: any;
   onNext: any;
+  onError: any;
 }) => {
   return (
     <div>
@@ -132,6 +175,7 @@ const App = ({
         <button onClick={onPlay}>Play</button>
         <button onClick={onStop}>Stop</button>
         <button onClick={onNext}>Next</button>
+        <button onClick={onError}>Error</button>
       </div>
     </div>
   );
@@ -148,6 +192,7 @@ const mapDispatchToProps = {
   onPlay: play,
   onStop: stop,
   onNext: next,
+  onError: error,
 };
 
 const ConnectedApp: any = connect(

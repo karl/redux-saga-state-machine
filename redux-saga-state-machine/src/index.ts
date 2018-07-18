@@ -41,7 +41,8 @@ export const createStateMachineSaga = (description: IMachineDescription) => {
       const event = yield take(machine.events);
       log('Received event', event);
 
-      const result = machine.transition(state, event, {});
+      const fullState = yield select();
+      const result = machine.transition(state, event, { fullState });
       log('New state', result);
       log('Actions', result.actions.map((action) => action.name));
 
