@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
-import createSagaMiddleware, { SagaIterator } from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
-import { put, select } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 
 const states = {
   APP: 'APP',
@@ -79,27 +79,27 @@ const reducer = (state = initialState, action: any) => {
 const selectCurrentState = (state: any) => state.currentState;
 const selectNumPlayed = (state: any) => state.numPlayed;
 
-const condRunner = (cond: () => SagaIterator) => ({
-  fullState,
-}: {
-  fullState: any;
-}) => {
-  const iterator = cond();
-  let result = iterator.next();
-  while (!result.done) {
-    const effect: any = result.value;
-    if (!effect.SELECT) {
-      throw new Error('You can only yield select from a conditional');
-    }
-    // tslint:disable-next-line:no-console
-    console.log(effect);
-    result = iterator.next(
-      effect.SELECT.selector(fullState, ...effect.SELECT.args),
-    );
-  }
+// const condRunner = (cond: () => SagaIterator) => ({
+//   fullState,
+// }: {
+//   fullState: any;
+// }) => {
+//   const iterator = cond();
+//   let result = iterator.next();
+//   while (!result.done) {
+//     const effect: any = result.value;
+//     if (!effect.SELECT) {
+//       throw new Error('You can only yield select from a conditional');
+//     }
+//     // tslint:disable-next-line:no-console
+//     console.log(effect);
+//     result = iterator.next(
+//       effect.SELECT.selector(fullState, ...effect.SELECT.args),
+//     );
+//   }
 
-  return result.value;
-};
+//   return result.value;
+// };
 
 const onEntryApp = function*() {
   // tslint:disable-next-line:no-console
@@ -107,12 +107,12 @@ const onEntryApp = function*() {
   yield put(reset());
 };
 
-const isNext = condRunner(function*(): SagaIterator {
-  const numPlayed = yield select(selectNumPlayed);
+const isNext = ({ fullState }: { fullState: any }) => {
+  const numPlayed = selectNumPlayed(fullState);
   // tslint:disable-next-line:no-console
   console.log('numPlayed', numPlayed, numPlayed < 5);
   return numPlayed < 5;
-});
+};
 
 const helloSaga = createStateMachineSaga({
   key: 'example-state-machine',
