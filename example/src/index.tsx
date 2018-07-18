@@ -4,6 +4,7 @@ import { connect, Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
+import { put } from 'redux-saga/effects';
 
 const states = {
   APP: 'APP',
@@ -26,6 +27,11 @@ const next = () => {
     type: 'NEXT',
   };
 };
+const reset = () => {
+  return {
+    type: 'RESET',
+  };
+};
 const setCurrentState = (state: string) => {
   return {
     type: 'SET_CURRENT_STATE',
@@ -37,6 +43,7 @@ const setCurrentState = (state: string) => {
 
 const initialState = {
   currentState: states.APP,
+  numPlayed: 0,
 };
 
 const reducer = (state = initialState, action: any) => {
@@ -46,17 +53,38 @@ const reducer = (state = initialState, action: any) => {
       currentState: action.payload.state,
     };
   }
+  if (action.type === 'PLAY') {
+    return {
+      ...state,
+      numPlayed: state.numPlayed + 1,
+    };
+  }
+  if (action.type === 'RESET') {
+    return {
+      ...state,
+      numPlayed: 0,
+    };
+  }
   return state;
 };
 
 const selectCurrentState = (state: any) => state.currentState;
+const selectNumPlayed = (state: any) => state.numPlayed;
+
+const onEntryApp = function*() {
+  // tslint:disable-next-line:no-console
+  console.log('onEntryApp!');
+  yield put(reset());
+};
 
 const helloSaga = createStateMachineSaga({
   key: 'example-state-machine',
+  debug: true,
   setState: setCurrentState,
   selectState: selectCurrentState,
   states: {
     [states.APP]: {
+      onEntry: onEntryApp,
       on: {
         ['PLAY']: states.PLAYING,
       },
@@ -82,11 +110,13 @@ sagaMiddleware.run(helloSaga);
 
 const App = ({
   currentState,
+  numPlayed,
   onPlay,
   onStop,
   onNext,
 }: {
   currentState: string;
+  numPlayed: number;
   onPlay: any;
   onStop: any;
   onNext: any;
@@ -96,6 +126,7 @@ const App = ({
       <h1>Redux Saga State Machine Example</h1>
 
       <div>Current State: {currentState}</div>
+      <div>Num played: {numPlayed}</div>
 
       <div>
         <button onClick={onPlay}>Play</button>
@@ -109,6 +140,7 @@ const App = ({
 const mapStateToProps = (state: any) => {
   return {
     currentState: selectCurrentState(state),
+    numPlayed: selectNumPlayed(state),
   };
 };
 

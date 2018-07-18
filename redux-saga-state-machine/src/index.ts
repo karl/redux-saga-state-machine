@@ -10,39 +10,46 @@ type ActionCreator = (
 
 interface IMachineDescription {
   key: string;
+  debug?: boolean;
   setState: ActionCreator;
   selectState: (state: any) => string;
   states: any;
 }
 
 export const createStateMachineSaga = (description: IMachineDescription) => {
-  // tslint:disable-next-line:no-console
-  console.log('createStateMachineSaga', description);
+  const log = (text: string, ...args: any[]) => {
+    if (description.debug) {
+      // tslint:disable-next-line:no-console
+      console.log(description.key + ': ' + text, ...args);
+    }
+  };
+
+  log('createStateMachineSaga', description);
 
   const { setState, selectState, ...config } = description;
 
   const machine = Machine(config);
 
   return function*(): SagaIterator {
-    // tslint:disable-next-line:no-console
-    console.log('running saga', machine);
+    log('running saga', machine);
 
     while (true) {
       const state = yield select(selectState);
-      // tslint:disable-next-line:no-console
-      console.log('Current state', state);
+      log('Current state', state);
 
-      // tslint:disable-next-line:no-console
-      console.log('Events', machine.events);
+      log('Listening for events', machine.events);
       const event = yield take(machine.events);
-      // tslint:disable-next-line:no-console
-      console.log('Event', event);
+      log('Received event', event);
 
-      const newState = machine.transition(state, event, {});
-      // tslint:disable-next-line:no-console
-      console.log('New state', newState);
+      const result = machine.transition(state, event, {});
+      log('New state', result);
+      log('Actions', result.actions.map((action) => action.name));
 
-      yield put(setState(newState.value));
+      for (const action of result.actions) {
+        yield* action();
+      }
+
+      yield put(setState(result.value));
     }
   };
 };
