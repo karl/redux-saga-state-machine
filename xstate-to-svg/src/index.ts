@@ -1,6 +1,7 @@
 import { render } from 'state-machine-cat';
+import { MachineConfig } from 'xstate/lib/types';
 
-export const xstateToSvg = (description: any) => {
+export const xstateToSvg = (description: MachineConfig) => {
   const smcDescription = xstateToSmcDescription(description);
 
   // console.log(JSON.stringify(smcDescription, null, 2));
@@ -52,9 +53,15 @@ const xstateToSmcDescription = (
             event: eventName,
           };
           let label = eventName;
+
           if (transitionOption.cond) {
-            smcTransition.cond = transitionOption.cond;
-            label = label + ` [${transitionOption.cond}]`;
+            const cond =
+              typeof transitionOption.cond === 'function'
+                ? transitionOption.cond.name
+                : transitionOption.cond;
+
+            smcTransition.cond = cond;
+            label = label + ` [${cond}]`;
           }
           if (transitionOption.action) {
             smcTransition.action = transitionOption.action;
@@ -71,6 +78,25 @@ const xstateToSmcDescription = (
       type: 'regular',
       label: stateName,
     };
+
+    const triggers = [];
+    if (state.onEntry) {
+      triggers.push({
+        type: 'entry',
+        body: state.onEntry.toString(),
+      });
+    }
+    if (state.onExit) {
+      triggers.push({
+        type: 'exit',
+        body: state.onExit.toString(),
+      });
+    }
+    if (triggers.length > 0) {
+      smcState.triggers = triggers;
+      const activities = triggers.map(({ type, body }) => `${type}/${body}`);
+      smcState.activities = activities.join('\n');
+    }
 
     if (state.states) {
       smcState.statemachine = xstateToSmcDescription(state, prefix + stateName);
