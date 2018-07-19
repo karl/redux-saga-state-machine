@@ -13,10 +13,6 @@
 
 ### redux-saga-state-machine
 
-- Hook up UI to redux in example.
-- Create simple traffic light state machine in example.
-- Translate description to xstate config.
-- Actually build a runner!
 - Work out the best way to test the runner.
 
 ## Infrastructure

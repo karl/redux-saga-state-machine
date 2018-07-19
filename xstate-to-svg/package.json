@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn run lint && tsc",
-    "dev": "tsc --watch",
+    "start": "tsc --watch",
     "test": "jest",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'"
