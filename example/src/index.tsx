@@ -2,135 +2,11 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
-import createSagaMiddleware, { delay } from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
-import { put } from 'redux-saga/effects';
+import { actions, reducer, selectors, stateMachine } from './logic';
 
-const states = {
-  APP: 'APP',
-  PLAYING: 'PLAYING',
-  SWITCHING: 'SWITCHING',
-};
-
-// Saga actions
-const play = () => {
-  return {
-    type: 'PLAY',
-  };
-};
-const stop = () => {
-  return {
-    type: 'STOP',
-  };
-};
-const next = () => {
-  return {
-    type: 'NEXT',
-  };
-};
-const error = () => {
-  return {
-    type: 'ERROR',
-  };
-};
-
-// Reducer actions
-const reset = () => {
-  return {
-    type: 'RESET',
-  };
-};
-const setCurrentState = (state: string) => {
-  return {
-    type: 'SET_CURRENT_STATE',
-    payload: {
-      state,
-    },
-  };
-};
-
-const initialState = {
-  currentState: states.APP,
-  numPlayed: 0,
-};
-
-const reducer = (state = initialState, action: any) => {
-  if (action.type === 'SET_CURRENT_STATE') {
-    return {
-      ...state,
-      currentState: action.payload.state,
-    };
-  }
-  if (action.type === 'PLAY') {
-    return {
-      ...state,
-      numPlayed: state.numPlayed + 1,
-    };
-  }
-  if (action.type === 'RESET') {
-    return {
-      ...state,
-      numPlayed: 0,
-    };
-  }
-  return state;
-};
-
-const selectCurrentState = (state: any) => state.currentState;
-const selectNumPlayed = (state: any) => state.numPlayed;
-
-const onEntryApp = ({ dispatch }: { dispatch: any }) => {
-  dispatch(reset());
-};
-
-const isNext = ({ getState }: { getState: any }) => {
-  const numPlayed = selectNumPlayed(getState());
-  return numPlayed < 5;
-};
-
-const doStop = () => {
-  // tslint:disable-next-line:no-console
-  console.log('doStop');
-};
-
-const switchTimeout = function*() {
-  console.log('switchTimeout');
-  yield delay(10000);
-  yield put(error());
-};
-
-const helloSaga = createStateMachineSaga({
-  key: 'example-state-machine',
-  debug: true,
-  setState: setCurrentState,
-  selectState: selectCurrentState,
-  states: {
-    [states.APP]: {
-      onEntry: onEntryApp,
-      on: {
-        ['PLAY']: states.PLAYING,
-      },
-    },
-    [states.PLAYING]: {
-      on: {
-        ['STOP']: states.APP,
-        ['ERROR']: states.APP,
-        ['NEXT']: [
-          { target: states.SWITCHING, cond: isNext },
-          { target: states.APP },
-        ],
-      },
-    },
-    [states.SWITCHING]: {
-      activities: [switchTimeout],
-      on: {
-        ['STOP']: [{ target: states.APP, actions: [doStop] }],
-        ['ERROR']: states.APP,
-        ['PLAY']: states.PLAYING,
-      },
-    },
-  },
-});
+const helloSaga = createStateMachineSaga(stateMachine);
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));
@@ -173,16 +49,16 @@ const App = ({
 
 const mapStateToProps = (state: any) => {
   return {
-    currentState: selectCurrentState(state),
-    numPlayed: selectNumPlayed(state),
+    currentState: selectors.selectCurrentState(state),
+    numPlayed: selectors.selectNumPlayed(state),
   };
 };
 
 const mapDispatchToProps = {
-  onPlay: play,
-  onStop: stop,
-  onNext: next,
-  onError: error,
+  onPlay: actions.play,
+  onStop: actions.stop,
+  onNext: actions.next,
+  onError: actions.error,
 };
 
 const ConnectedApp: any = connect(
