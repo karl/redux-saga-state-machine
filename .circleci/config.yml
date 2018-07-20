@@ -17,8 +17,6 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn global add greenkeeper-lockfile@2
-
       - run: yarn install
 
       - save_cache:
@@ -28,7 +26,7 @@ jobs:
 
       - run:
           name: Update yarn lockfile
-          command: greenkeeper-lockfile-update
+          command: yarn run greenkeeper-lockfile-update
 
       - run: cd xstate-to-svg && yarn run lint
       - run: cd xstate-to-svg && yarn run test
@@ -40,7 +38,7 @@ jobs:
 
       - run:
           name: Upload yarn lockfile
-          command: greenkeeper-lockfile-upload
+          command: yarn run greenkeeper-lockfile-upload
 
       - persist_to_workspace:
           root: ~/repo
