@@ -26,7 +26,15 @@ jobs:
 
       - run:
           name: Update yarn lockfile
-          command: yarn run greenkeeper-lockfile-update
+          command: |
+            # If the branch is a greenkeeper branch set env to empty string so lock file is updated
+            # The following issue has more information around why this is needed https://github.com/greenkeeperio/greenkeeper-lockfile/issues/58
+            if [[ $CIRCLE_BRANCH == greenkeeper* ]];
+            then
+              CI_PULL_REQUEST=""
+            fi
+
+            yarn run greenkeeper-lockfile-update
 
       - run: cd xstate-to-svg && yarn run lint
       - run: cd xstate-to-svg && yarn run test
