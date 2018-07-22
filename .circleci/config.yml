@@ -34,6 +34,9 @@ jobs:
               CI_PULL_REQUEST=""
             fi
 
+            git config --global user.email "support@greenkeeper.io"
+            git config --global user.name "greenkeeperio-bot"
+
             yarn run greenkeeper-lockfile-update
 
       - run: cd xstate-to-svg && yarn run lint
