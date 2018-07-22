@@ -47,6 +47,10 @@ jobs:
       - run: cd redux-saga-state-machine && yarn run test
       - run: cd redux-saga-state-machine && yarn run build
 
+      - run: cd example && yarn run lint
+      - run: cd example && yarn run test
+      # - run: cd example && yarn run build
+
       - run:
           name: Upload yarn lockfile
           command: yarn run greenkeeper-lockfile-upload
@@ -60,26 +64,16 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-      - run: cd xstate-to-svg && npm publish
-      - run: cd redux-saga-state-machine && npm publish
 
+      - run:
+          name: Semantic Release
+          command: yarn run semantic-release
 
 workflows:
   version: 2
   build-deploy:
     jobs:
-      - build:
-          filters:
-            tags:
-              only: /^v.*/
+      - build
       - deploy:
           requires:
             - build
-          filters:
-            tags:
-              only: /^v.*/
-            branches:
-              ignore: /.*/
