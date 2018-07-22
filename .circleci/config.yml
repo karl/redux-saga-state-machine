@@ -47,6 +47,10 @@ jobs:
       - run: cd redux-saga-state-machine && yarn run test
       - run: cd redux-saga-state-machine && yarn run build
 
+      - run: cd example && yarn run lint
+      - run: cd example && yarn run test
+      # - run: cd example && yarn run build
+
       - run:
           name: Upload yarn lockfile
           command: yarn run greenkeeper-lockfile-upload
