@@ -69,6 +69,12 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 
+      - run:
+        name: Configure Git
+        command: |
+          git config --global user.email "circleci@monket.net"
+          git config --global user.name "circleci"
+
       - run: yarn run publish
 
 workflows:
