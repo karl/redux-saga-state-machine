@@ -88,12 +88,12 @@ workflows:
       - build:
           filters:
             tags:
-              only: /^(?!v\d+.\d+.\d+).*/
+              only: /^.*/
       - deploy:
           requires:
             - build
           filters:
             tags:
-              only: /^(?!v\d+.\d+.\d+).*/
+              only: /^.*/
             branches:
               ignore: /.*/
