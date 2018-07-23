@@ -91,6 +91,6 @@ workflows:
             - build
           filters:
             branches:
-              only: master
+              ignore: /.*/
             tags:
               ignore: /^v.*/
