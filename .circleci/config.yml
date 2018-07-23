@@ -70,6 +70,10 @@ jobs:
           at: ~/repo
 
       - run:
+          name: Avoid hosts unknown for github
+          command: echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+
+      - run:
           name: Semantic Release
           command: yarn run semantic-release
 
