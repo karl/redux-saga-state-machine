@@ -85,7 +85,7 @@ workflows:
   version: 2
   un-tagged-build-and-deploy:
     jobs:
-      - build:
+      - build
       - deploy:
           requires:
             - build
