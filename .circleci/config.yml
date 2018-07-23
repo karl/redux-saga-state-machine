@@ -83,22 +83,12 @@ jobs:
 
 workflows:
   version: 2
-  un-tagged-build-and-deploy:
+  build-and-deploy:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
-            tags:
-              ignore: /.*/
-  tagged-build-only:
-    jobs:
-      - build:
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /.*/
+      # - deploy:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only: master
