@@ -92,6 +92,8 @@ workflows:
           filters:
             branches:
               only: master
+            tags:
+              ignore: /.*/
   tagged-build-only:
     jobs:
       - build:
