@@ -86,17 +86,11 @@ workflows:
   un-tagged-build-and-deploy:
     jobs:
       - build:
-          filters:
-            tags:
-              ignore: /.*/
       - deploy:
           requires:
             - build
           filters:
-            tags:
-              ignore: /.*/
-            branches:
-              ignore: /.*/
+            branches: master
   tagged-build-only:
     jobs:
       - build:
