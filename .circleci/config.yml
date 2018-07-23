@@ -76,8 +76,8 @@ jobs:
             git config --global user.name "circleci"
 
       - run:
-        name: Avoid hosts unknown for github
-        command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          name: Avoid hosts unknown for github
+          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
       - run: yarn run publish
 
