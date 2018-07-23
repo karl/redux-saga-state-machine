@@ -90,7 +90,8 @@ workflows:
           requires:
             - build
           filters:
-            branches: master
+            branches:
+              only: master
   tagged-build-only:
     jobs:
       - build:
