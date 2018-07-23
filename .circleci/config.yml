@@ -66,12 +66,10 @@ jobs:
           at: ~/repo
 
       - run:
-          name: Avoid hosts unknown for github
-          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 
-      - run:
-          name: Semantic Release
-          command: yarn run semantic-release
+      - run: yarn run publish
 
 workflows:
   version: 2
