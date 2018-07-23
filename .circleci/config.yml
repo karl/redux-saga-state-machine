@@ -94,4 +94,4 @@ workflows:
             - build
           filters:
             tags:
-              ignore: /^v.*/
+              ignore: /^v\d+.\d+.\d+.*/
