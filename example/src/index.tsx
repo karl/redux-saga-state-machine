@@ -1,3 +1,6 @@
+import * as color from 'color';
+import * as ColorHash from 'color-hash';
+import { BaseEmitter } from 'kuker-emitters';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { connect, Provider } from 'react-redux';
@@ -6,7 +9,31 @@ import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
 import { actions, reducer, selectors, stateMachine } from './logic';
 
-const helloSaga = createStateMachineSaga(stateMachine);
+const kukerEmit = BaseEmitter();
+const colorHash = new ColorHash();
+const typeToIconMap: { [index: string]: string } = {
+  STATE_MACHINE_START: 'fa-play-circle',
+  STATE_MACHINE_INITIAL_STATE: 'fa-archive',
+  STATE_MACHINE_LISTENING: 'fa-ellipsis-h',
+  STATE_MACHINE_RECEIVED: 'fa-arrow-left',
+  STATE_MACHINE_NO_TRANSITION: 'fa-ban',
+  STATE_MACHINE_NEW_STATE: 'fa-archive',
+  STATE_MACHINE_START_ACTIVITY: 'fa-play',
+  STATE_MACHINE_STOP_ACTIVITY: 'fa-stop',
+  STATE_MACHINE_ACTION: 'fa-circle',
+};
+
+const emit = (emitted: any) => {
+  kukerEmit({
+    ...emitted,
+    icon: typeToIconMap[emitted.type],
+    color: color(colorHash.hex(emitted.key))
+      .lighten(0.7)
+      .hex(),
+  });
+};
+
+const helloSaga = createStateMachineSaga(stateMachine, { emit });
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, applyMiddleware(sagaMiddleware));

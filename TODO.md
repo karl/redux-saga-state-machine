@@ -11,6 +11,7 @@
 - Handle intial state.
 - Handle final state.
 - Work out the best way to test the runner.
+- Documentation.
 
 ### xstate-to-svg
 
