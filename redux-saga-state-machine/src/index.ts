@@ -21,7 +21,7 @@ const noop = () => {};
 
 export const createStateMachineSaga = (
   description: IMachineDescription,
-  { emit = noop }: { emit: any },
+  { emit = noop }: { emit: any } = {},
 ) => {
   const logger = (obj: any) => {
     emit({
