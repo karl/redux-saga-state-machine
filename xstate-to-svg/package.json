@@ -31,6 +31,8 @@
     "xstate": "3.3.3"
   },
   "dependencies": {
+    "@types/jest": "^23.3.0",
+    "@types/rimraf": "^2.0.2",
     "state-machine-cat": "3.0.0"
   }
 }
