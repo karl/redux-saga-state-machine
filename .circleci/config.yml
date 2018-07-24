@@ -67,7 +67,7 @@ jobs:
           name: Deploy
           command: |
             commit_message=$(git log --format=%s -n 1 $CIRCLE_SHA1)
-            if [[ ! $commit_message =~ ^v\d+\.\d+\.\d+$ ]];
+            if [[ ! $commit_message =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]];
             then
               git config --global user.email "circleci@monket.net"
               git config --global user.name "circleci"
