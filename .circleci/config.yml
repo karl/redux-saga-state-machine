@@ -1,13 +1,12 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:10.5.0
 
 jobs:
   build:
-    <<: *defaults
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:10.5.0
     steps:
       - checkout
 
@@ -16,6 +15,15 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
+
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+
+      - run:
+          name: Avoid hosts unknown for github
+          command: echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+
 
       - run: yarn install
 
@@ -55,40 +63,15 @@ jobs:
           name: Upload yarn lockfile
           command: yarn run greenkeeper-lockfile-upload
 
-      - persist_to_workspace:
-          root: ~/repo
-          paths: .
-
-  deploy:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/repo
-
       - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
-
-      - run:
-          name: Configure Git
+          name: Deploy
           command: |
-            git config --global user.email "circleci@monket.net"
-            git config --global user.name "circleci"
+            $COMMIT_MESSAGE = $(git log --format=oneline -n 1 $CIRCLE_SHA1)
+            if [[ $COMMIT_MESSAGE =~ ^v\d+\.\d+\.\d+$ ]];
+            then
 
-      - run:
-          name: Avoid hosts unknown for github
-          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+              git config --global user.email "circleci@monket.net"
+              git config --global user.name "circleci"
 
-      - run: yarn run publish
-
-workflows:
-  version: 2
-  build-and-deploy:
-    jobs:
-      - build
-      # - deploy:
-      #     requires:
-      #       - build
-      #     filters:
-      #       branches:
-      #         only: master
+              yarn run publish
+            fi
