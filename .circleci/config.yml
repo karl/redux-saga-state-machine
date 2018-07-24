@@ -42,7 +42,7 @@ jobs:
 
       - run: cd example && yarn run lint
       - run: cd example && yarn run test
-      # - run: cd example && yarn run build
+      - run: cd example && yarn run build
 
       - run:
           name: Deploy

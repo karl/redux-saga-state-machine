@@ -13,6 +13,8 @@
   "scripts": {
     "start": "lerna run start --parallel",
     "test": "lerna run test",
+    "lint": "lerna run lint",
+    "build": "lerna run build",
     "publish": "lerna publish --conventional-commits --yes"
   },
   "devDependencies": {
