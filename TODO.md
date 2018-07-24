@@ -24,7 +24,6 @@
 
 ## Infrastructure
 
-- Get individual publishing working.
 - Do we need to do anything to get sourcemaps working?
 
 
