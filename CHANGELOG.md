@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.15"></a>
+## [0.1.15](https://github.com/karl/redux-saga-state-machine/compare/v0.1.14...v0.1.15) (2018-07-24)
+
+
+
+
+**Note:** Version bump only for package undefined
+
 <a name="0.1.14"></a>
 ## [0.1.14](https://github.com/karl/redux-saga-state-machine/compare/v0.1.13...v0.1.14) (2018-07-24)
 
