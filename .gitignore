@@ -3,3 +3,4 @@
 /yarn-error.log
 /lerna-debug.log
 /example/yarn-error.log
+/example/dist/bundle.js

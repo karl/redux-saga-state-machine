@@ -24,7 +24,7 @@ Open the example app: `http://localhost:8080`
 
 ## Tests
 
-You can run all tests in watch mode using:
+You can run all tests using:
 
 ```
 yarn test
