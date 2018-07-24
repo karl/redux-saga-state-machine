@@ -66,7 +66,7 @@ jobs:
       - run:
           name: Deploy
           command: |
-            $COMMIT_MESSAGE = $(git log --format=oneline -n 1 $CIRCLE_SHA1)
+            COMMIT_MESSAGE=$(git log --format=oneline -n 1 $CIRCLE_SHA1)
             if [[ $COMMIT_MESSAGE =~ ^v\d+\.\d+\.\d+$ ]];
             then
 
