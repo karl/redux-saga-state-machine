@@ -32,21 +32,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-          name: Update yarn lockfile
-          command: |
-            # If the branch is a greenkeeper branch set env to empty string so lock file is updated
-            # The following issue has more information around why this is needed https://github.com/greenkeeperio/greenkeeper-lockfile/issues/58
-            if [[ $CIRCLE_BRANCH == greenkeeper* ]];
-            then
-              CI_PULL_REQUEST=""
-            fi
-
-            git config --global user.email "support@greenkeeper.io"
-            git config --global user.name "greenkeeperio-bot"
-
-            yarn run greenkeeper-lockfile-update
-
       - run: cd xstate-to-svg && yarn run lint
       - run: cd xstate-to-svg && yarn run test
       - run: cd xstate-to-svg && yarn run build
@@ -58,10 +43,6 @@ jobs:
       - run: cd example && yarn run lint
       - run: cd example && yarn run test
       # - run: cd example && yarn run build
-
-      - run:
-          name: Upload yarn lockfile
-          command: yarn run greenkeeper-lockfile-upload
 
       - run:
           name: Deploy

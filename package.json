@@ -8,12 +8,9 @@
     ]
   },
   "scripts": {
-    "greenkeeper-lockfile-update": "greenkeeper-lockfile-update",
-    "greenkeeper-lockfile-upload": "greenkeeper-lockfile-upload",
     "publish": "lerna publish --conventional-commits --yes"
   },
   "devDependencies": {
-    "greenkeeper-lockfile": "2",
     "lerna": "^2.11.0"
   }
 }
