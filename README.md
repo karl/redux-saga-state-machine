@@ -1,5 +1,7 @@
 # redux-saga-state-machine
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=130120161)](https://dependabot.com)
+
 Redux Saga based state machines.
 
 **A work in progress**
