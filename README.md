@@ -6,6 +6,10 @@ Redux Saga based state machines.
 
 **A work in progress**
 
+## Example
+
+https://redux-saga-state-machine.netlify.com
+
 ## Running
 
 Install all dependencies (and link workspace packages):
