@@ -61,6 +61,17 @@ export const createStateMachineSaga = (
       state: initialState,
     });
 
+    const initialActivities =
+      machine.getStateNode(initialState).activities || [];
+    for (const activity of initialActivities as any[]) {
+      logger({
+        type: 'STATE_MACHINE_START_ACTIVITY',
+        label: `Start activity ${activity.name}`,
+        state: initialState,
+      });
+      activities[activity.name] = yield fork(activity);
+    }
+
     while (true) {
       const state = yield select(selectState);
 

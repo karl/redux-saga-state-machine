@@ -1,44 +1,53 @@
 import { delay } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 
+export const reducerKey = 'player';
+
 const states = {
   APP: 'APP',
   PLAYING: 'PLAYING',
   SWITCHING: 'SWITCHING',
 };
 
+const constants = {
+  PLAY: reducerKey + '/PLAY',
+  STOP: reducerKey + '/STOP',
+  NEXT: reducerKey + '/NEXT',
+  ERROR: reducerKey + '/ERROR',
+  RESET: reducerKey + '/RESET',
+  SET_CURRENT_STATE: reducerKey + '/SET_CURRENT_STATE',
+};
+
 export const actions = {
-  // Redux actions
   play: () => {
     return {
-      type: 'PLAY',
+      type: constants.PLAY,
     };
   },
   stop: () => {
     return {
-      type: 'STOP',
+      type: constants.STOP,
     };
   },
   next: () => {
     return {
-      type: 'NEXT',
+      type: constants.NEXT,
     };
   },
   error: () => {
     return {
-      type: 'ERROR',
+      type: constants.ERROR,
     };
   },
 
-  // Reducer actions
   reset: () => {
     return {
-      type: 'RESET',
+      type: constants.RESET,
     };
   },
   setCurrentState: (state: string) => {
     return {
-      type: 'SET_CURRENT_STATE',
+      type: constants.SET_CURRENT_STATE,
       payload: {
         state,
       },
@@ -52,19 +61,19 @@ const initialState = {
 };
 
 export const reducer = (state = initialState, action: any) => {
-  if (action.type === 'SET_CURRENT_STATE') {
+  if (action.type === constants.SET_CURRENT_STATE) {
     return {
       ...state,
       currentState: action.payload.state,
     };
   }
-  if (action.type === 'PLAY') {
+  if (action.type === constants.PLAY) {
     return {
       ...state,
       numPlayed: state.numPlayed + 1,
     };
   }
-  if (action.type === 'RESET') {
+  if (action.type === constants.RESET) {
     return {
       ...state,
       numPlayed: 0,
@@ -74,8 +83,9 @@ export const reducer = (state = initialState, action: any) => {
 };
 
 export const selectors = {
-  selectCurrentState: (state: any) => state.currentState,
-  selectNumPlayed: (state: any) => state.numPlayed,
+  selectRoot: (state: any) => state[reducerKey],
+  selectCurrentState: (state: any) => selectors.selectRoot(state).currentState,
+  selectNumPlayed: (state: any) => selectors.selectRoot(state).numPlayed,
 };
 
 const onEntryApp = ({ dispatch }: { dispatch: any }) => {
@@ -93,14 +103,12 @@ const doStop = () => {
 };
 
 const switchTimeout = function*() {
-  // tslint:disable-next-line:no-console
-  console.log('switchTimeout');
   yield delay(10000);
   yield put(actions.error());
 };
 
 export const stateMachine = {
-  key: 'example-state-machine',
+  key: 'player',
   debug: true,
   setState: actions.setCurrentState,
   selectState: selectors.selectCurrentState,
@@ -108,14 +116,14 @@ export const stateMachine = {
     [states.APP]: {
       onEntry: onEntryApp,
       on: {
-        ['PLAY']: states.PLAYING,
+        [constants.PLAY]: states.PLAYING,
       },
     },
     [states.PLAYING]: {
       on: {
-        ['STOP']: states.APP,
-        ['ERROR']: states.APP,
-        ['NEXT']: [
+        [constants.STOP]: states.APP,
+        [constants.ERROR]: states.APP,
+        [constants.NEXT]: [
           { target: states.SWITCHING, cond: isNext },
           { target: states.APP },
         ],
@@ -124,9 +132,9 @@ export const stateMachine = {
     [states.SWITCHING]: {
       activities: [switchTimeout],
       on: {
-        ['STOP']: [{ target: states.APP, actions: [doStop] }],
-        ['ERROR']: states.APP,
-        ['PLAY']: states.PLAYING,
+        [constants.STOP]: [{ target: states.APP, actions: [doStop] }],
+        [constants.ERROR]: states.APP,
+        [constants.PLAY]: states.PLAYING,
       },
     },
   },
