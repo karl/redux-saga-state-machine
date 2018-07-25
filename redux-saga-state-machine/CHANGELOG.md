@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/karl/redux-saga-state-machine/compare/v0.2.0...v0.3.0) (2018-07-25)
+
+
+### Features
+
+* Add support for initial activities ([#31](https://github.com/karl/redux-saga-state-machine/issues/31)) ([f1f337d](https://github.com/karl/redux-saga-state-machine/commit/f1f337d))
+
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/karl/redux-saga-state-machine/compare/v0.1.18...v0.2.0) (2018-07-24)
 
