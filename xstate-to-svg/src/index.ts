@@ -83,13 +83,13 @@ const xstateToSmcDescription = (
     if (state.onEntry) {
       triggers.push({
         type: 'entry',
-        body: state.onEntry.toString(),
+        body: state.onEntry.name || state.onEntry.toString(),
       });
     }
     if (state.onExit) {
       triggers.push({
         type: 'exit',
-        body: state.onExit.toString(),
+        body: state.onExit.name || state.onExit.toString(),
       });
     }
     if (triggers.length > 0) {

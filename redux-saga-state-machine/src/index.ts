@@ -61,12 +61,24 @@ export const createStateMachineSaga = (
       state: initialState,
     });
 
+    const initialOnEntrys = machine.getStateNode(initialState).onEntry;
+    for (const onEntry of initialOnEntrys as any[]) {
+      logger({
+        type: 'STATE_MACHINE_ACTION',
+        label: `Action ${onEntry.name}`,
+        action: onEntry,
+        state: initialState,
+      });
+      onEntry({ getState, dispatch });
+    }
+
     const initialActivities =
       machine.getStateNode(initialState).activities || [];
     for (const activity of initialActivities as any[]) {
       logger({
         type: 'STATE_MACHINE_START_ACTIVITY',
         label: `Start activity ${activity.name}`,
+        activity,
         state: initialState,
       });
       activities[activity.name] = yield fork(activity);
@@ -113,6 +125,7 @@ export const createStateMachineSaga = (
           logger({
             type: 'STATE_MACHINE_START_ACTIVITY',
             label: `Start activity ${action.data.name}`,
+            activity: action.data,
             state: newState,
           });
           activities[action.data.name] = yield fork(action.data);
@@ -120,6 +133,7 @@ export const createStateMachineSaga = (
           logger({
             type: 'STATE_MACHINE_STOP_ACTIVITY',
             label: `Stop activity ${action.data.name}`,
+            activity: action.data,
             state: newState,
           });
           activities[action.data.name].cancel();
@@ -127,6 +141,7 @@ export const createStateMachineSaga = (
           logger({
             type: 'STATE_MACHINE_ACTION',
             label: `Action ${action.name}`,
+            action,
             state: newState,
           });
           action({ getState, dispatch }, event);
