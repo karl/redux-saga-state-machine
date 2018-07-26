@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
