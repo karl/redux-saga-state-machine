@@ -33,16 +33,20 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: cd xstate-to-svg && yarn run lint
-      - run: cd xstate-to-svg && yarn run test
+      - run: cd xstate-to-svg && yarn run test:ci
       - run: cd xstate-to-svg && yarn run build
 
       - run: cd redux-saga-state-machine && yarn run lint
-      - run: cd redux-saga-state-machine && yarn run test
+      - run: cd redux-saga-state-machine && yarn run test:ci
       - run: cd redux-saga-state-machine && yarn run build
 
       - run: cd example && yarn run lint
-      - run: cd example && yarn run test
+      - run: cd example && yarn run test:ci
       - run: cd example && yarn run build
+
+      - run: yarn run junit-merge
+      - store_test_results:
+         - path: ./junit.xml
 
       - run:
           name: Deploy

@@ -4,3 +4,7 @@
 /lerna-debug.log
 /example/yarn-error.log
 /example/dist/bundle.js
+/example/junit.xml
+/junit.xml
+/redux-saga-state-machine/junit.xml
+/xstate-to-svg/junit.xml
