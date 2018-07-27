@@ -46,7 +46,7 @@ jobs:
 
       - run: yarn run junit-merge
       - store_test_results:
-         - path: ./junit.xml
+          path: ./junit.xml
 
       - run:
           name: Deploy
