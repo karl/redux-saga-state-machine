@@ -49,6 +49,15 @@ jobs:
           path: ./junit.xml
 
       - run:
+          name: Checking visualisations are up to date
+          command: |
+            if [[ $(git status --short) ]]; then
+              echo "It looks like some visualisations are not up to date!"
+              git status --short
+              exit 1
+            fi
+
+      - run:
           name: Deploy
           command: |
             if [[ $CIRCLE_BRANCH == 'master' ]];
