@@ -26,8 +26,3 @@
 ## Infrastructure
 
 - Do we need to do anything to get sourcemaps working?
-
-
-## Other
-
-- Use Kuker (https://github.com/krasimir/kuker) as state machine dev tool?
