@@ -26,7 +26,6 @@
 ## Infrastructure
 
 - Do we need to do anything to get sourcemaps working?
-- Fail build is visualisations not up to date.
 
 
 ## Other
