@@ -45,6 +45,36 @@ export const createStateMachineSaga = (
   }): SagaIterator {
     const activities = [];
 
+    const runActions = function*(result) {
+      for (const action of result.actions as any[]) {
+        if (action.type === 'xstate.start') {
+          logger({
+            type: 'STATE_MACHINE_START_ACTIVITY',
+            label: `Start activity ${action.data.name}`,
+            activity: action.data,
+            state,
+          });
+          activities[action.data.name] = yield fork(action.data);
+        } else if (action.type === 'xstate.stop') {
+          logger({
+            type: 'STATE_MACHINE_STOP_ACTIVITY',
+            label: `Stop activity ${action.data.name}`,
+            activity: action.data,
+            state,
+          });
+          activities[action.data.name].cancel();
+        } else {
+          logger({
+            type: 'STATE_MACHINE_ACTION',
+            label: `Action ${action.name}`,
+            action,
+            state,
+          });
+          action({ getState, dispatch }, event);
+        }
+      }
+    };
+
     const { setState, selectState, ...config } = description;
     const machine = Machine(config);
 
@@ -54,39 +84,18 @@ export const createStateMachineSaga = (
       description,
     });
 
-    const initialState = yield select(selectState);
+    const initial = machine.initialState;
+    let state = initial.value;
     logger({
       type: 'STATE_MACHINE_INITIAL_STATE',
-      label: `Initial state ${initialState}`,
-      state: initialState,
+      label: `Initial state ${state}`,
+      state,
+      initial,
     });
-
-    const initialOnEntrys = machine.getStateNode(initialState).onEntry;
-    for (const onEntry of initialOnEntrys as any[]) {
-      logger({
-        type: 'STATE_MACHINE_ACTION',
-        label: `Action ${onEntry.name}`,
-        action: onEntry,
-        state: initialState,
-      });
-      onEntry({ getState, dispatch });
-    }
-
-    const initialActivities =
-      machine.getStateNode(initialState).activities || [];
-    for (const activity of initialActivities as any[]) {
-      logger({
-        type: 'STATE_MACHINE_START_ACTIVITY',
-        label: `Start activity ${activity.name}`,
-        activity,
-        state: initialState,
-      });
-      activities[activity.name] = yield fork(activity);
-    }
+    yield put(setState(state));
+    yield* runActions(initial);
 
     while (true) {
-      const state = yield select(selectState);
-
       logger({
         type: 'STATE_MACHINE_LISTENING',
         label: `Listening for events ${machine.events}`,
@@ -102,9 +111,7 @@ export const createStateMachineSaga = (
       });
 
       const result = machine.transition(state, event, { getState, dispatch });
-      const newState = result.value;
-
-      if (newState === state) {
+      if (result.value === state) {
         logger({
           type: 'STATE_MACHINE_NO_TRANSITION',
           label: `No transition`,
@@ -112,41 +119,15 @@ export const createStateMachineSaga = (
         continue;
       }
 
+      state = result.value;
       logger({
         type: 'STATE_MACHINE_NEW_STATE',
-        label: `State ${newState}`,
-        state: newState,
+        label: `State ${state}`,
+        state,
         result,
       });
-      yield put(setState(newState));
-
-      for (const action of result.actions as any[]) {
-        if (action.type === 'xstate.start') {
-          logger({
-            type: 'STATE_MACHINE_START_ACTIVITY',
-            label: `Start activity ${action.data.name}`,
-            activity: action.data,
-            state: newState,
-          });
-          activities[action.data.name] = yield fork(action.data);
-        } else if (action.type === 'xstate.stop') {
-          logger({
-            type: 'STATE_MACHINE_STOP_ACTIVITY',
-            label: `Stop activity ${action.data.name}`,
-            activity: action.data,
-            state: newState,
-          });
-          activities[action.data.name].cancel();
-        } else {
-          logger({
-            type: 'STATE_MACHINE_ACTION',
-            label: `Action ${action.name}`,
-            action,
-            state: newState,
-          });
-          action({ getState, dispatch }, event);
-        }
-      }
+      yield put(setState(state));
+      yield* runActions(result);
     }
   };
 };
