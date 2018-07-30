@@ -1,5 +1,5 @@
 import { SagaIterator } from 'redux-saga';
-import { fork, put, select, take } from 'redux-saga/effects';
+import { fork, put, take } from 'redux-saga/effects';
 import { Machine } from 'xstate';
 
 type ActionCreator = (
@@ -43,9 +43,9 @@ export const createStateMachineSaga = (
     getState: any;
     dispatch: any;
   }): SagaIterator {
-    const activities = [];
+    const activities: any[] = [];
 
-    const runActions = function*(result) {
+    const runActions = function*(result: any) {
       for (const action of result.actions as any[]) {
         if (action.type === 'xstate.start') {
           logger({
