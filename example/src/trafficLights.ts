@@ -7,10 +7,14 @@ const states = {
   GREEN: 'GREEN',
   YELLOW: 'YELLOW',
   RED: 'RED',
+  WAIT: 'WAIT',
+  WALK: 'WALK',
+  STOP: 'STOP',
 };
 
 const constants = {
   TIMER: reducerKey + '/TIMER',
+  PED_TIMER: reducerKey + '/PED_TIMER',
   SET_CURRENT_STATE: reducerKey + '/SET_CURRENT_STATE',
 };
 
@@ -18,6 +22,11 @@ export const actions = {
   timer: () => {
     return {
       type: constants.TIMER,
+    };
+  },
+  pedTimer: () => {
+    return {
+      type: constants.PED_TIMER,
     };
   },
 
@@ -32,7 +41,7 @@ export const actions = {
 };
 
 const initialState = {
-  currentState: states.GREEN,
+  currentState: null,
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -55,11 +64,17 @@ const switchTimer = function*() {
   yield put(actions.timer());
 };
 
+const pedSwitchTimer = function*() {
+  yield delay(2500);
+  yield put(actions.pedTimer());
+};
+
 export const stateMachine = {
   key: 'traffic-lights',
   debug: true,
   setState: actions.setCurrentState,
   selectState: selectors.selectCurrentState,
+  initial: states.GREEN,
   states: {
     [states.GREEN]: {
       activities: [switchTimer],
@@ -77,6 +92,22 @@ export const stateMachine = {
       activities: [switchTimer],
       on: {
         [constants.TIMER]: states.GREEN,
+      },
+      initial: states.WALK,
+      states: {
+        [states.WALK]: {
+          activities: [pedSwitchTimer],
+          on: {
+            [constants.PED_TIMER]: states.WAIT,
+          },
+        },
+        [states.WAIT]: {
+          activities: [pedSwitchTimer],
+          on: {
+            [constants.PED_TIMER]: states.STOP,
+          },
+        },
+        [states.STOP]: {},
       },
     },
   },

@@ -6,7 +6,7 @@ const TrafficLights = ({ currentState }: { currentState: string }) => {
   return (
     <div>
       <h2>Traffic Lights</h2>
-      <div>Current State: {currentState}</div>
+      <div>Current State: {JSON.stringify(currentState, null, 2)}</div>
     </div>
   );
 };

@@ -56,7 +56,7 @@ export const actions = {
 };
 
 const initialState = {
-  currentState: states.APP,
+  currentState: null,
   numPlayed: 0,
 };
 
@@ -112,6 +112,7 @@ export const stateMachine = {
   debug: true,
   setState: actions.setCurrentState,
   selectState: selectors.selectCurrentState,
+  initial: states.APP,
   states: {
     [states.APP]: {
       onEntry: onEntryApp,
