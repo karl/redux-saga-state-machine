@@ -96,13 +96,16 @@ export const createStateMachineSaga = (
     yield* runActions(initial);
 
     while (true) {
+      const stateNodes = machine.getStateNodes(state);
+      const events = stateNodes[0].events;
+
       logger({
         type: 'STATE_MACHINE_LISTENING',
-        label: `Listening for events ${machine.events}`,
+        label: `Listening for events ${events.join(', ')}`,
         state,
-        events: machine.events,
+        events,
       });
-      const event = yield take(machine.events);
+      const event = yield take(events);
       logger({
         type: 'STATE_MACHINE_RECEIVED',
         label: `Received event ${event.type}`,
