@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.5.1"></a>
+## [0.5.1](https://github.com/karl/redux-saga-state-machine/compare/v0.5.0...v0.5.1) (2018-07-31)
+
+
+### Bug Fixes
+
+* More focused event listening ([#44](https://github.com/karl/redux-saga-state-machine/issues/44)) ([d1a013b](https://github.com/karl/redux-saga-state-machine/commit/d1a013b))
+
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/karl/redux-saga-state-machine/compare/v0.4.2...v0.5.0) (2018-07-30)
 
