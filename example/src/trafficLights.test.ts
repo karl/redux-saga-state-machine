@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as lolex from 'lolex';
 import * as path from 'path';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
@@ -13,20 +14,27 @@ import {
   states,
 } from './trafficLights';
 
-const wait = (duration) =>
-  new Promise((resolve) => setTimeout(() => resolve(), duration));
-
 describe('state machine', () => {
-  it('generate visualisation', () => {
-    const svg = xstateToSvg(stateMachine);
-    fs.writeFileSync(path.resolve(__dirname, 'trafficLights.svg'), svg, {
-      encoding: 'utf8',
+  describe('visualisation', () => {
+    it('generates svg', () => {
+      const svg = xstateToSvg(stateMachine);
+      fs.writeFileSync(path.resolve(__dirname, 'trafficLights.svg'), svg, {
+        encoding: 'utf8',
+      });
     });
   });
 
-  it(
-    'runs saga',
-    async () => {
+  describe('saga', () => {
+    let clock;
+    beforeEach(() => {
+      clock = lolex.install();
+    });
+
+    afterEach(() => {
+      clock.uninstall();
+    });
+
+    it('runs', () => {
       const sagaMiddleware = createSagaMiddleware();
       const store = createStore(
         combineReducers({ [reducerKey]: reducer }),
@@ -45,12 +53,25 @@ describe('state machine', () => {
         states.GREEN,
       );
 
-      // We should really be using a mock timer so we can run this test instantly
-      await wait(6000);
+      clock.tick(6001);
       expect(selectors.selectCurrentState(store.getState())).toEqual(
         states.YELLOW,
       );
-    },
-    7000,
-  );
+
+      clock.tick(6001);
+      expect(selectors.selectCurrentState(store.getState())).toEqual({
+        [states.RED]: states.WALK,
+      });
+
+      clock.tick(2501);
+      expect(selectors.selectCurrentState(store.getState())).toEqual({
+        [states.RED]: states.WAIT,
+      });
+
+      clock.tick(6001 - 2501);
+      expect(selectors.selectCurrentState(store.getState())).toEqual(
+        states.GREEN,
+      );
+    });
+  });
 });
