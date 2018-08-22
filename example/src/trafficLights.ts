@@ -3,7 +3,7 @@ import { put } from 'redux-saga/effects';
 
 export const reducerKey = 'trafficLights';
 
-const states = {
+export const states = {
   GREEN: 'GREEN',
   YELLOW: 'YELLOW',
   RED: 'RED',
