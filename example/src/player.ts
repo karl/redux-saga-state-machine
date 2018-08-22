@@ -3,7 +3,7 @@ import { put } from 'redux-saga/effects';
 
 export const reducerKey = 'player';
 
-const states = {
+export const states = {
   APP: 'APP',
   PLAYING: 'PLAYING',
   SWITCHING: 'SWITCHING',
