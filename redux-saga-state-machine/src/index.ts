@@ -45,7 +45,7 @@ export const createStateMachineSaga = (
   }): SagaIterator {
     const activities: any[] = [];
 
-    const runActions = function*(result: any) {
+    const runActions = function*(result: any, event: any) {
       for (const action of result.actions as any[]) {
         if (action.type === 'xstate.start') {
           logger({
@@ -69,6 +69,7 @@ export const createStateMachineSaga = (
             label: `Action ${action.name}`,
             action,
             state,
+            event,
           });
           action({ getState, dispatch }, event);
         }
@@ -93,7 +94,7 @@ export const createStateMachineSaga = (
       initial,
     });
     yield put(setState(state));
-    yield* runActions(initial);
+    yield* runActions(initial, {});
 
     while (true) {
       const stateNodes = machine.getStateNodes(state);
@@ -130,7 +131,7 @@ export const createStateMachineSaga = (
         result,
       });
       yield put(setState(state));
-      yield* runActions(result);
+      yield* runActions(result, event);
     }
   };
 };
