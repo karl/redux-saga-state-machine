@@ -4,15 +4,25 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
+import { colorLog } from './colorLog';
 import { emit } from './kukerEmitter';
 import * as player from './player';
 import { ConnectedPlayer } from './PlayerUI';
+import { toColor } from './toColor';
 import * as trafficLights from './trafficLights';
 import { ConnectedTrafficLights } from './TrafficLightsUI';
 
-const playerSaga = createStateMachineSaga(player.stateMachine, { emit });
+const kukerAndConsoleEmit = (emitted: any) => {
+  emit(emitted);
+  const { key, type, label, ...details } = emitted;
+  colorLog(toColor(key), key, label, details);
+};
+
+const playerSaga = createStateMachineSaga(player.stateMachine, {
+  emit: kukerAndConsoleEmit,
+});
 const trafficLightsSaga = createStateMachineSaga(trafficLights.stateMachine, {
-  emit,
+  emit: kukerAndConsoleEmit,
 });
 
 const sagaMiddleware = createSagaMiddleware();

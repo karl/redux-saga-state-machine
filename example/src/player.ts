@@ -109,7 +109,7 @@ const switchTimeout = function*() {
 
 export const stateMachine = {
   key: 'player',
-  debug: true,
+  // debug: true,
   setState: actions.setCurrentState,
   selectState: selectors.selectCurrentState,
   initial: states.APP,

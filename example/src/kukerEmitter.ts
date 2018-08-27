@@ -1,23 +1,5 @@
 import { BaseEmitter } from 'kuker-emitters';
-import * as stringHash from 'string-hash';
-
-const colors = [
-  '#bae1ff',
-  '#baffc9 ',
-  '#ffffba',
-  '#ffdfba',
-  '#ffb3ba',
-  '#e6d5ff',
-  '#ffd1d6',
-  '#a5ffcf',
-  '#ffe6ef',
-  '#bfff7b',
-];
-
-const toColor = (key: string): string => {
-  const index = Math.round(stringHash(key) / 429496729.5);
-  return colors[index];
-};
+import { toColor } from './toColor';
 
 const kukerEmit = BaseEmitter();
 const typeToIconMap: { [index: string]: string } = {

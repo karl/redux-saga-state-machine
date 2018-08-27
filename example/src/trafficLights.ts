@@ -71,7 +71,7 @@ const pedSwitchTimer = function*() {
 
 export const stateMachine = {
   key: 'traffic-lights',
-  debug: true,
+  // debug: true,
   setState: actions.setCurrentState,
   selectState: selectors.selectCurrentState,
   initial: states.GREEN,
