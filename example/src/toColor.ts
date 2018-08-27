@@ -10,7 +10,7 @@ const colors = [
   '#bbe1ff', // violet
   '#d1e800', // yellow-green
   '#ffd875', // dark-orange
-  '#00f8d2', // teal
+  '#76f6d8', // teal
 ];
 
 export const toColor = (key: string): string => {
