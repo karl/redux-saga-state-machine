@@ -5824,11 +5824,11 @@ selfsigned@^1.9.1:
   dependencies:
     node-forge "0.7.5"
 
-"semver@2 || 3 || 4 || 5", semver@5.5.0, semver@^5.0.1, semver@^5.3.0, semver@^5.4.1, semver@^5.5.0:
+"semver@2 || 3 || 4 || 5", semver@^5.0.1, semver@^5.3.0, semver@^5.4.1, semver@^5.5.0:
   version "5.5.0"
   resolved "https://registry.npmjs.org/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
-semver@^5.1.0:
+semver@5.5.1, semver@^5.1.0:
   version "5.5.1"
   resolved "https://registry.npmjs.org/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
 
@@ -6180,15 +6180,15 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-state-machine-cat@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-3.0.1.tgz#a93e8e024b495fc5a30530471be1bfee1229518e"
+state-machine-cat@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-3.0.2.tgz#e8173a21746b5294735c67af9b34edbdb535df2b"
   dependencies:
     ajv "6.5.3"
     commander "2.17.1"
     handlebars "4.0.11"
     lodash.clonedeep "4.5.0"
-    semver "5.5.0"
+    semver "5.5.1"
     viz.js "1.8.2"
 
 static-extend@^0.1.1:
