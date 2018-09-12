@@ -107,7 +107,7 @@ const switchTimeout = function*() {
   yield put(actions.error());
 };
 
-const startPlayback = function*(action) {
+const startPlayback = function*(action: any): any {
   // tslint:disable-next-line:no-console
   console.log('Start playback with action', action);
 };
