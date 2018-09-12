@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "0.5.2",
+  "version": "0.6.0",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
@@ -39,7 +39,7 @@
     "webpack": "4.17.2",
     "webpack-cli": "3.1.0",
     "webpack-dev-server": "3.1.7",
-    "xstate-to-svg": "^0.5.2"
+    "xstate-to-svg": "^0.6.0"
   },
   "dependencies": {
     "kuker-emitters": "^6.7.4",
@@ -48,7 +48,7 @@
     "react-redux": "5.0.7",
     "redux": "4.0.0",
     "redux-saga": "0.16.0",
-    "redux-saga-state-machine": "^0.5.2",
+    "redux-saga-state-machine": "^0.6.0",
     "xstate": "3.3.3"
   }
 }

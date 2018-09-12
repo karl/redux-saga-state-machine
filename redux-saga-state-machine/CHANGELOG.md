@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/karl/redux-saga-state-machine/compare/v0.5.2...v0.6.0) (2018-09-12)
+
+
+### Features
+
+* Pass actions to activities ([#104](https://github.com/karl/redux-saga-state-machine/issues/104)) ([0ff0a01](https://github.com/karl/redux-saga-state-machine/commit/0ff0a01))
+
+
+
+
 <a name="0.5.2"></a>
 ## [0.5.2](https://github.com/karl/redux-saga-state-machine/compare/v0.5.1...v0.5.2) (2018-08-27)
 
