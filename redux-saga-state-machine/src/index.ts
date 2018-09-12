@@ -54,7 +54,7 @@ export const createStateMachineSaga = (
             activity: action.data,
             state,
           });
-          activities[action.data.name] = yield fork(action.data);
+          activities[action.data.name] = yield fork(action.data, event);
         } else if (action.type === 'xstate.stop') {
           logger({
             type: 'STATE_MACHINE_STOP_ACTIVITY',
