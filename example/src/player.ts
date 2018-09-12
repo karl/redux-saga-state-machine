@@ -107,6 +107,11 @@ const switchTimeout = function*() {
   yield put(actions.error());
 };
 
+const startPlayback = function*(action: any): any {
+  // tslint:disable-next-line:no-console
+  console.log('Start playback with action', action);
+};
+
 export const stateMachine = {
   key: 'player',
   // debug: true,
@@ -121,6 +126,7 @@ export const stateMachine = {
       },
     },
     [states.PLAYING]: {
+      activities: [startPlayback],
       on: {
         [constants.STOP]: states.APP,
         [constants.ERROR]: states.APP,
