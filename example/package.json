@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "kuker-emitters": "^6.7.4",
-    "react": "16.4.2",
+    "react": "16.5.0",
     "react-dom": "16.4.2",
     "react-redux": "5.0.7",
     "redux": "4.0.0",
