@@ -20,7 +20,7 @@
   ],
   "devDependencies": {
     "jest": "23.6.0",
-    "jest-cli": "23.5.0",
+    "jest-cli": "23.6.0",
     "jest-junit": "5.1.0",
     "mkdirp": "0.5.1",
     "prettier": "1.14.2",
