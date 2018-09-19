@@ -1144,9 +1144,13 @@ commander@2.17.1:
   version "2.17.1"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
 
-commander@^2.12.1, commander@^2.12.2:
+commander@^2.12.1:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.16.0.tgz#f16390593996ceb4f3eeb020b31d78528f7f8a50"
+
+commander@^2.18.0:
+  version "2.18.0"
+  resolved "https://registry.yarnpkg.com/commander/-/commander-2.18.0.tgz#2bf063ddee7c7891176981a2cc798e5754bc6970"
 
 commander@~2.13.0:
   version "2.13.0"
@@ -3642,14 +3646,14 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-junit-merge@1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/junit-merge/-/junit-merge-1.3.0.tgz#3521a466c90dd727c78fd097185102ae3f048d59"
+junit-merge@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/junit-merge/-/junit-merge-2.0.0.tgz#5f67c2bd837cd491c83a17614925d16c781a83d2"
   dependencies:
-    commander "^2.12.2"
+    commander "^2.18.0"
     fs-readdir-recursive "^1.1.0"
     mkdirp "^0.5.1"
-    xmldoc "^1.1.0"
+    xmldoc "^1.1.2"
 
 killable@^1.0.0:
   version "1.0.0"
@@ -6615,7 +6619,7 @@ xml@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/xml/-/xml-1.0.1.tgz#78ba72020029c5bc87b8a81a3cfcd74b4a2fc1e5"
 
-xmldoc@^1.1.0:
+xmldoc@^1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/xmldoc/-/xmldoc-1.1.2.tgz#6666e029fe25470d599cd30e23ff0d1ed50466d7"
   dependencies:
