@@ -3,7 +3,7 @@ import { runSaga } from 'redux-saga';
 import { createStateMachineSaga } from './index';
 
 describe('createStateMachineSaga', () => {
-  let clock;
+  let clock: lolex.Clock;
   beforeEach(() => {
     clock = lolex.install();
   });
@@ -17,7 +17,7 @@ describe('createStateMachineSaga', () => {
       machineState: null,
     };
 
-    let callbacks = [];
+    let callbacks: Array<(action: any) => void> = [];
     const getState = jest.fn(() => state);
     const dispatch = jest.fn((action) => {
       for (const callback of callbacks) {
@@ -29,7 +29,7 @@ describe('createStateMachineSaga', () => {
       return { type: 'SET_STATE', payload: machineState };
     });
     const selectState = jest.fn(() => state.machineState);
-    const subscribe = (callback) => {
+    const subscribe = (callback: (action: any) => void) => {
       callbacks = [...callbacks, callback];
       return () => {
         callbacks = callbacks.filter((c) => c !== callback);
@@ -41,7 +41,7 @@ describe('createStateMachineSaga', () => {
 
     const stateMachine = {
       key: 'test-state-machine',
-      debug: true,
+      // debug: true,
       setState,
       selectState,
       initial: 'APP',
