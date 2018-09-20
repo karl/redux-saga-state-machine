@@ -32,13 +32,19 @@
   version "23.3.2"
   resolved "https://registry.npmjs.org/@types/jest/-/jest-23.3.2.tgz#07b90f6adf75d42c34230c026a2529e56c249dbb"
 
-"@types/lolex@^2.1.3":
+"@types/lolex@2.1.3":
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/@types/lolex/-/lolex-2.1.3.tgz#793557c9b8ad319b4c8e4c6548b90893f4aa5f69"
 
 "@types/minimatch@*":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-3.0.3.tgz#3dca0e3f33b200fc7d1139c0cd96c1268cadfd9d"
+
+"@types/mkdirp@0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@types/mkdirp/-/mkdirp-0.5.2.tgz#503aacfe5cc2703d5484326b1b27efa67a339c1f"
+  dependencies:
+    "@types/node" "*"
 
 "@types/node@*":
   version "10.5.2"
@@ -3656,7 +3662,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "https://registry.npmjs.org/kind-of/-/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
-kuker-emitters@^6.7.4:
+kuker-emitters@6.7.4:
   version "6.7.4"
   resolved "https://registry.yarnpkg.com/kuker-emitters/-/kuker-emitters-6.7.4.tgz#1fef1efbb75af05dd72846989cf401839e1f175b"
   dependencies:
@@ -5685,7 +5691,7 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-state-machine-cat@3.0.3:
+state-machine-cat@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-3.0.3.tgz#90412c3664533830a9c84944a07d962533a1a70c"
   dependencies:
@@ -5743,7 +5749,7 @@ stream-shift@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/stream-shift/-/stream-shift-1.0.0.tgz#d5c752825e5367e786f78e18e445ea223a155952"
 
-string-hash@^1.1.3:
+string-hash@1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/string-hash/-/string-hash-1.1.3.tgz#e8aafc0ac1855b4666929ed7dd1275df5d6c811b"
 
