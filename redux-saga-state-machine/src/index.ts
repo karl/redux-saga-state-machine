@@ -119,18 +119,19 @@ export const createStateMachineSaga = (
         logger({
           type: 'STATE_MACHINE_NO_TRANSITION',
           label: `No transition`,
+          result,
         });
-        continue;
+      } else {
+        state = result.value;
+        logger({
+          type: 'STATE_MACHINE_NEW_STATE',
+          label: `State ${state}`,
+          state,
+          result,
+        });
+        yield put(setState(state));
       }
 
-      state = result.value;
-      logger({
-        type: 'STATE_MACHINE_NEW_STATE',
-        label: `State ${state}`,
-        state,
-        result,
-      });
-      yield put(setState(state));
       yield* runActions(result, event);
     }
   };
