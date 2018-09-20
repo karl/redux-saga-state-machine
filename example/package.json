@@ -21,7 +21,7 @@
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
     "jest-junit": "5.1.0",
-    "lolex": "2.7.4",
+    "lolex": "2.7.5",
     "prettier": "1.14.2",
     "react-hot-loader": "4.3.6",
     "string-hash": "^1.1.3",
