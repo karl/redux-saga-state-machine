@@ -59,12 +59,12 @@ export const selectors = {
   selectCurrentState: (state: any) => selectors.selectRoot(state).currentState,
 };
 
-const switchTimer = function*() {
+const switchTimer = function*(): any {
   yield delay(6000);
   yield put(actions.timer());
 };
 
-const pedSwitchTimer = function*() {
+const pedSwitchTimer = function*(): any {
   yield delay(2500);
   yield put(actions.pedTimer());
 };

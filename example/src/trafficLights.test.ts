@@ -6,7 +6,6 @@ import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
 import { xstateToSvg } from '../../xstate-to-svg/dist';
 import {
-  actions,
   reducer,
   reducerKey,
   selectors,
@@ -17,6 +16,7 @@ import {
 describe('state machine', () => {
   describe('visualisation', () => {
     it('generates svg', () => {
+      // @ts-ignore
       const svg = xstateToSvg(stateMachine);
       fs.writeFileSync(path.resolve(__dirname, 'trafficLights.svg'), svg, {
         encoding: 'utf8',
@@ -25,7 +25,7 @@ describe('state machine', () => {
   });
 
   describe('saga', () => {
-    let clock;
+    let clock: lolex.Clock;
     beforeEach(() => {
       clock = lolex.install();
     });
@@ -38,7 +38,6 @@ describe('state machine', () => {
       const sagaMiddleware = createSagaMiddleware();
       const store = createStore(
         combineReducers({ [reducerKey]: reducer }),
-        undefined,
         applyMiddleware(sagaMiddleware),
       );
 

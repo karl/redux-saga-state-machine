@@ -8,19 +8,17 @@ type ActionCreator = (
   type: string;
 };
 
-interface IMachineDescription {
-  key: string;
-  debug?: boolean;
-  setState: ActionCreator;
-  selectState: (state: any) => string;
-  states: any;
-}
-
 // tslint:disable-next-line:no-empty
 const noop = () => {};
 
 export const createStateMachineSaga = (
-  description: IMachineDescription,
+  description: {
+    key: string;
+    debug?: boolean;
+    setState: ActionCreator;
+    selectState: (state: any) => string;
+    states: any;
+  },
   { emit = noop }: any = {},
 ) => {
   const logger = (obj: any) => {
