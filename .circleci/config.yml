@@ -54,7 +54,7 @@ jobs:
       - run:
           name: Release to npm
           command: |
-            if [[ $CIRCLE_BRANCH == 'fix-release' ]];
+            if [[ $CIRCLE_BRANCH == 'master' ]];
             then
               commit_message=$(git log --format=%s -n 1 $CIRCLE_SHA1)
               if [[ ! $commit_message =~ ^(v[0-9]+\.[0-9]+\.[0-9]+|no-deploy:.*)$ ]];
