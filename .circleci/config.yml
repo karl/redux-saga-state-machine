@@ -69,6 +69,6 @@ jobs:
                 git config --global user.email "circleci@monket.net"
                 git config --global user.name "circleci"
 
-                yarn run publish
+                npm run publish
               fi
             fi
