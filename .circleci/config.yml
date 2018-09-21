@@ -18,11 +18,13 @@ jobs:
 
       - run:
           name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 
       - run:
-          name: Avoid hosts unknown for github
-          command: echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          name: Avoid unknown hosts error for github.com
+          command: |
+            echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
 
       - run: yarn install --frozen-lockfile
@@ -32,17 +34,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: cd xstate-to-svg && yarn run lint
-      - run: cd xstate-to-svg && yarn run test:ci
-      - run: cd xstate-to-svg && yarn run build
-
-      - run: cd redux-saga-state-machine && yarn run lint
-      - run: cd redux-saga-state-machine && yarn run test:ci
-      - run: cd redux-saga-state-machine && yarn run build
-
-      - run: cd example && yarn run lint
-      - run: cd example && yarn run test:ci
-      - run: cd example && yarn run build
+      - run: yarn run lint
+      - run: yarn run build
+      - run: yarn run test:ci
 
       - run: yarn run junit-merge
       - store_test_results:
@@ -58,16 +52,18 @@ jobs:
             fi
 
       - run:
-          name: Deploy
+          name: Release to npm
           command: |
             if [[ $CIRCLE_BRANCH == 'master' ]];
             then
               commit_message=$(git log --format=%s -n 1 $CIRCLE_SHA1)
               if [[ ! $commit_message =~ ^(v[0-9]+\.[0-9]+\.[0-9]+|no-deploy:.*)$ ]];
               then
+                echo 'Releasing to npm!'
+
                 git config --global user.email "circleci@monket.net"
                 git config --global user.name "circleci"
 
-                yarn run publish
+                npm run publish
               fi
             fi

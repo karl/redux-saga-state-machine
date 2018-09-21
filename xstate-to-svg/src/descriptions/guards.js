@@ -4,7 +4,7 @@ module.exports = {
     closed: {
       on: {
         OPEN: [
-          { target: 'opened', cond: 'isAdmin', action: 'track' },
+          { target: 'opened', cond: 'isAdmin', actions: ['track'] },
           { target: 'stuck', cond: (extState) => extState.sticky },
           { target: 'closed' },
         ],

@@ -8,7 +8,6 @@
 
 ### redux-saga-state-machine
 
-- Handle intial state.
 - Handle final state.
 - Work out the best way to test the runner.
 - Documentation.
@@ -24,5 +23,3 @@
 
 
 ## Infrastructure
-
-- Do we need to do anything to get sourcemaps working?
