@@ -63,9 +63,10 @@ const xstateToSmcDescription = (
             smcTransition.cond = cond;
             label = label + ` [${cond}]`;
           }
-          if (transitionOption.action) {
-            smcTransition.action = transitionOption.action;
-            label = label + `/${transitionOption.action}`;
+          if (transitionOption.actions && transitionOption.actions.length > 0) {
+            const actionsText = transitionOption.actions.join(', ');
+            smcTransition.action = actionsText;
+            label = label + `/${actionsText}`;
           }
           smcTransition.label = label;
           transitions.push(smcTransition);
