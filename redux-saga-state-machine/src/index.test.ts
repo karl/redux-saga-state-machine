@@ -45,6 +45,41 @@ describe('createStateMachineSaga', () => {
     clock.uninstall();
   });
 
+  it('gets initial state from description', () => {
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState,
+      selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          on: {
+            play: 'PLAYER',
+          },
+        },
+        PLAYER: {},
+      },
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    runSaga(
+      {
+        getState,
+        dispatch,
+        subscribe,
+      },
+      saga,
+      {
+        getState,
+        dispatch,
+      },
+    );
+
+    expect(state.machineState).toEqual('APP');
+  });
+
   it('transitions based on redux action', () => {
     const stateMachine = {
       key: 'test-state-machine',
