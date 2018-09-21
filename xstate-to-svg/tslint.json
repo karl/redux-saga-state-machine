@@ -9,6 +9,7 @@
   "rules": {
     "prettier": true,
     "object-literal-sort-keys": false,
+    "interface-over-type-literal": false,
     "ordered-imports": true
   },
   "rulesDirectory": []
