@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/karl/redux-saga-state-machine/compare/v0.6.0...v0.8.0) (2018-09-21)
+
+
+### Bug Fixes
+
+* Bump ts-jest from 23.1.4 to 23.10.0 and fix typing issues ([#121](https://github.com/karl/redux-saga-state-machine/issues/121)) ([1317957](https://github.com/karl/redux-saga-state-machine/commit/1317957))
+
+
+### Features
+
+* Run actions even when there is no state change ([#124](https://github.com/karl/redux-saga-state-machine/issues/124)) ([48a8b56](https://github.com/karl/redux-saga-state-machine/commit/48a8b56))
+* Support arrays of actions in xstate-to-svg (also fix releasing) ([44f8193](https://github.com/karl/redux-saga-state-machine/commit/44f8193))
+
+
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/karl/redux-saga-state-machine/compare/v0.6.0...v0.7.0) (2018-09-21)
 
