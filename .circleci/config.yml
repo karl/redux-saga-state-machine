@@ -19,9 +19,6 @@ jobs:
       - run:
           name: Authenticate with registry
           command: |
-            echo 'npm whoami'
-            npm whoami
-
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 
             echo 'npm whoami'
