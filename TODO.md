@@ -23,5 +23,3 @@
 
 
 ## Infrastructure
-
-- Fix deploy on CI!

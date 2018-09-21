@@ -64,7 +64,12 @@ const xstateToSmcDescription = (
             label = label + ` [${cond}]`;
           }
           if (transitionOption.actions && transitionOption.actions.length > 0) {
-            const actionsText = transitionOption.actions.join(', ');
+            const actionsText = transitionOption.actions
+              .map(
+                (action: any) =>
+                  typeof action === 'function' ? action.name : action,
+              )
+              .join(', ');
             smcTransition.action = actionsText;
             label = label + `/${actionsText}`;
           }
