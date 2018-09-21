@@ -5,6 +5,11 @@ import { createStateMachineSaga } from './index';
 describe('createStateMachineSaga', () => {
   const action1 = jest.fn();
   const action2 = jest.fn();
+  const activity1Inner = jest.fn();
+  const activity1 = function*(action: any): any {
+    activity1Inner(action);
+  };
+  const onEntryApp = jest.fn();
 
   let clock: lolex.Clock;
   let state: any;
@@ -78,6 +83,44 @@ describe('createStateMachineSaga', () => {
     );
 
     expect(state.machineState).toEqual('APP');
+  });
+
+  it('run activities (but not onEntry) for initial state', () => {
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState,
+      selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          onEntryApp,
+          activities: [activity1],
+          on: {
+            play: 'PLAYER',
+          },
+        },
+        PLAYER: {},
+      },
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    runSaga(
+      {
+        getState,
+        dispatch,
+        subscribe,
+      },
+      saga,
+      {
+        getState,
+        dispatch,
+      },
+    );
+
+    // Note: Initial activities are passed an empty action object (no type field!)
+    expect(activity1Inner).toHaveBeenCalledWith({});
   });
 
   it('transitions based on redux action', () => {

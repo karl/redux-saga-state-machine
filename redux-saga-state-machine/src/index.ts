@@ -92,6 +92,7 @@ export const createStateMachineSaga = (
       initial,
     });
     yield put(setState(state));
+    // Note: Initial activities are passed an empty action object (no type field!)
     yield* runActions(initial, {});
 
     while (true) {
