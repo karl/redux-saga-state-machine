@@ -38,8 +38,8 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn run lint
-      - run: yarn run test:ci
       - run: yarn run build
+      - run: yarn run test:ci
 
       - run: yarn run junit-merge
       - store_test_results:
