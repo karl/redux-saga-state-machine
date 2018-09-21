@@ -21,13 +21,10 @@ jobs:
           command: |
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
 
-            echo 'npm whoami'
-            npm whoami
-
-
       - run:
-          name: Avoid hosts unknown for github
-          command: echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          name: Avoid unknown hosts error for github.com
+          command: |
+            echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
 
 
       - run: yarn install --frozen-lockfile
@@ -59,13 +56,11 @@ jobs:
           command: |
             if [[ $CIRCLE_BRANCH == 'fix-release' ]];
             then
-              echo 'npm whoami'
-              npm whoami
-
-              echo 'Releasing to npm'
               commit_message=$(git log --format=%s -n 1 $CIRCLE_SHA1)
               if [[ ! $commit_message =~ ^(v[0-9]+\.[0-9]+\.[0-9]+|no-deploy:.*)$ ]];
               then
+                echo 'Releasing to npm!'
+
                 git config --global user.email "circleci@monket.net"
                 git config --global user.name "circleci"
 
