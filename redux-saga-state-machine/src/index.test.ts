@@ -1,54 +1,35 @@
-import * as lolex from 'lolex';
-import { runSaga } from 'redux-saga';
 import { createStateMachineSaga } from './index';
+import { createHarness } from './testing/createHarness';
 
 describe('createStateMachineSaga', () => {
-  let clock: lolex.Clock;
+  const action1 = jest.fn();
+  const action2 = jest.fn();
+  const activity1Inner = jest.fn();
+  const activity1 = function*(action: any): any {
+    activity1Inner(action);
+  };
+  const onEntryApp = jest.fn();
+
+  let harness: any;
   beforeEach(() => {
-    clock = lolex.install();
+    harness = createHarness();
   });
 
   afterEach(() => {
-    clock.uninstall();
+    harness.clock.uninstall();
   });
 
-  it('runs actions even when the state remains unchanged', () => {
-    const state = {
-      machineState: null,
-    };
-
-    let callbacks: Array<(action: any) => void> = [];
-    const getState = jest.fn(() => state);
-    const dispatch = jest.fn((action) => {
-      for (const callback of callbacks) {
-        callback(action);
-      }
-    });
-    const setState = jest.fn((machineState) => {
-      state.machineState = machineState;
-      return { type: 'SET_STATE', payload: machineState };
-    });
-    const selectState = jest.fn(() => state.machineState);
-    const subscribe = (callback: (action: any) => void) => {
-      callbacks = [...callbacks, callback];
-      return () => {
-        callbacks = callbacks.filter((c) => c !== callback);
-      };
-    };
-
-    const action1 = jest.fn();
-    const action2 = jest.fn();
-
+  it('gets initial state from description', () => {
     const stateMachine = {
       key: 'test-state-machine',
       // debug: true,
-      setState,
-      selectState,
+      setState: harness.setState,
+      selectState: harness.selectState,
       initial: 'APP',
       states: {
         APP: {
           on: {
-            play: [{ target: 'APP', actions: [action1, action2] }],
+            play: 'PLAYER',
           },
         },
         PLAYER: {},
@@ -57,23 +38,89 @@ describe('createStateMachineSaga', () => {
 
     const saga = createStateMachineSaga(stateMachine);
 
-    runSaga(
-      {
-        getState,
-        dispatch,
-        subscribe,
+    harness.run(saga);
+
+    expect(harness.state.machineState).toEqual('APP');
+  });
+
+  it('run activities (but not onEntry) for initial state', () => {
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState: harness.setState,
+      selectState: harness.selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          onEntryApp,
+          activities: [activity1],
+          on: {
+            play: 'PLAYER',
+          },
+        },
+        PLAYER: {},
       },
-      saga,
-      {
-        getState,
-        dispatch,
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    harness.run(saga);
+
+    // Note: Initial activities are passed an empty action object (no type field!)
+    expect(activity1Inner).toHaveBeenCalledWith({});
+  });
+
+  it('transitions based on redux action', () => {
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState: harness.setState,
+      selectState: harness.selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          on: {
+            play: 'PLAYER',
+          },
+        },
+        PLAYER: {},
       },
-    );
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    harness.run(saga);
 
     const playAction = { type: 'play' };
-    dispatch(playAction);
+    harness.dispatch(playAction);
 
-    expect(action1).toHaveBeenCalledWith({ dispatch, getState }, playAction);
-    expect(action2).toHaveBeenCalledWith({ dispatch, getState }, playAction);
+    expect(harness.state.machineState).toEqual('PLAYER');
+  });
+
+  it('runs actions even when the state remains unchanged', () => {
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState: harness.setState,
+      selectState: harness.selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          on: {
+            play: [{ target: 'APP', actions: [action1, action2] }],
+          },
+        },
+      },
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    harness.run(saga);
+
+    const playAction = { type: 'play' };
+    harness.dispatch(playAction);
+
+    expect(action1).toHaveBeenCalledWith(harness.firstArg, playAction);
+    expect(action2).toHaveBeenCalledWith(harness.firstArg, playAction);
   });
 });
