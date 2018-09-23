@@ -1,3 +1,5 @@
+import { delay } from 'redux-saga';
+import { cancelled } from 'redux-saga/effects';
 import { createStateMachineSaga } from './index';
 import { createHarness } from './testing/createHarness';
 
@@ -68,6 +70,46 @@ describe('createStateMachineSaga', () => {
 
     // Note: Initial activities are passed an empty action object (no type field!)
     expect(activity1Inner).toHaveBeenCalledWith({});
+  });
+
+  it('cancels initial state activities when transitioning to a new state', () => {
+    const activityCancel = jest.fn();
+    const activity = function*() {
+      try {
+        yield delay(5000);
+      } finally {
+        if (yield cancelled()) {
+          activityCancel();
+        }
+      }
+    };
+
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState: harness.setState,
+      selectState: harness.selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          onEntryApp,
+          activities: [activity],
+          on: {
+            play: 'PLAYER',
+          },
+        },
+        PLAYER: {},
+      },
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    harness.run(saga);
+
+    const playAction = { type: 'play' };
+    harness.dispatch(playAction);
+
+    expect(activityCancel).toHaveBeenCalled();
   });
 
   it('transitions based on redux action', () => {
