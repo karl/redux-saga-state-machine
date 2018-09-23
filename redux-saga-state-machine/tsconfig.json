@@ -10,14 +10,14 @@
     "allowSyntheticDefaultImports": true, // allows import React from 'react' rather than import * as React from 'react'
     "downlevelIteration": true,
     "noImplicitReturns": true,
-    "noImplicitAny": true,
+    // "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "alwaysStrict": true,
+    // "strict": true,
+    // "alwaysStrict": true,
     "baseUrl": ".", // allow absolute imports to compile eg import Button from 'src/comps/Button'
     "paths": {
       "src/*": ["src/*"] // makes VSCode Auto-Import use absolute imports (from 'src/blah') rather than relative (from '../../blah')

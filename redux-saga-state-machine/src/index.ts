@@ -8,17 +8,19 @@ type ActionCreator = (
   type: string;
 };
 
+type StateMachineDescription = {
+  key: string;
+  debug?: boolean;
+  setState: ActionCreator;
+  selectState: (state: any) => string;
+  states: any;
+};
+
 // tslint:disable-next-line:no-empty
 const noop = () => {};
 
 export const createStateMachineSaga = (
-  description: {
-    key: string;
-    debug?: boolean;
-    setState: ActionCreator;
-    selectState: (state: any) => string;
-    states: any;
-  },
+  description: StateMachineDescription,
   { emit = noop }: any = {},
 ) => {
   const logger = (obj: any) => {
