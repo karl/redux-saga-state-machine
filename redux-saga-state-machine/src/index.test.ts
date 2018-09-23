@@ -112,6 +112,52 @@ describe('createStateMachineSaga', () => {
     expect(activityCancel).toHaveBeenCalled();
   });
 
+  it('cancels and restarts activities when transitioning to the same state', () => {
+    const activityStart = jest.fn();
+    const activityCancel = jest.fn();
+    const activity = function*(...args) {
+      try {
+        activityStart(...args);
+        yield delay(5000);
+      } finally {
+        if (yield cancelled()) {
+          activityCancel();
+        }
+      }
+    };
+
+    const stateMachine = {
+      key: 'test-state-machine',
+      // debug: true,
+      setState: harness.setState,
+      selectState: harness.selectState,
+      initial: 'APP',
+      states: {
+        APP: {
+          onEntryApp,
+          activities: [activity],
+          on: {
+            play: 'APP',
+          },
+        },
+        PLAYER: {},
+      },
+    };
+
+    const saga = createStateMachineSaga(stateMachine);
+
+    harness.run(saga);
+
+    expect(activityStart).toHaveBeenCalledWith({});
+    activityStart.mockClear();
+
+    const playAction = { type: 'play' };
+    harness.dispatch(playAction);
+
+    expect(activityCancel).toHaveBeenCalled();
+    expect(activityStart).toHaveBeenCalledWith(playAction);
+  });
+
   it('transitions based on redux action', () => {
     const stateMachine = {
       key: 'test-state-machine',
