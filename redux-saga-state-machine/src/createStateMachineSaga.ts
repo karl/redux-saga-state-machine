@@ -69,10 +69,10 @@ export const createStateMachineSaga = (
           });
           activities[action.data.type].cancel();
         } else {
-          const actionFunc: any = actionsMap[action.type];
+          const actionFunc: any = actionsMap[action];
           logger({
             type: 'STATE_MACHINE_ACTION',
-            label: `Action ${action.type}`,
+            label: `Action ${action}`,
             action,
             state,
             event,

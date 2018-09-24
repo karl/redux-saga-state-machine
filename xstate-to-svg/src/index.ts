@@ -64,9 +64,7 @@ const xstateToSmcDescription = (
             label = label + ` [${cond}]`;
           }
           if (transitionOption.actions && transitionOption.actions.length > 0) {
-            const actionsText = transitionOption.actions
-              .map((action: any) => action.type)
-              .join(', ');
+            const actionsText = transitionOption.actions.join(', ');
             smcTransition.action = actionsText;
             label = label + `/${actionsText}`;
           }
@@ -87,7 +85,7 @@ const xstateToSmcDescription = (
       for (const onEntry of state.onEntry) {
         triggers.push({
           type: 'entry',
-          body: onEntry.type,
+          body: onEntry,
         });
       }
     }
@@ -95,7 +93,7 @@ const xstateToSmcDescription = (
       for (const onExit of state.onExit) {
         triggers.push({
           type: 'exit',
-          body: onExit.type,
+          body: onExit,
         });
       }
     }
