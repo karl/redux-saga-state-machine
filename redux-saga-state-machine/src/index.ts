@@ -19,6 +19,121 @@ type StateMachineDescription = {
 // tslint:disable-next-line:no-empty
 const noop = () => {};
 
+const objectMap = (object, mapFn) => {
+  return Object.keys(object).reduce((result, key) => {
+    result[key] = mapFn(object[key], key);
+    return result;
+  }, {});
+};
+
+const getKeyByValue = (object, value) => {
+  return Object.keys(object).find((key) => object[key] === value);
+};
+
+let id = 0;
+
+const getActionName = (actionsMap, action) => {
+  const existing = getKeyByValue(actionsMap, action);
+  if (existing) {
+    return existing;
+  }
+
+  const simple = `${action.name}`;
+  if (
+    simple !== '' &&
+    simple !== 'null' &&
+    simple !== 'undefined' &&
+    actionsMap[simple] === undefined
+  ) {
+    return simple;
+  }
+
+  return `${action.name}-${id++}`;
+};
+
+const toXstateConfig = (config) => {
+  const actionsMap: any = {};
+
+  const mapState = (state) => {
+    const newState = {
+      ...state,
+    };
+
+    if (state.on) {
+      newState.on = objectMap(state.on, (on) => {
+        if (typeof on === 'string') {
+          return on;
+        }
+
+        const mapTransition = (transition) => {
+          const newTransition = { ...transition };
+
+          // if (transition.cond) {
+          //   const name = getActionName(actionsMap, transition.cond);
+          //   actionsMap[name] = transition.cond;
+          //   newTransition.cond = name;
+          // }
+
+          if (transition.actions) {
+            const newActions: any = [];
+            for (const action of transition.actions) {
+              const name = getActionName(actionsMap, action);
+              actionsMap[name] = action;
+              newActions.push({ type: name });
+            }
+            newTransition.actions = newActions;
+          }
+
+          return newTransition;
+        };
+
+        if (Array.isArray(on)) {
+          return on.map((transition) => mapTransition(transition));
+        }
+        return mapTransition(on);
+      });
+    }
+
+    if (state.onEntry) {
+      const name = getActionName(actionsMap, state.onEntry);
+      actionsMap[name] = state.onEntry;
+      newState.onEntry = { type: name };
+    }
+
+    if (state.onExit) {
+      const name = getActionName(actionsMap, state.onExit);
+      actionsMap[name] = state.onExit;
+      newState.onExit = { type: name };
+    }
+
+    if (state.activities) {
+      const newActivities: string[] = [];
+      for (const activity of state.activities) {
+        const name = getActionName(actionsMap, activity);
+        actionsMap[name] = activity;
+        newActivities.push(name);
+      }
+      newState.activities = newActivities;
+    }
+
+    if (state.states) {
+      newState.states = objectMap(state.states, (s) => mapState(s));
+    }
+
+    return newState;
+  };
+
+  const xstateConfig = {
+    ...config,
+    states: objectMap(config.states, (state) => mapState(state)),
+  };
+
+  return {
+    xstateConfig,
+    actionsMap,
+  };
+};
+
 export const createStateMachineSaga = (
   description: StateMachineDescription,
   { emit = noop }: any = {},
@@ -45,44 +160,50 @@ export const createStateMachineSaga = (
   }): SagaIterator {
     const activities: any[] = [];
 
+    const { setState, selectState, ...config } = description;
+    const { xstateConfig, actionsMap } = toXstateConfig(config);
+
     const runActions = function*(result: any, event: any) {
       for (const action of result.actions as any[]) {
         if (action.type === 'xstate.start') {
+          const actionFunc = actionsMap[action.data.type];
           logger({
             type: 'STATE_MACHINE_START_ACTIVITY',
-            label: `Start activity ${action.data.name}`,
-            activity: action.data,
+            label: `Start activity ${action.data.type}`,
+            action,
             state,
           });
-          activities[action.data.name] = yield fork(action.data, event);
+          activities[action.data.type] = yield fork(actionFunc, event);
         } else if (action.type === 'xstate.stop') {
           logger({
             type: 'STATE_MACHINE_STOP_ACTIVITY',
-            label: `Stop activity ${action.data.name}`,
-            activity: action.data,
+            label: `Stop activity ${action.data.type}`,
+            action,
             state,
           });
-          activities[action.data.name].cancel();
+          activities[action.data.type].cancel();
         } else {
+          const actionFunc: any = actionsMap[action.type];
           logger({
             type: 'STATE_MACHINE_ACTION',
-            label: `Action ${action.name}`,
+            label: `Action ${action.type}`,
             action,
             state,
             event,
           });
-          action({ getState, dispatch }, event);
+          actionFunc({ getState, dispatch }, event);
         }
       }
     };
 
-    const { setState, selectState, ...config } = description;
-    const machine = Machine(config);
+    const machine = Machine(xstateConfig);
 
     logger({
       type: 'STATE_MACHINE_START',
       label: `Starting ${description.key}`,
       description,
+      xstateConfig,
+      actionsMap,
     });
 
     const initial = machine.initialState;

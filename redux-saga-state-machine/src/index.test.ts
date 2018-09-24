@@ -12,6 +12,15 @@ describe('createStateMachineSaga', () => {
   };
   const onEntryApp = jest.fn();
 
+  // Use this for debugging as it fully expands objects (the default console.log
+  // leave sub objects opaque).
+  // @ts-ignore
+  const emit = (emitted) => {
+    const { key, type, label, ...details } = emitted;
+    // tslint:disable-next-line:no-console
+    console.log(key, label, JSON.stringify(details, null, 2));
+  };
+
   let harness: any;
   beforeEach(() => {
     harness = createHarness();
@@ -113,8 +122,7 @@ describe('createStateMachineSaga', () => {
     expect(activityCancel).toHaveBeenCalled();
   });
 
-  // Currently broken in xstate 3.3.3
-  it.skip('activities remain running when transitioning to the same state', () => {
+  it('when internal activities remain running when transitioning to the same state', () => {
     const activityCancel = jest.fn();
     const activity = function*() {
       try {
@@ -137,7 +145,7 @@ describe('createStateMachineSaga', () => {
           onEntryApp,
           activities: [activity],
           on: {
-            play: 'APP',
+            play: [{ target: 'APP', internal: true }],
           },
         },
         PLAYER: {},
