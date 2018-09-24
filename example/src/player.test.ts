@@ -3,7 +3,10 @@ import * as lolex from 'lolex';
 import * as path from 'path';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { createStateMachineSaga } from 'redux-saga-state-machine';
+import {
+  createStateMachineSaga,
+  toXstateConfig,
+} from 'redux-saga-state-machine';
 import { xstateToSvg } from '../../xstate-to-svg/dist';
 import {
   actions,
@@ -16,8 +19,8 @@ import {
 
 describe('state machine', () => {
   it('generate visualisation', () => {
-    // @ts-ignore
-    const svg = xstateToSvg(stateMachine);
+    const { xstateConfig } = toXstateConfig(stateMachine);
+    const svg = xstateToSvg(xstateConfig);
     fs.writeFileSync(path.resolve(__dirname, 'player.svg'), svg, {
       encoding: 'utf8',
     });
