@@ -3,13 +3,13 @@ module.exports = {
   initial: 'home',
   states: {
     home: {
-      onEntry: [{ type: 'getContent' }],
+      onEntry: ['getContent'],
       on: {
         PLAY: 'player',
       },
     },
     player: {
-      onEntry: [{ type: 'trackPlay' }, { type: 'getNextEpisode' }],
+      onEntry: ['trackPlay', 'getNextEpisode'],
       on: {
         CLOSE: 'home',
       },

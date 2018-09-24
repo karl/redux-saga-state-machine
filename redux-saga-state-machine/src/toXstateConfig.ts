@@ -61,7 +61,7 @@ export const toXstateConfig = (description) => {
             for (const action of transition.actions) {
               const name = getActionName(actionsMap, action);
               actionsMap[name] = action;
-              newActions.push({ type: name });
+              newActions.push(name);
             }
             newTransition.actions = newActions;
           }
@@ -81,7 +81,7 @@ export const toXstateConfig = (description) => {
       for (const onEntry of state.onEntry) {
         const name = getActionName(actionsMap, onEntry);
         actionsMap[name] = onEntry;
-        newOnEntry.push({ type: name });
+        newOnEntry.push(name);
       }
       newState.onEntry = newOnEntry;
     }
@@ -91,7 +91,7 @@ export const toXstateConfig = (description) => {
       for (const onExit of state.onExit) {
         const name = getActionName(actionsMap, onExit);
         actionsMap[name] = onExit;
-        newOnExit.push({ type: name });
+        newOnExit.push(name);
       }
       newState.onExit = newOnExit;
     }
