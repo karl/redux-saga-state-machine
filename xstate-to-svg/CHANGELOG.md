@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/karl/redux-saga-state-machine/compare/v0.8.2...v0.9.0) (2018-09-24)
+
+
+### Features
+
+* Use simpler action string for now ([#136](https://github.com/karl/redux-saga-state-machine/issues/136)) ([93b7069](https://github.com/karl/redux-saga-state-machine/commit/93b7069))
+
+
+
+
+
 <a name="0.8.2"></a>
 ## [0.8.2](https://github.com/karl/redux-saga-state-machine/compare/v0.8.1...v0.8.2) (2018-09-24)
 
