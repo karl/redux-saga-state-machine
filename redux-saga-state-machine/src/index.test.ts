@@ -45,7 +45,7 @@ describe('createStateMachineSaga', () => {
     expect(harness.state.machineState).toEqual('APP');
   });
 
-  it('run activities (but not onEntry) for initial state', () => {
+  it('run activities and onEntry for initial state', () => {
     const stateMachine = {
       key: 'test-state-machine',
       // debug: true,
@@ -54,7 +54,7 @@ describe('createStateMachineSaga', () => {
       initial: 'APP',
       states: {
         APP: {
-          onEntryApp,
+          onEntry: onEntryApp,
           activities: [activity1],
           on: {
             play: 'PLAYER',
@@ -68,7 +68,8 @@ describe('createStateMachineSaga', () => {
 
     harness.run(saga);
 
-    // Note: Initial activities are passed an empty action object (no type field!)
+    // Note: Initial activities and onEntry are passed an empty action object (no type field!)
+    expect(onEntryApp).toHaveBeenCalledWith(harness.firstArg, {});
     expect(activity1Inner).toHaveBeenCalledWith({});
   });
 
@@ -112,12 +113,11 @@ describe('createStateMachineSaga', () => {
     expect(activityCancel).toHaveBeenCalled();
   });
 
-  it('cancels and restarts activities when transitioning to the same state', () => {
-    const activityStart = jest.fn();
+  // Currently broken in xstate 3.3.3
+  it.skip('activities remain running when transitioning to the same state', () => {
     const activityCancel = jest.fn();
-    const activity = function*(...args) {
+    const activity = function*() {
       try {
-        activityStart(...args);
         yield delay(5000);
       } finally {
         if (yield cancelled()) {
@@ -148,14 +148,10 @@ describe('createStateMachineSaga', () => {
 
     harness.run(saga);
 
-    expect(activityStart).toHaveBeenCalledWith({});
-    activityStart.mockClear();
-
     const playAction = { type: 'play' };
     harness.dispatch(playAction);
 
-    expect(activityCancel).toHaveBeenCalled();
-    expect(activityStart).toHaveBeenCalledWith(playAction);
+    expect(activityCancel).not.toHaveBeenCalled();
   });
 
   it('transitions based on redux action', () => {
