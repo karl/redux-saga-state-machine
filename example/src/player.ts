@@ -120,7 +120,7 @@ export const stateMachine = {
   initial: states.APP,
   states: {
     [states.APP]: {
-      onEntry: onEntryApp,
+      onEntry: [onEntryApp],
       on: {
         [constants.PLAY]: states.PLAYING,
       },

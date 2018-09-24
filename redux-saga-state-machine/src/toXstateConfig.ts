@@ -77,15 +77,23 @@ export const toXstateConfig = (description) => {
     }
 
     if (state.onEntry) {
-      const name = getActionName(actionsMap, state.onEntry);
-      actionsMap[name] = state.onEntry;
-      newState.onEntry = { type: name };
+      const newOnEntry: any = [];
+      for (const onEntry of state.onEntry) {
+        const name = getActionName(actionsMap, onEntry);
+        actionsMap[name] = onEntry;
+        newOnEntry.push({ type: name });
+      }
+      newState.onEntry = newOnEntry;
     }
 
     if (state.onExit) {
-      const name = getActionName(actionsMap, state.onExit);
-      actionsMap[name] = state.onExit;
-      newState.onExit = { type: name };
+      const newOnExit: any = [];
+      for (const onExit of state.onExit) {
+        const name = getActionName(actionsMap, onExit);
+        actionsMap[name] = onExit;
+        newOnExit.push({ type: name });
+      }
+      newState.onExit = newOnExit;
     }
 
     if (state.activities) {

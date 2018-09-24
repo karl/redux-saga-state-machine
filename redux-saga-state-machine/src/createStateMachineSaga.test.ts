@@ -63,7 +63,7 @@ describe('createStateMachineSaga', () => {
       initial: 'APP',
       states: {
         APP: {
-          onEntry: onEntryApp,
+          onEntry: [onEntryApp],
           activities: [activity1],
           on: {
             play: 'PLAYER',
@@ -102,7 +102,7 @@ describe('createStateMachineSaga', () => {
       initial: 'APP',
       states: {
         APP: {
-          onEntryApp,
+          onEntry: [onEntryApp],
           activities: [activity],
           on: {
             play: 'PLAYER',
@@ -142,7 +142,7 @@ describe('createStateMachineSaga', () => {
       initial: 'APP',
       states: {
         APP: {
-          onEntryApp,
+          onEntry: [onEntryApp],
           activities: [activity],
           on: {
             play: [{ target: 'APP', internal: true }],
