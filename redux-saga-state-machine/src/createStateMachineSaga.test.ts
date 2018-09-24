@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga';
 import { cancelled } from 'redux-saga/effects';
-import { createStateMachineSaga } from './index';
+import { createStateMachineSaga } from '.';
 import { createHarness } from './testing/createHarness';
 
 describe('createStateMachineSaga', () => {
