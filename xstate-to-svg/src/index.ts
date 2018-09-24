@@ -84,16 +84,20 @@ const xstateToSmcDescription = (
 
     const triggers = [];
     if (state.onEntry) {
-      triggers.push({
-        type: 'entry',
-        body: state.onEntry.type,
-      });
+      for (const onEntry of state.onEntry) {
+        triggers.push({
+          type: 'entry',
+          body: onEntry.type,
+        });
+      }
     }
     if (state.onExit) {
-      triggers.push({
-        type: 'exit',
-        body: state.onExit.type,
-      });
+      for (const onExit of state.onExit) {
+        triggers.push({
+          type: 'exit',
+          body: onExit.type,
+        });
+      }
     }
     if (state.activities) {
       for (const activity of state.activities) {
