@@ -98,8 +98,8 @@ const xstateToSmcDescription = (
     if (state.activities) {
       for (const activity of state.activities) {
         triggers.push({
-          type: 'entry',
-          body: '(activity) ' + activity,
+          type: 'activity',
+          body: activity,
         });
       }
     }
@@ -108,6 +108,13 @@ const xstateToSmcDescription = (
       const activities = triggers.map(({ type, body }) => `${type}/${body}`);
       smcState.activities = activities.join('\n');
     }
+
+    // State Machine Cat only supports `entry` and `exit` triggers.
+    triggers.forEach((trigger) => {
+      if (trigger.type === 'activity') {
+        trigger.type = 'entry';
+      }
+    });
 
     if (state.states) {
       smcState.statemachine = xstateToSmcDescription(state, prefix + stateName);
