@@ -27,6 +27,8 @@ const getActionName = (actionsMap, action) => {
     return simple;
   }
 
+  // TODO: Handle name being empty.
+  // TODO: What do we do about minified names?
   return `${action.name}-${id++}`;
 };
 
