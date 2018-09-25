@@ -13,6 +13,9 @@ describe('createStateMachineSaga', () => {
     console.log(key, label, JSON.stringify(details, null, 2));
   };
 
+  const play = () => ({ type: 'play' });
+  const sameInternal = () => ({ type: 'sameInternal' });
+
   let harness;
   let action1;
   let action2;
@@ -21,6 +24,7 @@ describe('createStateMachineSaga', () => {
   let activityCancel;
   let activity;
   let stateMachine;
+  let saga;
   beforeEach(() => {
     harness = createHarness();
 
@@ -60,6 +64,8 @@ describe('createStateMachineSaga', () => {
         PLAYER: {},
       },
     };
+
+    saga = createStateMachineSaga(stateMachine);
   });
 
   afterEach(() => {
@@ -67,65 +73,39 @@ describe('createStateMachineSaga', () => {
   });
 
   it('gets initial state from description', () => {
-    const saga = createStateMachineSaga(stateMachine);
-
     harness.run(saga);
-
     expect(harness.state.machineState).toEqual('APP');
   });
 
   it('run activities and onEntry for initial state', () => {
-    const saga = createStateMachineSaga(stateMachine);
-
     harness.run(saga);
-
     // Note: Initial activities and onEntry are passed an empty action object (no type field!)
     expect(onEntryApp).toHaveBeenCalledWith(harness.firstArg, {});
     expect(activityStart).toHaveBeenCalledWith({});
   });
 
   it('cancels initial state activities when transitioning to a new state', () => {
-    const saga = createStateMachineSaga(stateMachine);
-
     harness.run(saga);
-
-    const playAction = { type: 'play' };
-    harness.dispatch(playAction);
-
+    harness.dispatch(play());
     expect(activityCancel).toHaveBeenCalled();
   });
 
   it('when transition is internal activities remain running when transitioning to the same state', () => {
-    const saga = createStateMachineSaga(stateMachine);
-
     harness.run(saga);
-
-    const internalAction = { type: 'sameInternal' };
-    harness.dispatch(internalAction);
-
+    harness.dispatch(sameInternal());
     expect(activityCancel).not.toHaveBeenCalled();
   });
 
   it('runs actions even when the state remains unchanged', () => {
-    const saga = createStateMachineSaga(stateMachine);
-
     harness.run(saga);
-
-    const internalAction = { type: 'sameInternal' };
-    harness.dispatch(internalAction);
-
-    expect(action1).toHaveBeenCalledWith(harness.firstArg, internalAction);
-    expect(action2).toHaveBeenCalledWith(harness.firstArg, internalAction);
+    harness.dispatch(sameInternal());
+    expect(action1).toHaveBeenCalledWith(harness.firstArg, sameInternal());
+    expect(action2).toHaveBeenCalledWith(harness.firstArg, sameInternal());
   });
 
   it('transitions based on redux action', () => {
-    const saga = createStateMachineSaga(stateMachine);
-
     harness.run(saga);
-
-    const playAction = { type: 'play' };
-    harness.dispatch(playAction);
-
+    harness.dispatch(play());
     expect(harness.state.machineState).toEqual('PLAYER');
   });
 });
