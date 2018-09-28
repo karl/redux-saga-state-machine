@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.10.0"></a>
+# [0.10.0](https://github.com/karl/redux-saga-state-machine/compare/v0.9.0...v0.10.0) (2018-09-28)
+
+
+### Features
+
+* No longer pass dispatch to conditionals ([#146](https://github.com/karl/redux-saga-state-machine/issues/146)) ([afcd201](https://github.com/karl/redux-saga-state-machine/commit/afcd201))
+
+
+
+
+
 <a name="0.9.0"></a>
 # [0.9.0](https://github.com/karl/redux-saga-state-machine/compare/v0.8.2...v0.9.0) (2018-09-24)
 
