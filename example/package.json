@@ -1,7 +1,7 @@
 {
   "name": "example",
   "private": true,
-  "version": "0.10.0",
+  "version": "0.10.1",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
@@ -43,7 +43,7 @@
     "react-redux": "5.0.7",
     "redux": "4.0.0",
     "redux-saga": "0.16.0",
-    "redux-saga-state-machine": "^0.10.0",
+    "redux-saga-state-machine": "^0.10.1",
     "xstate": "3.3.3"
   }
 }
