@@ -22,12 +22,14 @@ yarn add redux redux-saga xstate
 
 ## Using
 
+See a [minimal example on Code Sandbox](https://codesandbox.io/s/ol1rko7l35?expanddevtools=1)
+
 ```js
 import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
 
-const setStateMachineState = (stateMachineState) => {
+const setStateMachineState = stateMachineState => {
   return { type: 'SET_STATE', payload: stateMachineState };
 };
 const press = () => {
@@ -36,7 +38,7 @@ const press = () => {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case value:
+    case 'SET_STATE':
       return {
         ...state,
         stateMachineState: action.payload,
@@ -44,7 +46,7 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-}
+};
 
 const saga = createStateMachineSaga({
   initial: 'CLOSED',
@@ -52,12 +54,12 @@ const saga = createStateMachineSaga({
   states: {
     CLOSED: {
       on: {
-        'press': 'OPEN',
+        PRESS: 'OPEN',
       },
     },
     OPEN: {
       on: {
-        'press': 'CLOSED',
+        PRESS: 'CLOSED',
       },
     },
   },
@@ -71,15 +73,14 @@ sagaMiddleware.run(saga, {
   dispatch: store.dispatch,
 });
 
-console.log(getState().stateMachineState);
+console.log(store.getState().stateMachineState);
 // 'CLOSED'
 
-dispatch(press());
-console.log(getState().stateMachineState);
+store.dispatch(press());
+console.log(store.getState().stateMachineState);
 // 'OPEN'
 
-dispatch(press());
-console.log(getState().stateMachineState);
+store.dispatch(press());
+console.log(store.getState().stateMachineState);
 // 'CLOSED'
-
 ```
