@@ -97,26 +97,13 @@ const xstateToSmcDescription = (
         });
       }
     }
-    if (state.activities) {
-      for (const activity of state.activities) {
-        triggers.push({
-          type: 'activity',
-          body: activity,
-        });
-      }
-    }
     if (triggers.length > 0) {
       smcState.triggers = triggers;
-      const activities = triggers.map(({ type, body }) => `${type}/${body}`);
-      smcState.activities = activities.join('\n');
     }
 
-    // State Machine Cat only supports `entry` and `exit` triggers.
-    triggers.forEach((trigger) => {
-      if (trigger.type === 'activity') {
-        trigger.type = 'entry';
-      }
-    });
+    if (state.activities && state.activities.length > 0) {
+      smcState.activities = state.activities;
+    }
 
     if (state.states) {
       smcState.statemachine = xstateToSmcDescription(state, prefix + stateName);
