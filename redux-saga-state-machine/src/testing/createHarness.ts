@@ -7,8 +7,13 @@ type Harness = {
     machineState: any;
   };
   dispatch: jest.Mock<{}>;
-  firstArg: {
+  actionArg: {
     dispatch: jest.Mock<{}>;
+    getState: jest.Mock<{
+      machineState: any;
+    }>;
+  };
+  condArg: {
     getState: jest.Mock<{
       machineState: any;
     }>;
@@ -47,8 +52,11 @@ export const createHarness = (): Harness => {
     };
   };
 
-  const firstArg = {
+  const actionArg = {
     dispatch,
+    getState,
+  };
+  const condArg = {
     getState,
   };
 
@@ -71,7 +79,8 @@ export const createHarness = (): Harness => {
     clock,
     state,
     dispatch,
-    firstArg,
+    actionArg,
+    condArg,
     setState,
     selectState,
     run,

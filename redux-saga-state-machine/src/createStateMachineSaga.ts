@@ -122,7 +122,7 @@ export const createStateMachineSaga = (
         state,
       });
 
-      const result = machine.transition(state, event, { getState, dispatch });
+      const result = machine.transition(state, event, { getState });
       if (result.value === state) {
         logger({
           type: 'STATE_MACHINE_NO_TRANSITION',
