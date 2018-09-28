@@ -17,41 +17,38 @@ describe('createStateMachineSaga', () => {
     play: () => ({ type: 'play' }),
     playInternal: () => ({ type: 'playInternal' }),
     sameInternal: () => ({ type: 'sameInternal' }),
+    falseConditional: () => ({ type: 'falseConditional' }),
+    trueConditional: () => ({ type: 'trueConditional' }),
     unknown: () => ({ type: 'unknown' }),
   };
 
+  const action1 = jest.fn();
+  const action2 = jest.fn();
+  const activityStarted = jest.fn();
+  const onEntryApp = jest.fn();
+  const onExitApp = jest.fn();
+  const activityCancelled = jest.fn();
+  const activityComplete = jest.fn();
+  const condTrue = jest.fn(() => true);
+  const condFalse = jest.fn(() => false);
+  const activity = function*(action) {
+    try {
+      activityStarted(action);
+      yield delay(5000);
+      activityComplete();
+    } finally {
+      if (yield cancelled()) {
+        activityCancelled();
+      }
+    }
+  };
+
   let harness;
-  let action1;
-  let action2;
-  let activityStarted;
-  let onEntryApp;
-  let onExitApp;
-  let activityCancelled;
-  let activityComplete;
-  let activity;
   let stateMachine;
   let saga;
   beforeEach(() => {
+    jest.clearAllMocks();
     harness = createHarness();
-
-    action1 = jest.fn();
-    action2 = jest.fn();
-    activityStarted = jest.fn();
-    onEntryApp = jest.fn();
-    onExitApp = jest.fn();
-    activityCancelled = jest.fn();
-    activityComplete = jest.fn();
-    activity = function*(action) {
-      try {
-        activityStarted(action);
-        yield delay(5000);
-        activityComplete();
-      } finally {
-        if (yield cancelled()) {
-          activityCancelled();
-        }
-      }
-    };
 
     stateMachine = {
       key: 'test-state-machine',
@@ -70,6 +67,8 @@ describe('createStateMachineSaga', () => {
             sameInternal: [
               { target: 'APP', internal: true, actions: [action1, action2] },
             ],
+            falseConditional: [{ target: 'PLAYER', cond: condFalse }],
+            trueConditional: [{ target: 'PLAYER', cond: condTrue }],
           },
         },
         PLAYER: {},
@@ -164,5 +163,26 @@ describe('createStateMachineSaga', () => {
     expect(onEntryApp).not.toHaveBeenCalled();
     expect(onExitApp).not.toHaveBeenCalled();
     expect(activityCancelled).not.toHaveBeenCalled();
+  });
+
+  it('when conditional returns false, state is unchanged and activities keep running', () => {
+    harness.run(saga);
+    jest.clearAllMocks();
+    harness.dispatch(actions.falseConditional());
+    expect(condFalse).toHaveBeenCalledWith(
+      harness.firstArg,
+      actions.falseConditional(),
+      'APP',
+    );
+    expect(onEntryApp).not.toHaveBeenCalled();
+    expect(onExitApp).not.toHaveBeenCalled();
+    expect(activityCancelled).not.toHaveBeenCalled();
+  });
+
+  it('when conditional returns true transitions to new state', () => {
+    harness.run(saga);
+    jest.clearAllMocks();
+    harness.dispatch(actions.trueConditional());
+    expect(harness.state.machineState).toEqual('PLAYER');
   });
 });
