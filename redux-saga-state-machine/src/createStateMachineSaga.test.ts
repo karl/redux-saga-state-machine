@@ -90,7 +90,7 @@ describe('createStateMachineSaga', () => {
   it('run activities and onEntry for initial state', () => {
     harness.run(saga);
     // Note: Initial activities and onEntry are passed an empty action object (no type field!)
-    expect(onEntryApp).toHaveBeenCalledWith(harness.firstArg, {});
+    expect(onEntryApp).toHaveBeenCalledWith(harness.actionArg, {});
     expect(activityStarted).toHaveBeenCalledWith({});
   });
 
@@ -126,11 +126,11 @@ describe('createStateMachineSaga', () => {
     harness.run(saga);
     harness.dispatch(actions.sameInternal());
     expect(action1).toHaveBeenCalledWith(
-      harness.firstArg,
+      harness.actionArg,
       actions.sameInternal(),
     );
     expect(action2).toHaveBeenCalledWith(
-      harness.firstArg,
+      harness.actionArg,
       actions.sameInternal(),
     );
   });
@@ -144,14 +144,14 @@ describe('createStateMachineSaga', () => {
   it('when leaving a state runs onExit', () => {
     harness.run(saga);
     harness.dispatch(actions.play());
-    expect(onExitApp).toHaveBeenCalledWith(harness.firstArg, actions.play());
+    expect(onExitApp).toHaveBeenCalledWith(harness.actionArg, actions.play());
   });
 
   it('when leaving a state, if the transition is marked as internal but moves to a different state,  runs onExit', () => {
     harness.run(saga);
     harness.dispatch(actions.playInternal());
     expect(onExitApp).toHaveBeenCalledWith(
-      harness.firstArg,
+      harness.actionArg,
       actions.playInternal(),
     );
   });
@@ -170,7 +170,7 @@ describe('createStateMachineSaga', () => {
     jest.clearAllMocks();
     harness.dispatch(actions.falseConditional());
     expect(condFalse).toHaveBeenCalledWith(
-      harness.firstArg,
+      harness.condArg,
       actions.falseConditional(),
       'APP',
     );
