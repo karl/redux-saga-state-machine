@@ -1,16 +1,12 @@
-# redux-saga-state-machine
+# Redux Saga State Machine (Parent Repo)
 
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&identifier=130120161)](https://dependabot.com)
 
-Redux Saga based state machines.
-
 **A work in progress**
 
-## Example
+[Go here for the Redux Saga State Machine package](./redux-saga-state-machine).
 
-https://redux-saga-state-machine.netlify.com
-
-## Running
+## Developing
 
 Install all dependencies (and link workspace packages):
 
