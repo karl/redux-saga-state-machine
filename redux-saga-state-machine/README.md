@@ -4,7 +4,7 @@
 
 Redux Saga based state machine runner.
 
-## Example
+## Docs
 
 https://redux-saga-state-machine.netlify.com
 

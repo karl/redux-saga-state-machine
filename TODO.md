@@ -2,6 +2,10 @@
 
 ## Code
 
+### website
+
+- Documentation.
+
 ### example
 
 - Nested & Parallel states.
@@ -9,8 +13,6 @@
 ### redux-saga-state-machine
 
 - Handle final state.
-- Work out the best way to test the runner.
-- Documentation.
 
 ### xstate-to-svg
 
