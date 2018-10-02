@@ -80,43 +80,34 @@ const xstateToSmcDescription = (
       label: stateName,
     };
 
-    const triggers = [];
+    const actions = [];
     if (state.onEntry) {
       for (const onEntry of state.onEntry) {
-        triggers.push({
+        actions.push({
           type: 'entry',
           body: onEntry,
         });
       }
     }
-    if (state.onExit) {
-      for (const onExit of state.onExit) {
-        triggers.push({
-          type: 'exit',
-          body: onExit,
-        });
-      }
-    }
     if (state.activities) {
       for (const activity of state.activities) {
-        triggers.push({
+        actions.push({
           type: 'activity',
           body: activity,
         });
       }
     }
-    if (triggers.length > 0) {
-      smcState.triggers = triggers;
-      const activities = triggers.map(({ type, body }) => `${type}/${body}`);
-      smcState.activities = activities.join('\n');
-    }
-
-    // State Machine Cat only supports `entry` and `exit` triggers.
-    triggers.forEach((trigger) => {
-      if (trigger.type === 'activity') {
-        trigger.type = 'entry';
+    if (state.onExit) {
+      for (const onExit of state.onExit) {
+        actions.push({
+          type: 'exit',
+          body: onExit,
+        });
       }
-    });
+    }
+    if (actions.length > 0) {
+      smcState.actions = actions;
+    }
 
     if (state.states) {
       smcState.statemachine = xstateToSmcDescription(state, prefix + stateName);
