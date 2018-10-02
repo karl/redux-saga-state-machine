@@ -22,7 +22,7 @@
     "@types/mkdirp": "0.5.2",
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
-    "jest-junit": "5.1.0",
+    "jest-junit": "5.2.0",
     "mkdirp": "0.5.1",
     "prettier": "1.14.3",
     "rimraf": "2.6.2",
