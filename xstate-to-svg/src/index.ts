@@ -80,29 +80,33 @@ const xstateToSmcDescription = (
       label: stateName,
     };
 
-    const triggers = [];
+    const actions = [];
     if (state.onEntry) {
       for (const onEntry of state.onEntry) {
-        triggers.push({
+        actions.push({
           type: 'entry',
           body: onEntry,
         });
       }
     }
+    if (state.activities) {
+      for (const activity of state.activities) {
+        actions.push({
+          type: 'activity',
+          body: activity,
+        });
+      }
+    }
     if (state.onExit) {
       for (const onExit of state.onExit) {
-        triggers.push({
+        actions.push({
           type: 'exit',
           body: onExit,
         });
       }
     }
-    if (triggers.length > 0) {
-      smcState.triggers = triggers;
-    }
-
-    if (state.activities && state.activities.length > 0) {
-      smcState.activities = state.activities;
+    if (actions.length > 0) {
+      smcState.actions = actions;
     }
 
     if (state.states) {
