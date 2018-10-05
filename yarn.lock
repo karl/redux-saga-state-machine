@@ -550,7 +550,7 @@
     "@types/minimatch" "*"
     "@types/node" "*"
 
-"@types/jest@23.3.3":
+"@types/jest@^23.3.0":
   version "23.3.3"
   resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.3.tgz#246ebcc52771d2327bb8e37aa971b412d9dc4237"
 
@@ -6536,9 +6536,9 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-state-machine-cat@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npmjs.org/state-machine-cat/-/state-machine-cat-4.0.0.tgz#a902cdaa40807589aaf302f5bf8c9ab220be6ab4"
+state-machine-cat@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-4.1.0.tgz#536c27b2ea1dc7e81921b4fd3d4e998c0d38aa91"
   dependencies:
     ajv "6.5.4"
     commander "2.18.0"
