@@ -5874,9 +5874,9 @@ redent@^2.0.0:
     indent-string "^3.0.0"
     strip-indent "^2.0.0"
 
-redux-saga@0.16.0:
-  version "0.16.0"
-  resolved "https://registry.npmjs.org/redux-saga/-/redux-saga-0.16.0.tgz#0a231db0a1489301dd980f6f2f88d8ced418f724"
+redux-saga@0.16.1:
+  version "0.16.1"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.1.tgz#aa43d2ac029dab57f7f522b143f7db179a9e1324"
 
 redux@4.0.0, redux@^4.0.0:
   version "4.0.0"
@@ -6536,7 +6536,7 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-state-machine-cat@4.1.0:
+state-machine-cat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-4.1.0.tgz#536c27b2ea1dc7e81921b4fd3d4e998c0d38aa91"
   dependencies:
