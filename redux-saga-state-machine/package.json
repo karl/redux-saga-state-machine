@@ -27,7 +27,7 @@
     "lolex": "2.7.5",
     "prettier": "1.14.3",
     "redux": "4.0.0",
-    "redux-saga": "0.16.0",
+    "redux-saga": "0.16.1",
     "ts-jest": "23.10.3",
     "tslint": "5.11.0",
     "tslint-config-prettier": "1.15.0",
