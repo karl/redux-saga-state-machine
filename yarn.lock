@@ -592,9 +592,9 @@
     "@types/react" "*"
     redux "^4.0.0"
 
-"@types/react@*", "@types/react@16.4.14":
-  version "16.4.14"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.14.tgz#47c604c8e46ed674bbdf4aabf82b34b9041c6a04"
+"@types/react@*", "@types/react@16.4.16":
+  version "16.4.16"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.4.16.tgz#99f91b1200ae8c2062030402006d3b3c3a177043"
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -6536,7 +6536,7 @@ stack-utils@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/stack-utils/-/stack-utils-1.0.1.tgz#d4f33ab54e8e38778b0ca5cfd3b3afb12db68620"
 
-state-machine-cat@4.1.0:
+state-machine-cat@^4.0.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-4.1.0.tgz#536c27b2ea1dc7e81921b4fd3d4e998c0d38aa91"
   dependencies:
