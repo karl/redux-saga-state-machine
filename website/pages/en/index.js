@@ -8,6 +8,10 @@ const GridBlock = CompLibrary.GridBlock;
 
 const siteConfig = require(`${process.cwd()}/siteConfig.js`);
 
+const isDevelopment = () => {
+  return process.env.NODE_ENV === 'development';
+}
+
 function imgUrl(img) {
   return `${siteConfig.baseUrl}img/${img}`;
 }
@@ -77,7 +81,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle />
           <PromoSection>
-            <Button href={pageUrl('example', language)}>Example</Button>
+            <Button href={isDevelopment() ? 'http://localhost:8081' : pageUrl('example', language)}>Example</Button>
             <Button href="https://codesandbox.io/s/ol1rko7l35?expanddevtools=1">Try it out on Code Sandbox</Button>
           </PromoSection>
         </div>
