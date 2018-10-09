@@ -1,6 +1,6 @@
 {
   "name": "xstate-to-svg",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Generate svg image from xstate json",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
