@@ -24,7 +24,7 @@
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
     "jest-junit": "5.2.0",
-    "lolex": "2.7.5",
+    "lolex": "3.0.0",
     "prettier": "1.14.3",
     "redux": "4.0.0",
     "redux-saga": "0.16.1",
