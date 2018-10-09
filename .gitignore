@@ -8,3 +8,6 @@
 /junit.xml
 /redux-saga-state-machine/junit.xml
 /xstate-to-svg/junit.xml
+/website/build
+/website/static/example
+/website/node_modules

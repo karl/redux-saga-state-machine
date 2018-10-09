@@ -1,2 +1,6 @@
 [build.environment]
-  YARN_VERSION = '1.9.4'
+  YARN_VERSION = '1.10.1'
+
+[build]
+  publish = "website/build/redux-saga-state-machine"
+  command = "yarn run build"
