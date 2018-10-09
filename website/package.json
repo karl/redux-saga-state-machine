@@ -5,7 +5,8 @@
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
-    "build": "cp -R ../example/dist/ ./static/example/ && docusaurus-build",
+    "prebuild": "cp -R ../example/dist/ ./static/example/",
+    "build": "docusaurus-build",
     "publish-gh-pages": "docusaurus-publish",
     "write-translations": "docusaurus-write-translations",
     "version": "docusaurus-version",
