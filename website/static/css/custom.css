@@ -1,5 +1,27 @@
 /* your custom css */
 
+.fixedHeaderContainer,
+.navigationSlider .slidingNav ul {
+  background: rgba(255, 255, 255, 0.99);
+  color: #24292e;
+}
+
+.fixedHeaderContainer a {
+  color: #722aac;
+}
+
+.navigationSlider .slidingNav ul li a {
+  color: #24292e;
+}
+
+.navigationSlider .slidingNav ul li a:focus,
+.navigationSlider .slidingNav ul li a:hover,
+.navigationSlider .slidingNav ul li.siteNavItemActive a,
+.navigationSlider .slidingNav ul li.siteNavGroupActive a {
+  background: #ddd9e0;
+}
+
+
 @media only screen and (min-device-width: 360px) and (max-device-width: 736px) {
 }
 
