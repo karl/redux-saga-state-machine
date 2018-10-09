@@ -22,17 +22,8 @@
         "title": "Fifth Document"
       }
     },
-    "links": {
-      "Docs": "Docs",
-      "API": "API",
-      "Help": "Help",
-      "Blog": "Blog"
-    },
-    "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
-    }
+    "links": {},
+    "categories": {}
   },
   "pages-strings": {
     "Help Translate|recruit community translators for your project": "Help Translate",

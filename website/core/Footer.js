@@ -25,7 +25,7 @@ class Footer extends React.Component {
               />
             )}
           </a>
-          <div>
+          {/* <div>
             <h5>Docs</h5>
             <a href={this.docUrl('doc1.html', this.props.language)}>
               Getting Started (or other categories)
@@ -42,10 +42,10 @@ class Footer extends React.Component {
             <a href={this.pageUrl('users.html', this.props.language)}>
               User Showcase
             </a>
-          </div>
+          </div> */}
           <div>
-            <h5>More</h5>
-            <a href={`${this.props.config.baseUrl}blog`}>Blog</a>
+            <h5>Links</h5>
+            {/* <a href={`${this.props.config.baseUrl}blog`}>Blog</a> */}
             <a href={this.props.config.repoUrl}>GitHub</a>
             <a
               className="github-button"

@@ -1,6 +1,9 @@
+![Logo](../resources/logo.png)
+
+
 # Redux Saga State Machine
 
-**A work in progress**
+**⚠️ A work in progress**
 
 Redux Saga based state machine runner.
 
