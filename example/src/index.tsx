@@ -44,12 +44,12 @@ sagaMiddleware.run(trafficLightsSaga, {
 });
 
 const Header = () => {
-  return <h1>Redux Saga State Machine Example</h1>;
+  return <h1 className="header">Redux Saga State Machine Example</h1>;
 };
 
 ReactDOM.render(
   <Provider store={store}>
-    <div>
+    <div className="app">
       <Header />
       <ConnectedPlayer />
       <ConnectedTrafficLights />
