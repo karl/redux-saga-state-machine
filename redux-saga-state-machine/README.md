@@ -25,7 +25,7 @@ yarn add redux redux-saga xstate
 
 ## Using
 
-See a [minimal example on Code Sandbox](https://codesandbox.io/s/ol1rko7l35?expanddevtools=1)
+See a [minimal example on Code Sandbox](https://codesandbox.io/s/github/karl/redux-saga-state-machine/tree/master/examples/minimal)
 
 ```js
 import { applyMiddleware, createStore } from 'redux';
