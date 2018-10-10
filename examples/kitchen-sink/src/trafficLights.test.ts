@@ -7,7 +7,7 @@ import {
   createStateMachineSaga,
   toXstateConfig,
 } from 'redux-saga-state-machine';
-import { xstateToSvg } from '../../xstate-to-svg/dist';
+import { xstateToSvg } from 'xstate-to-svg';
 import {
   reducer,
   reducerKey,
