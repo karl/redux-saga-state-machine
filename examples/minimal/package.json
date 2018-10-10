@@ -1,7 +1,7 @@
 {
   "name": "redux-saga-state-machine-minimal-example",
   "private": true,
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "A minimal example of using Redux Saga State Machine",
   "main": "index.html",
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "redux": "4.0.0",
     "redux-saga": "0.16.1",
-    "redux-saga-state-machine": "0.10.3",
+    "redux-saga-state-machine": "^0.10.4",
     "xstate": "3.3.3"
   },
   "devDependencies": {
