@@ -21,7 +21,7 @@
     "junit-merge": "junit-merge ./examples/kitchen-sink/junit.xml ./redux-saga-state-machine/junit.xml ./xstate-to-svg/junit.xml --out ./junit.xml"
   },
   "devDependencies": {
-    "lerna": "3.4.1",
+    "lerna": "3.4.3",
     "junit-merge": "2.0.0"
   }
 }
