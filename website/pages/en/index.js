@@ -82,7 +82,7 @@ class HomeSplash extends React.Component {
           <ProjectTitle />
           <PromoSection>
             <Button href={isDevelopment() ? 'http://localhost:8081' : pageUrl('example', language)}>Example</Button>
-            <Button href="https://codesandbox.io/s/ol1rko7l35?expanddevtools=1">Try it out on Code Sandbox</Button>
+            <Button href="https://codesandbox.io/s/github/karl/redux-saga-state-machine/tree/master/examples/minimal">Try it out on Code Sandbox</Button>
             <Button href={siteConfig.repoUrl}>GitHub</Button>
           </PromoSection>
         </div>
