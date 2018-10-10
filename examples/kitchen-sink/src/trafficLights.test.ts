@@ -7,22 +7,23 @@ import {
   createStateMachineSaga,
   toXstateConfig,
 } from 'redux-saga-state-machine';
-import { xstateToSvg } from '../../xstate-to-svg/dist';
+import { xstateToSvg } from 'xstate-to-svg';
 import {
-  actions,
   reducer,
   reducerKey,
   selectors,
   stateMachine,
   states,
-} from './player';
+} from './trafficLights';
 
 describe('state machine', () => {
-  it('generate visualisation', () => {
-    const { xstateConfig } = toXstateConfig(stateMachine);
-    const svg = xstateToSvg(xstateConfig);
-    fs.writeFileSync(path.resolve(__dirname, 'player.svg'), svg, {
-      encoding: 'utf8',
+  describe('visualisation', () => {
+    it('generates svg', () => {
+      const { xstateConfig } = toXstateConfig(stateMachine);
+      const svg = xstateToSvg(xstateConfig);
+      fs.writeFileSync(path.resolve(__dirname, 'trafficLights.svg'), svg, {
+        encoding: 'utf8',
+      });
     });
   });
 
@@ -50,16 +51,28 @@ describe('state machine', () => {
         dispatch: store.dispatch,
       });
 
-      store.dispatch(actions.play());
-
       expect(selectors.selectCurrentState(store.getState())).toEqual(
-        states.PLAYING,
+        states.GREEN,
       );
 
-      store.dispatch(actions.stop());
-
+      clock.tick(6001);
       expect(selectors.selectCurrentState(store.getState())).toEqual(
-        states.APP,
+        states.YELLOW,
+      );
+
+      clock.tick(6001);
+      expect(selectors.selectCurrentState(store.getState())).toEqual({
+        [states.RED]: states.WALK,
+      });
+
+      clock.tick(2501);
+      expect(selectors.selectCurrentState(store.getState())).toEqual({
+        [states.RED]: states.WAIT,
+      });
+
+      clock.tick(6001 - 2501);
+      expect(selectors.selectCurrentState(store.getState())).toEqual(
+        states.GREEN,
       );
     });
   });

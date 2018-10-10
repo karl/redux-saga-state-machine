@@ -1,8 +1,8 @@
 {
-  "name": "example",
+  "name": "example-kitchen-sink",
   "private": true,
   "version": "0.10.3",
-  "main": "index.js",
+  "main": "dist/index.html",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
     "build": "webpack --config ./webpack.config.js --mode production",
