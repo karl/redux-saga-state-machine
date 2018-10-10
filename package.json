@@ -7,7 +7,7 @@
     "packages": [
       "redux-saga-state-machine",
       "xstate-to-svg",
-      "example",
+      "examples/*",
       "website"
     ]
   },
