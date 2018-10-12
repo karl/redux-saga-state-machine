@@ -7,7 +7,11 @@
       "src/*": ["src/*"], // makes VSCode Auto-Import use absolute imports (from 'src/blah') rather than relative (from '../../blah')
       "redux-saga-state-machine/*": ["../../redux-saga-state-machine/src/*"],
       "xstate-to-svg/*": ["../../xstate-to-svg/src/*"]
-    },
+    }
   },
-  "include": ["src/**/*"],  
+  "include": ["src/**/*"],
+  "references": [
+    { "path": "../../redux-saga-state-machine" },
+    { "path": "../../xstate-to-svg" }
+  ]
 }
