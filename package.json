@@ -19,7 +19,8 @@
     "build": "lerna run build",
     "publish": "lerna publish --conventional-commits --yes",
     "junit-merge": "junit-merge ./examples/kitchen-sink/junit.xml ./redux-saga-state-machine/junit.xml ./xstate-to-svg/junit.xml --out ./junit.xml",
-    "compile:watch": "tsc -b --watch examples/kitchen-sink redux-saga-state-machine xstate-to-svg"
+    "compile": "tsc -b examples/kitchen-sink redux-saga-state-machine xstate-to-svg",
+    "compile:watch": "yarn compile --watch"
   },
   "devDependencies": {
     "lerna": "3.4.3",

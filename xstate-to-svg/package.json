@@ -12,8 +12,8 @@
     "start": "tsc --watch",
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'"
+    "lint": "tslint -c ../tslint.json -p tsconfig.json src/**/*.{ts,tsx}",
+    "lint:fix": "yarn lint --fix"
   },
   "files": [
     "dist"

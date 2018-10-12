@@ -8,8 +8,8 @@
     "build": "webpack --config ./webpack.config.js --mode production",
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "lint:fix": "tslint --fix -c tslint.json 'src/**/*.ts'"
+    "lint": "tslint -c ../../tslint.json -p tsconfig.json src/**/*.{ts,tsx}",
+    "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {
     "@types/lolex": "2.1.3",
