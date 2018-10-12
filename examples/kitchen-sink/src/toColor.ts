@@ -1,4 +1,19 @@
-import stringHash from 'string-hash';
+const hashCode = (text: string) => {
+  let hash = 0;
+  let i;
+  let chr;
+  if (text.length === 0) {
+    return hash;
+  }
+  for (i = 0; i < text.length; i++) {
+    chr = text.charCodeAt(i);
+    // tslint:disable-next-line
+    hash = (hash << 5) - hash + chr;
+    // tslint:disable-next-line
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
 
 const colors = [
   '#bae1ff', // blue
@@ -14,6 +29,6 @@ const colors = [
 ];
 
 export const toColor = (key: string): string => {
-  const index = Math.round(stringHash(key) / 429496729.5);
+  const index = Math.abs(Math.round((hashCode(key) / 10) % 10));
   return colors[index];
 };
