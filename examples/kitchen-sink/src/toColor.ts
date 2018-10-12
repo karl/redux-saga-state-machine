@@ -1,4 +1,4 @@
-import * as stringHash from 'string-hash';
+import stringHash from 'string-hash';
 
 const colors = [
   '#bae1ff', // blue
