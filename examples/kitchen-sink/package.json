@@ -4,8 +4,13 @@
   "version": "0.10.5",
   "main": "src/index.html",
   "scripts": {
+<<<<<<< HEAD
     "start": "parcel src/index.html --open --port 3002",
     "build": "parcel build src/index.html --public-url .",
+=======
+    "start": "parcel src/index.html --open",
+    "build": "parcel build src/index.html",
+>>>>>>> Use Parcel to build kitchen sink example
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
     "lint": "tslint -c ../../tslint.json -p tsconfig.json src/**/*.{ts,tsx}",
