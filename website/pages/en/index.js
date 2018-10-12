@@ -24,6 +24,10 @@ function pageUrl(page, language) {
   return siteConfig.baseUrl + (language ? `${language}/` : '') + page;
 }
 
+function staticUrl(path) {
+  return siteConfig.baseUrl + path;
+}
+
 class Button extends React.Component {
   render() {
     return (
@@ -81,7 +85,7 @@ class HomeSplash extends React.Component {
         <div className="inner">
           <ProjectTitle />
           <PromoSection>
-            <Button href={isDevelopment() ? 'http://localhost:8081' : pageUrl('example', language)}>Example</Button>
+            <Button href={isDevelopment() ? 'http://localhost:3002' : staticUrl('example/')}>Example</Button>
             <Button href="https://codesandbox.io/s/github/karl/redux-saga-state-machine/tree/master/examples/minimal">Try it out on Code Sandbox</Button>
             <Button href={siteConfig.repoUrl}>GitHub</Button>
           </PromoSection>

@@ -8,7 +8,6 @@
 /examples/minimal/.cache
 /examples/minimal/dist
 /examples/minimal/node_modules
-/examples/kitchen-sink/yarn-error.log
 **/dist/**/*.js*
 **/dist/**/*.d.ts*
 **/junit.xml

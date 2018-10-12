@@ -5,8 +5,8 @@
   "description": "A minimal example of using Redux Saga State Machine",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "start": "parcel index.html --open --port 3001",
+    "build": "parcel build index.html --public-url ."
   },
   "dependencies": {
     "redux": "4.0.0",
@@ -15,7 +15,7 @@
     "xstate": "3.3.3"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.6.1"
+    "parcel-bundler": "1.10.2"
   },
   "keywords": []
 }
