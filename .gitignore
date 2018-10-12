@@ -2,11 +2,6 @@
 .DS_Store
 /yarn-error.log
 /lerna-debug.log
-/examples/kitchen-sink/dist/bundle.js
-/examples/kitchen-sink/junit.xml
-/junit.xml
-/redux-saga-state-machine/junit.xml
-/xstate-to-svg/junit.xml
 /website/build
 /website/static/example
 /website/node_modules
@@ -14,3 +9,6 @@
 /examples/minimal/dist
 /examples/minimal/node_modules
 /examples/kitchen-sink/yarn-error.log
+**/dist/**/*.js*
+**/dist/**/*.d.ts*
+**/junit.xml

@@ -18,10 +18,17 @@
     "lint": "lerna run lint",
     "build": "lerna run build",
     "publish": "lerna publish --conventional-commits --yes",
-    "junit-merge": "junit-merge ./examples/kitchen-sink/junit.xml ./redux-saga-state-machine/junit.xml ./xstate-to-svg/junit.xml --out ./junit.xml"
+    "junit-merge": "junit-merge ./examples/kitchen-sink/junit.xml ./redux-saga-state-machine/junit.xml ./xstate-to-svg/junit.xml --out ./junit.xml",
+    "compile": "tsc -b examples/kitchen-sink redux-saga-state-machine xstate-to-svg",
+    "compile:watch": "yarn compile --watch"
   },
   "devDependencies": {
+    "junit-merge": "2.0.0",
     "lerna": "3.4.3",
-    "junit-merge": "2.0.0"
+    "tslint": "5.11.0",
+    "tslint-config-prettier": "1.15.0",
+    "tslint-plugin-prettier": "2.0.0",
+    "tslint-react": "^3.6.0",
+    "typescript": "3.1.2"
   }
 }

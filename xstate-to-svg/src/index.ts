@@ -80,7 +80,7 @@ const xstateToSmcDescription = (
       label: stateName,
     };
 
-    const actions = [];
+    const actions: any[] = [];
     if (state.onEntry) {
       for (const onEntry of state.onEntry) {
         actions.push({
