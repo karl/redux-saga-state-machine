@@ -15,7 +15,7 @@
     "xstate": "3.3.3"
   },
   "devDependencies": {
-    "parcel-bundler": "1.10.2"
+    "parcel-bundler": "1.10.3"
   },
   "keywords": []
 }

@@ -21,7 +21,7 @@
     "jest-cli": "23.6.0",
     "jest-junit": "5.2.0",
     "lolex": "3.0.0",
-    "parcel-bundler": "1.10.2",
+    "parcel-bundler": "1.10.3",
     "prettier": "1.14.3",
     "react-hot-loader": "4.3.11",
     "ts-jest": "23.10.4",
