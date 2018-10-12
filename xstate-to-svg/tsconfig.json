@@ -1,29 +1,11 @@
 {
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["es6", "dom"],
-    "strictNullChecks": true,
-    "outDir": "./dist",
-    "moduleResolution": "node",
-    "sourceMap": true,
-    "declaration": true,
-    "allowSyntheticDefaultImports": true, // allows import React from 'react' rather than import * as React from 'react'
-    "downlevelIteration": true,
-    "noImplicitReturns": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "alwaysStrict": true,
+    "outDir": "dist",
     "baseUrl": ".", // allow absolute imports to compile eg import Button from 'src/comps/Button'
     "paths": {
       "src/*": ["src/*"] // makes VSCode Auto-Import use absolute imports (from 'src/blah') rather than relative (from '../../blah')
     },
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/**/*", "src/**/*.test.ts"],
-  "compileOnSave": true
+  "include": ["src/**/*"],  
 }

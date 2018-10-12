@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "target": "es5",
+    "lib": ["es6", "dom"],
+    "jsx": "react",
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "pretty": true,
+    "sourceMap": true,
+    "declaration": true, // required for typescript project references
+    "declarationMap": true, // when using project references jump to proper source
+    "allowSyntheticDefaultImports": true, // allows import React from 'react' rather than import * as React from 'react'
+    "downlevelIteration": true,
+    // "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    // "strict": true,
+    // "alwaysStrict": true,
+  },
+  "exclude": ["node_modules", "**/src/**/*.test.ts"],
+  "compileOnSave": true
+}
