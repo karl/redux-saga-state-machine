@@ -3,9 +3,9 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "src",
-    "baseUrl": ".", // allow absolute imports to compile eg import Button from 'src/comps/Button'
+    "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"], // makes VSCode Auto-Import use absolute imports (from 'src/blah') rather than relative (from '../../blah')
+      "src/*": ["src/*"],
       "redux-saga-state-machine/*": ["../../redux-saga-state-machine/src/*"],
       "xstate-to-svg/*": ["../../xstate-to-svg/src/*"]
     }

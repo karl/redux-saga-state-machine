@@ -4,8 +4,8 @@
   "version": "0.10.5",
   "main": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html",
+    "start": "parcel src/index.html --open --port 3002",
+    "build": "parcel build src/index.html --public-url .",
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
     "lint": "tslint -c ../../tslint.json -p tsconfig.json src/**/*.{ts,tsx}",
