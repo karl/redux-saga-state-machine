@@ -1,7 +1,7 @@
 {
   "name": "example-kitchen-sink",
   "private": true,
-  "version": "0.10.4",
+  "version": "0.10.5",
   "main": "dist/index.html",
   "scripts": {
     "start": "webpack-dev-server --config ./webpack.config.js --mode development",
@@ -26,11 +26,11 @@
     "react-hot-loader": "4.3.11",
     "string-hash": "1.1.3",
     "ts-jest": "23.10.4",
-    "ts-loader": "5.2.1",    
+    "ts-loader": "5.2.1",
     "webpack": "4.20.2",
     "webpack-cli": "3.1.2",
     "webpack-dev-server": "3.1.9",
-    "xstate-to-svg": "^0.10.3"
+    "xstate-to-svg": "^0.10.5"
   },
   "dependencies": {
     "kuker-emitters": "6.7.4",
@@ -39,7 +39,7 @@
     "react-redux": "5.0.7",
     "redux": "4.0.0",
     "redux-saga": "0.16.2",
-    "redux-saga-state-machine": "^0.10.4",
+    "redux-saga-state-machine": "^0.10.5",
     "xstate": "3.3.3"
   }
 }
