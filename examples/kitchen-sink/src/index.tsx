@@ -43,7 +43,16 @@ sagaMiddleware.run(trafficLightsSaga, {
 });
 
 const Header = () => {
-  return <h1 className="header">Redux Saga State Machine Example</h1>;
+  return (
+    <React.Fragment>
+      <h1 className="header">Redux Saga State Machine Example</h1>
+      {!location.hostname.endsWith('.codesandbox.io') && (
+        <a href="https://codesandbox.io/s/github/karl/redux-saga-state-machine/tree/master/examples/kitchen-sink">
+          Edit on Code Sandbox
+        </a>
+      )}
+    </React.Fragment>
+  );
 };
 
 ReactDOM.render(
