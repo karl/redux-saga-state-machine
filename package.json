@@ -16,6 +16,7 @@
     "test": "lerna run test",
     "test:ci": "lerna run test:ci",
     "lint": "lerna run lint",
+    "typecheck": "lerna run typecheck",
     "build": "lerna run build",
     "publish": "lerna publish --conventional-commits --yes",
     "junit-merge": "junit-merge ./examples/kitchen-sink/junit.xml ./redux-saga-state-machine/junit.xml ./xstate-to-svg/junit.xml --out ./junit.xml",
