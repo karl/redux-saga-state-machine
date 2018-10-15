@@ -3,4 +3,4 @@
 
 [build]
   publish = "website/build/redux-saga-state-machine"
-  command = "yarn run build"
+  command = "yarn run build:ci"
