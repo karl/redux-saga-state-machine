@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel src/index.html --open --port 3002",
     "build": "parcel build src/index.html --public-url .",
-    "build:ci": "yarn lint && yarn typecheck && yarn build",
+    "build:ci": "npm run  lint && npm run typecheck && npm run build",
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
     "lint": "tslint -c ../../tslint.json -p tsconfig.json src/**/*.{ts,tsx}",
