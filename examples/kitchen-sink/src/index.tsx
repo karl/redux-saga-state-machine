@@ -10,7 +10,7 @@ import { ConnectedPlayer } from './PlayerUI';
 import * as trafficLights from './trafficLights';
 import { ConnectedTrafficLights } from './TrafficLightsUI';
 
-const kukerAndConsoleEmit = (emitted) => {
+const kukerAndConsoleEmit = (emitted: any) => {
   emit(emitted);
   const { key, type, label, ...details } = emitted;
   // tslint:disable-next-line no-console
