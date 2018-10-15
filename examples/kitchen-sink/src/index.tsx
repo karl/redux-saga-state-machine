@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { createStateMachineSaga } from 'redux-saga-state-machine';
+import './index.css';
 import { emit } from './kukerEmitter';
 import * as player from './player';
 import { ConnectedPlayer } from './PlayerUI';
