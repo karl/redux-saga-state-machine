@@ -5,7 +5,7 @@
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
-    "prebuild": "cp -R ../examples/kitchen-sink/dist/ ./static/example/",
+    "prebuild": "rm -rf ./static/example/ && cp -R ../examples/kitchen-sink/dist/ ./static/example/",
     "build": "docusaurus-build",
     "build:ci": "npm run build",
     "publish-gh-pages": "docusaurus-publish",
