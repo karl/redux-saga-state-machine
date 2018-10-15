@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "build:ci": "yarn lint && yarn build",
     "start": "tsc --watch",
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
