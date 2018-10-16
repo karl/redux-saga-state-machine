@@ -5,26 +5,27 @@ import * as player from './player';
 const Player = ({
   currentState,
   numPlayed,
-  onPlay,
+  onShowPlayer,
   onStop,
+  onPlay,
+  onPause,
+  onShowConfirm,
+  onHideConfirm,
   onNext,
   onError,
-}: {
-  currentState: string;
-  numPlayed: number;
-  onPlay: any;
-  onStop: any;
-  onNext: any;
-  onError: any;
-}) => {
+}: any) => {
   return (
     <div>
       <h2>Player</h2>
-      <div>Current State: {currentState}</div>
+      <div>Current State: {JSON.stringify(currentState)}</div>
       <div>Num played: {numPlayed}</div>
 
       <div>
+        <button onClick={onShowPlayer}>Show player</button>
         <button onClick={onPlay}>Play</button>
+        <button onClick={onPause}>Pause</button>
+        <button onClick={onShowConfirm}>Show confirm</button>
+        <button onClick={onHideConfirm}>Hide confirm</button>
         <button onClick={onStop}>Stop</button>
         <button onClick={onNext}>Next</button>
         <button onClick={onError}>Error</button>
@@ -41,8 +42,12 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = {
-  onPlay: player.actions.play,
+  onShowPlayer: player.actions.showPlayer,
   onStop: player.actions.stop,
+  onPlay: player.actions.play,
+  onPause: player.actions.pause,
+  onShowConfirm: player.actions.showConfirm,
+  onHideConfirm: player.actions.hideConfirm,
   onNext: player.actions.next,
   onError: player.actions.error,
 };

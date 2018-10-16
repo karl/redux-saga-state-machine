@@ -13,6 +13,7 @@
 ### redux-saga-state-machine
 
 - Handle final state.
+- More unit tests.
 
 ### xstate-to-svg
 
