@@ -5,13 +5,25 @@ export const reducerKey = 'player';
 
 export const states = {
   APP: 'APP',
-  PLAYING: 'PLAYING',
+  PLAYER: 'PLAYER',
   SWITCHING: 'SWITCHING',
+
+  PLAYBACK: 'PLAYBACK',
+  PLAYING: 'PLAYING',
+  PAUSED: 'PAUSED',
+
+  CONFIRM: 'CONFIRM',
+  CONFIRM_HIDDEN: 'CONFIRM_HIDDEN',
+  CONFIRM_VISIBLE: 'CONFIRM_VISIBLE',
 };
 
 const constants = {
-  PLAY: reducerKey + '/PLAY',
+  SHOW_PLAYER: reducerKey + '/SHOW_PLAYER',
   STOP: reducerKey + '/STOP',
+  PLAY: reducerKey + '/PLAY',
+  PAUSE: reducerKey + '/PAUSE',
+  SHOW_CONFIRM: reducerKey + '/SHOW_CONFIRM',
+  HIDE_CONFIRM: reducerKey + '/HIDE_CONFIRM',
   NEXT: reducerKey + '/NEXT',
   ERROR: reducerKey + '/ERROR',
   RESET: reducerKey + '/RESET',
@@ -19,9 +31,9 @@ const constants = {
 };
 
 export const actions = {
-  play: () => {
+  showPlayer: () => {
     return {
-      type: constants.PLAY,
+      type: constants.SHOW_PLAYER,
     };
   },
   stop: () => {
@@ -37,6 +49,26 @@ export const actions = {
   error: () => {
     return {
       type: constants.ERROR,
+    };
+  },
+  play: () => {
+    return {
+      type: constants.PLAY,
+    };
+  },
+  pause: () => {
+    return {
+      type: constants.PAUSE,
+    };
+  },
+  showConfirm: () => {
+    return {
+      type: constants.SHOW_CONFIRM,
+    };
+  },
+  hideConfirm: () => {
+    return {
+      type: constants.HIDE_CONFIRM,
     };
   },
 
@@ -67,7 +99,7 @@ export const reducer = (state = initialState, action: any) => {
       currentState: action.payload.state,
     };
   }
-  if (action.type === constants.PLAY) {
+  if (action.type === constants.SHOW_PLAYER) {
     return {
       ...state,
       numPlayed: state.numPlayed + 1,
@@ -112,6 +144,11 @@ const startPlayback = function*(action: any): any {
   console.log('Start playback with action', action);
 };
 
+const exitConfirm = () => {
+  // tslint:disable-next-line:no-console
+  console.log('Hide confirm modal');
+};
+
 export const stateMachine = {
   key: 'player',
   // debug: true,
@@ -122,10 +159,10 @@ export const stateMachine = {
     [states.APP]: {
       onEntry: [onEntryApp],
       on: {
-        [constants.PLAY]: states.PLAYING,
+        [constants.SHOW_PLAYER]: states.PLAYER,
       },
     },
-    [states.PLAYING]: {
+    [states.PLAYER]: {
       activities: [startPlayback],
       on: {
         [constants.STOP]: states.APP,
@@ -135,13 +172,47 @@ export const stateMachine = {
           { target: states.APP },
         ],
       },
+      parallel: true,
+      states: {
+        [states.PLAYBACK]: {
+          initial: states.PLAYING,
+          states: {
+            [states.PLAYING]: {
+              on: {
+                [constants.PAUSE]: states.PAUSED,
+              },
+            },
+            [states.PAUSED]: {
+              on: {
+                [constants.PLAY]: states.PLAYING,
+              },
+            },
+          },
+        },
+        [states.CONFIRM]: {
+          initial: states.CONFIRM_HIDDEN,
+          onExit: [exitConfirm],
+          states: {
+            [states.CONFIRM_HIDDEN]: {
+              on: {
+                [constants.SHOW_CONFIRM]: states.CONFIRM_VISIBLE,
+              },
+            },
+            [states.CONFIRM_VISIBLE]: {
+              on: {
+                [constants.HIDE_CONFIRM]: states.CONFIRM_HIDDEN,
+              },
+            },
+          },
+        },
+      },
     },
     [states.SWITCHING]: {
       activities: [switchTimeout],
       on: {
         [constants.STOP]: [{ target: states.APP, actions: [doStop] }],
         [constants.ERROR]: states.APP,
-        [constants.PLAY]: states.PLAYING,
+        [constants.SHOW_PLAYER]: states.PLAYER,
       },
     },
   },
