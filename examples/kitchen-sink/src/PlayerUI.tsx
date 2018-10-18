@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { ConnectedMockPlayer } from './MockPlayer';
 import * as player from './player';
 
 const Player = ({
@@ -17,8 +18,8 @@ const Player = ({
   return (
     <div>
       <h2>Player</h2>
-      <div>Current State: {JSON.stringify(currentState)}</div>
-      <div>Num played: {numPlayed}</div>
+
+      <ConnectedMockPlayer />
 
       <div>
         <button onClick={onShowPlayer}>Show player</button>
@@ -30,6 +31,9 @@ const Player = ({
         <button onClick={onNext}>Next</button>
         <button onClick={onError}>Error</button>
       </div>
+
+      <div>Current State: {JSON.stringify(currentState)}</div>
+      <div>Num played: {numPlayed}</div>
     </div>
   );
 };

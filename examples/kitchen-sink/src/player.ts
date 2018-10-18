@@ -114,10 +114,47 @@ export const reducer = (state = initialState, action: any) => {
   return state;
 };
 
+const matchState = (state, ...statesArray) => {
+  if (statesArray.length === 0) {
+    return true;
+  }
+
+  const [nextState, ...rest] = statesArray;
+  if (state === nextState) {
+    return true;
+  }
+
+  if (state[nextState]) {
+    return matchState(state[nextState], ...rest);
+  }
+
+  return false;
+};
+
 export const selectors = {
   selectRoot: (state: any) => state[reducerKey],
   selectCurrentState: (state: any) => selectors.selectRoot(state).currentState,
   selectNumPlayed: (state: any) => selectors.selectRoot(state).numPlayed,
+  isInApp: (state) =>
+    matchState(selectors.selectCurrentState(state), states.APP),
+  isInPlayer: (state) =>
+    matchState(selectors.selectCurrentState(state), states.PLAYER),
+  isSwitching: (state) =>
+    matchState(selectors.selectCurrentState(state), states.SWITCHING),
+  isPlaying: (state) =>
+    matchState(
+      selectors.selectCurrentState(state),
+      states.PLAYER,
+      states.PLAYBACK,
+      states.PLAYING,
+    ),
+  isConfirmVisible: (state) =>
+    matchState(
+      selectors.selectCurrentState(state),
+      states.PLAYER,
+      states.CONFIRM,
+      states.CONFIRM_VISIBLE,
+    ),
 };
 
 const onEntryApp = ({ dispatch }: { dispatch: any }) => {
@@ -134,9 +171,9 @@ const doStop = () => {
   console.log('doStop');
 };
 
-const switchTimeout = function*() {
-  yield delay(10000);
-  yield put(actions.error());
+const doSwitch = function*() {
+  yield delay(1000);
+  yield put(actions.showPlayer());
 };
 
 const startPlayback = function*(action: any): any {
@@ -208,7 +245,7 @@ export const stateMachine = {
       },
     },
     [states.SWITCHING]: {
-      activities: [switchTimeout],
+      activities: [doSwitch],
       on: {
         [constants.STOP]: [{ target: states.APP, actions: [doStop] }],
         [constants.ERROR]: states.APP,
