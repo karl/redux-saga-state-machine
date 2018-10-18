@@ -37,7 +37,6 @@ jobs:
       - run: yarn run build:ci
       - run: yarn run test:ci
 
-      - run: yarn run junit-merge
       - store_test_results:
           path: ./junit.xml
 

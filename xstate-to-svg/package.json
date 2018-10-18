@@ -12,7 +12,6 @@
     "build:ci": "npm run lint && npm run build",
     "start": "tsc --watch",
     "test": "jest",
-    "test:ci": "jest --ci --runInBand --reporters='default' --reporters='jest-junit'",
     "lint": "tslint -c ../tslint.json -p tsconfig.json src/**/*.{ts,tsx}",
     "lint:fix": "yarn lint --fix"
   },
@@ -21,13 +20,9 @@
   ],
   "devDependencies": {
     "@types/mkdirp": "0.5.2",
-    "jest": "23.6.0",
-    "jest-cli": "23.6.0",
-    "jest-junit": "5.2.0",
     "mkdirp": "0.5.1",
     "prettier": "1.14.3",
     "rimraf": "2.6.2",
-    "ts-jest": "23.10.4",
     "xstate": "3.3.3"
   },
   "dependencies": {

@@ -14,7 +14,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    "forceConsistentCasingInFileNames": true,
     "strict": true,
     "alwaysStrict": true,
     "baseUrl": ".",
