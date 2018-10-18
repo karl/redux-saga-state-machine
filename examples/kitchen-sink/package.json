@@ -1,7 +1,7 @@
 {
   "name": "example-kitchen-sink",
   "private": true,
-  "version": "0.10.5",
+  "version": "0.10.6",
   "main": "src/index.html",
   "scripts": {
     "start": "parcel src/index.html --open --port 3002",
@@ -27,7 +27,7 @@
     "prettier": "1.14.3",
     "react-hot-loader": "4.3.11",
     "ts-jest": "23.10.4",
-    "xstate-to-svg": "^0.10.5"
+    "xstate-to-svg": "^0.10.6"
   },
   "dependencies": {
     "kuker-emitters": "6.7.4",
@@ -36,7 +36,7 @@
     "react-redux": "5.0.7",
     "redux": "4.0.1",
     "redux-saga": "0.16.2",
-    "redux-saga-state-machine": "^0.10.5",
+    "redux-saga-state-machine": "^0.10.6",
     "xstate": "3.3.3"
   }
 }
