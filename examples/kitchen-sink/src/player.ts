@@ -1,4 +1,5 @@
 import { delay } from 'redux-saga';
+import { matchState } from 'redux-saga-state-machine';
 import { put } from 'redux-saga/effects';
 
 export const reducerKey = 'player';
@@ -143,23 +144,6 @@ export const reducer = (state = initialState, action: any) => {
     };
   }
   return state;
-};
-
-const matchState = (state, ...statesArray) => {
-  if (statesArray.length === 0) {
-    return true;
-  }
-
-  const [nextState, ...rest] = statesArray;
-  if (state === nextState) {
-    return true;
-  }
-
-  if (state[nextState]) {
-    return matchState(state[nextState], ...rest);
-  }
-
-  return false;
 };
 
 export const selectors = {
