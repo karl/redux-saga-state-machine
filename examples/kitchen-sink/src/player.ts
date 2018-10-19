@@ -1,6 +1,7 @@
 import { delay } from 'redux-saga';
 import { matchState } from 'redux-saga-state-machine';
 import { put } from 'redux-saga/effects';
+import { createActions } from './createAction';
 
 export const reducerKey = 'player';
 
@@ -18,89 +19,20 @@ export const states = {
   CONFIRM_VISIBLE: 'CONFIRM_VISIBLE',
 };
 
-const constants = {
-  START_PLAYBACK: reducerKey + '/START_PLAYBACK',
-  CLOSE_PLAYER: reducerKey + '/CLOSE_PLAYER',
-  PLAY: reducerKey + '/PLAY',
-  PAUSE: reducerKey + '/PAUSE',
-  SHOW_CONFIRM: reducerKey + '/SHOW_CONFIRM',
-  HIDE_CONFIRM: reducerKey + '/HIDE_CONFIRM',
-  NEXT: reducerKey + '/NEXT',
-  ERROR: reducerKey + '/ERROR',
-  SHOW_NOTIFICATION: reducerKey + '/SHOW_NOTIFICATION',
-  HIDE_NOTIFICATION: reducerKey + '/HIDE_NOTIFICATION',
-  RESET: reducerKey + '/RESET',
-  SET_CURRENT_STATE: reducerKey + '/SET_CURRENT_STATE',
-};
-
+const createAction = createActions(reducerKey);
 export const actions = {
-  startPlayback: () => {
-    return {
-      type: constants.START_PLAYBACK,
-    };
-  },
-  closePlayer: () => {
-    return {
-      type: constants.CLOSE_PLAYER,
-    };
-  },
-  next: () => {
-    return {
-      type: constants.NEXT,
-    };
-  },
-  error: () => {
-    return {
-      type: constants.ERROR,
-    };
-  },
-  play: () => {
-    return {
-      type: constants.PLAY,
-    };
-  },
-  pause: () => {
-    return {
-      type: constants.PAUSE,
-    };
-  },
-  showConfirm: () => {
-    return {
-      type: constants.SHOW_CONFIRM,
-    };
-  },
-  hideConfirm: () => {
-    return {
-      type: constants.HIDE_CONFIRM,
-    };
-  },
-
-  showNotification: (message) => {
-    return {
-      type: constants.SHOW_NOTIFICATION,
-      payload: {
-        message,
-      },
-    };
-  },
-  hideNotification: () => {
-    return {
-      type: constants.HIDE_NOTIFICATION,
-    };
-  },
-  reset: () => {
-    return {
-      type: constants.RESET,
-    };
-  },
-  setCurrentState: (state: string) => {
-    return {
-      type: constants.SET_CURRENT_STATE,
-      payload: {
-        state,
-      },
-    };
-  },
+  startPlayback: createAction('START_PLAYBACK'),
+  closePlayer: createAction('CLOSE_PLAYER'),
+  next: createAction('NEXT'),
+  error: createAction('ERROR'),
+  play: createAction('PLAY'),
+  pause: createAction('PAUSE'),
+  showConfirm: createAction('SHOW_CONFIRM'),
+  hideConfirm: createAction('HIDE_CONFIRM'),
+  showNotification: createAction('SHOW_NOTIFICATION'),
+  hideNotification: createAction('HIDE_NOTIFICATION'),
+  reset: createAction('RESET'),
+  setCurrentState: createAction('SET_CURRENT_STATE'),
 };
 
 const initialState = {
@@ -110,33 +42,33 @@ const initialState = {
   notificationMessage: '',
 };
 
-export const reducer = (state = initialState, action: any) => {
-  if (action.type === constants.SET_CURRENT_STATE) {
+export const reducer = (state = initialState, { type, payload }: any) => {
+  if (type === actions.setCurrentState.type) {
     return {
       ...state,
-      currentState: action.payload.state,
+      currentState: payload,
     };
   }
-  if (action.type === constants.START_PLAYBACK) {
+  if (type === actions.startPlayback.type) {
     return {
       ...state,
       numPlayed: state.numPlayed + 1,
     };
   }
-  if (action.type === constants.RESET) {
+  if (type === actions.reset.type) {
     return {
       ...state,
       numPlayed: 0,
     };
   }
-  if (action.type === constants.SHOW_NOTIFICATION) {
+  if (type === actions.showNotification.type) {
     return {
       ...state,
       notificationVisible: true,
-      notificationMessage: action.payload.message,
+      notificationMessage: payload,
     };
   }
-  if (action.type === constants.HIDE_NOTIFICATION) {
+  if (type === actions.hideNotification.type) {
     return {
       ...state,
       notificationVisible: false,
@@ -220,20 +152,20 @@ export const stateMachine = {
     [states.APP]: {
       onEntry: [onEntryApp],
       on: {
-        [constants.START_PLAYBACK]: states.PLAYER,
+        [actions.startPlayback.type]: states.PLAYER,
       },
     },
     [states.PLAYER]: {
       activities: [startPlayback],
       on: {
-        [constants.CLOSE_PLAYER]: states.APP,
-        [constants.ERROR]: [
+        [actions.closePlayer.type]: states.APP,
+        [actions.error.type]: [
           {
             target: states.APP,
             actions: [showErrorNotification],
           },
         ],
-        [constants.NEXT]: [
+        [actions.next.type]: [
           { target: states.SWITCHING, cond: isNext },
           { target: states.APP },
         ],
@@ -245,12 +177,12 @@ export const stateMachine = {
           states: {
             [states.PLAYING]: {
               on: {
-                [constants.PAUSE]: states.PAUSED,
+                [actions.pause.type]: states.PAUSED,
               },
             },
             [states.PAUSED]: {
               on: {
-                [constants.PLAY]: states.PLAYING,
+                [actions.play.type]: states.PLAYING,
               },
             },
           },
@@ -261,12 +193,12 @@ export const stateMachine = {
           states: {
             [states.CONFIRM_HIDDEN]: {
               on: {
-                [constants.SHOW_CONFIRM]: states.CONFIRM_VISIBLE,
+                [actions.showConfirm.type]: states.CONFIRM_VISIBLE,
               },
             },
             [states.CONFIRM_VISIBLE]: {
               on: {
-                [constants.HIDE_CONFIRM]: states.CONFIRM_HIDDEN,
+                [actions.hideConfirm.type]: states.CONFIRM_HIDDEN,
               },
             },
           },
@@ -276,16 +208,16 @@ export const stateMachine = {
     [states.SWITCHING]: {
       activities: [doSwitch],
       on: {
-        [constants.CLOSE_PLAYER]: [
+        [actions.closePlayer.type]: [
           { target: states.APP, actions: [doCloseFromSwitching] },
         ],
-        [constants.ERROR]: [
+        [actions.error.type]: [
           {
             target: states.APP,
             actions: [showErrorNotification],
           },
         ],
-        [constants.START_PLAYBACK]: states.PLAYER,
+        [actions.startPlayback.type]: states.PLAYER,
       },
     },
   },
