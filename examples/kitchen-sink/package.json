@@ -1,7 +1,7 @@
 {
   "name": "example-kitchen-sink",
   "private": true,
-  "version": "0.10.6",
+  "version": "0.10.7",
   "main": "src/index.html",
   "scripts": {
     "start": "parcel src/index.html --port 3002",
@@ -40,7 +40,7 @@
     "react-redux": "5.0.7",
     "redux": "4.0.1",
     "redux-saga": "0.16.2",
-    "redux-saga-state-machine": "^0.10.6",
+    "redux-saga-state-machine": "^0.10.7",
     "xstate": "3.3.3"
   }
 }

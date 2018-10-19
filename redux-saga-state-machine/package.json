@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-state-machine",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "description": "Redux Saga based state machines",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
