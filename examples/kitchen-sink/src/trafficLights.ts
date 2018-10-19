@@ -1,5 +1,6 @@
 import { delay } from 'redux-saga';
 import { put } from 'redux-saga/effects';
+import { createActions } from './createAction';
 
 export const reducerKey = 'trafficLights';
 
@@ -12,43 +13,22 @@ export const states = {
   STOP: 'STOP',
 };
 
-const constants = {
-  TIMER: reducerKey + '/TIMER',
-  PED_TIMER: reducerKey + '/PED_TIMER',
-  SET_CURRENT_STATE: reducerKey + '/SET_CURRENT_STATE',
-};
-
+const createAction = createActions(reducerKey);
 export const actions = {
-  timer: () => {
-    return {
-      type: constants.TIMER,
-    };
-  },
-  pedTimer: () => {
-    return {
-      type: constants.PED_TIMER,
-    };
-  },
-
-  setCurrentState: (state: string) => {
-    return {
-      type: constants.SET_CURRENT_STATE,
-      payload: {
-        state,
-      },
-    };
-  },
+  timer: createAction('TIMER'),
+  pedTimer: createAction('PED_TIMER'),
+  setCurrentState: createAction('SET_CURRENT_STATE'),
 };
 
 const initialState = {
   currentState: null,
 };
 
-export const reducer = (state = initialState, action: any) => {
-  if (action.type === constants.SET_CURRENT_STATE) {
+export const reducer = (state = initialState, { type, payload }: any) => {
+  if (type === actions.setCurrentState.type) {
     return {
       ...state,
-      currentState: action.payload.state,
+      currentState: payload,
     };
   }
   return state;
@@ -79,32 +59,32 @@ export const stateMachine = {
     [states.GREEN]: {
       activities: [switchTimer],
       on: {
-        [constants.TIMER]: states.YELLOW,
+        [actions.timer.type]: states.YELLOW,
       },
     },
     [states.YELLOW]: {
       activities: [switchTimer],
       on: {
-        [constants.TIMER]: states.RED,
+        [actions.timer.type]: states.RED,
       },
     },
     [states.RED]: {
       activities: [switchTimer],
       on: {
-        [constants.TIMER]: states.GREEN,
+        [actions.timer.type]: states.GREEN,
       },
       initial: states.WALK,
       states: {
         [states.WALK]: {
           activities: [pedSwitchTimer],
           on: {
-            [constants.PED_TIMER]: states.WAIT,
+            [actions.pedTimer.type]: states.WAIT,
           },
         },
         [states.WAIT]: {
           activities: [pedSwitchTimer],
           on: {
-            [constants.PED_TIMER]: states.STOP,
+            [actions.pedTimer.type]: states.STOP,
           },
         },
         [states.STOP]: {},
