@@ -1,9 +1,11 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { ConnectedNotification } from './Notification';
 import { selectors } from './player';
 
 const Stage = styled.div`
+  position: relative;
   display: flex;
   width: 200px;
   height: 150px;
@@ -50,6 +52,7 @@ export const MockPlayer = ({
         </PlayerBackground>
       )}
       {isSwitching && <PlayerBackground>🌀</PlayerBackground>}
+      <ConnectedNotification />
     </Stage>
   );
 };

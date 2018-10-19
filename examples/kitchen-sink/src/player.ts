@@ -18,27 +18,29 @@ export const states = {
 };
 
 const constants = {
-  SHOW_PLAYER: reducerKey + '/SHOW_PLAYER',
-  STOP: reducerKey + '/STOP',
+  START_PLAYBACK: reducerKey + '/START_PLAYBACK',
+  CLOSE_PLAYER: reducerKey + '/CLOSE_PLAYER',
   PLAY: reducerKey + '/PLAY',
   PAUSE: reducerKey + '/PAUSE',
   SHOW_CONFIRM: reducerKey + '/SHOW_CONFIRM',
   HIDE_CONFIRM: reducerKey + '/HIDE_CONFIRM',
   NEXT: reducerKey + '/NEXT',
   ERROR: reducerKey + '/ERROR',
+  SHOW_NOTIFICATION: reducerKey + '/SHOW_NOTIFICATION',
+  HIDE_NOTIFICATION: reducerKey + '/HIDE_NOTIFICATION',
   RESET: reducerKey + '/RESET',
   SET_CURRENT_STATE: reducerKey + '/SET_CURRENT_STATE',
 };
 
 export const actions = {
-  showPlayer: () => {
+  startPlayback: () => {
     return {
-      type: constants.SHOW_PLAYER,
+      type: constants.START_PLAYBACK,
     };
   },
-  stop: () => {
+  closePlayer: () => {
     return {
-      type: constants.STOP,
+      type: constants.CLOSE_PLAYER,
     };
   },
   next: () => {
@@ -72,6 +74,19 @@ export const actions = {
     };
   },
 
+  showNotification: (message) => {
+    return {
+      type: constants.SHOW_NOTIFICATION,
+      payload: {
+        message,
+      },
+    };
+  },
+  hideNotification: () => {
+    return {
+      type: constants.HIDE_NOTIFICATION,
+    };
+  },
   reset: () => {
     return {
       type: constants.RESET,
@@ -90,6 +105,8 @@ export const actions = {
 const initialState = {
   currentState: null,
   numPlayed: 0,
+  notificationVisible: false,
+  notificationMessage: '',
 };
 
 export const reducer = (state = initialState, action: any) => {
@@ -99,7 +116,7 @@ export const reducer = (state = initialState, action: any) => {
       currentState: action.payload.state,
     };
   }
-  if (action.type === constants.SHOW_PLAYER) {
+  if (action.type === constants.START_PLAYBACK) {
     return {
       ...state,
       numPlayed: state.numPlayed + 1,
@@ -109,6 +126,20 @@ export const reducer = (state = initialState, action: any) => {
     return {
       ...state,
       numPlayed: 0,
+    };
+  }
+  if (action.type === constants.SHOW_NOTIFICATION) {
+    return {
+      ...state,
+      notificationVisible: true,
+      notificationMessage: action.payload.message,
+    };
+  }
+  if (action.type === constants.HIDE_NOTIFICATION) {
+    return {
+      ...state,
+      notificationVisible: false,
+      notificationMessage: '',
     };
   }
   return state;
@@ -135,6 +166,11 @@ export const selectors = {
   selectRoot: (state: any) => state[reducerKey],
   selectCurrentState: (state: any) => selectors.selectRoot(state).currentState,
   selectNumPlayed: (state: any) => selectors.selectRoot(state).numPlayed,
+  isNotificationVisible: (state) =>
+    selectors.selectRoot(state).notificationVisible,
+  notificationMessage: (state) =>
+    selectors.selectRoot(state).notificationMessage,
+
   isInApp: (state) =>
     matchState(selectors.selectCurrentState(state), states.APP),
   isInPlayer: (state) =>
@@ -166,14 +202,18 @@ const isNext = ({ getState }: { getState: any }) => {
   return numPlayed < 5;
 };
 
-const doStop = () => {
+const showErrorNotification = ({ dispatch }) => {
+  dispatch(actions.showNotification('Player error'));
+};
+
+const doCloseFromSwitching = () => {
   // tslint:disable-next-line:no-console
-  console.log('doStop');
+  console.log('doCloseFromSwitching');
 };
 
 const doSwitch = function*() {
   yield delay(1000);
-  yield put(actions.showPlayer());
+  yield put(actions.startPlayback());
 };
 
 const startPlayback = function*(action: any): any {
@@ -196,14 +236,19 @@ export const stateMachine = {
     [states.APP]: {
       onEntry: [onEntryApp],
       on: {
-        [constants.SHOW_PLAYER]: states.PLAYER,
+        [constants.START_PLAYBACK]: states.PLAYER,
       },
     },
     [states.PLAYER]: {
       activities: [startPlayback],
       on: {
-        [constants.STOP]: states.APP,
-        [constants.ERROR]: states.APP,
+        [constants.CLOSE_PLAYER]: states.APP,
+        [constants.ERROR]: [
+          {
+            target: states.APP,
+            actions: [showErrorNotification],
+          },
+        ],
         [constants.NEXT]: [
           { target: states.SWITCHING, cond: isNext },
           { target: states.APP },
@@ -247,9 +292,16 @@ export const stateMachine = {
     [states.SWITCHING]: {
       activities: [doSwitch],
       on: {
-        [constants.STOP]: [{ target: states.APP, actions: [doStop] }],
-        [constants.ERROR]: states.APP,
-        [constants.SHOW_PLAYER]: states.PLAYER,
+        [constants.CLOSE_PLAYER]: [
+          { target: states.APP, actions: [doCloseFromSwitching] },
+        ],
+        [constants.ERROR]: [
+          {
+            target: states.APP,
+            actions: [showErrorNotification],
+          },
+        ],
+        [constants.START_PLAYBACK]: states.PLAYER,
       },
     },
   },

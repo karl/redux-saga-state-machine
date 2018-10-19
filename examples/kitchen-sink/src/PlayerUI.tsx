@@ -6,8 +6,8 @@ import * as player from './player';
 const Player = ({
   currentState,
   numPlayed,
-  onShowPlayer,
-  onStop,
+  onStartPlayback,
+  onClosePlayer,
   onPlay,
   onPause,
   onShowConfirm,
@@ -22,14 +22,16 @@ const Player = ({
       <ConnectedMockPlayer />
 
       <div>
-        <button onClick={onShowPlayer}>Show player</button>
+        <button onClick={onStartPlayback}>Start playback</button>
+        <button onClick={onClosePlayer}>Close player</button>
+        <button onClick={onError}>Error</button>
+        <br />
         <button onClick={onPlay}>Play</button>
         <button onClick={onPause}>Pause</button>
+        <button onClick={onNext}>Next</button>
+        <br />
         <button onClick={onShowConfirm}>Show confirm</button>
         <button onClick={onHideConfirm}>Hide confirm</button>
-        <button onClick={onStop}>Stop</button>
-        <button onClick={onNext}>Next</button>
-        <button onClick={onError}>Error</button>
       </div>
 
       <div>Current State: {JSON.stringify(currentState)}</div>
@@ -46,8 +48,8 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = {
-  onShowPlayer: player.actions.showPlayer,
-  onStop: player.actions.stop,
+  onStartPlayback: player.actions.startPlayback,
+  onClosePlayer: player.actions.closePlayer,
   onPlay: player.actions.play,
   onPause: player.actions.pause,
   onShowConfirm: player.actions.showConfirm,
