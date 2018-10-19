@@ -5,7 +5,7 @@
   "description": "A minimal example of using Redux Saga State Machine",
   "main": "index.html",
   "scripts": {
-    "start": "parcel index.html --open --port 3001",
+    "start": "parcel index.html --port 3001",
     "build": "parcel build index.html --public-url .",
     "build:ci": "npm run build"
   },

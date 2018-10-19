@@ -50,13 +50,13 @@ describe('state machine', () => {
         dispatch: store.dispatch,
       });
 
-      store.dispatch(actions.showPlayer());
+      store.dispatch(actions.startPlayback());
 
       expect(selectors.selectCurrentState(store.getState())).toEqual({
         PLAYER: { CONFIRM: 'CONFIRM_HIDDEN', PLAYBACK: 'PLAYING' },
       });
 
-      store.dispatch(actions.stop());
+      store.dispatch(actions.closePlayer());
 
       expect(selectors.selectCurrentState(store.getState())).toEqual(
         states.APP,
