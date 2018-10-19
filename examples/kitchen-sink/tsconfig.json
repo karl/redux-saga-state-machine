@@ -9,12 +9,10 @@
     "sourceMap": true,
     "downlevelIteration": true,
     "noImplicitReturns": true,
-    // "noImplicitAny": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    // "strict": true,
     "alwaysStrict": true,
     "baseUrl": ".",
     "paths": {
