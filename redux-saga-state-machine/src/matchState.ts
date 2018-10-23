@@ -1,4 +1,6 @@
-export const matchState = (state, ...states) => {
+import { StateValue } from './types';
+
+export const matchState = (state: StateValue, ...states: string[]): boolean => {
   if (states.length === 0) {
     return true;
   }
@@ -6,6 +8,10 @@ export const matchState = (state, ...states) => {
   const [nextState, ...rest] = states;
   if (state === nextState) {
     return true;
+  }
+
+  if (typeof state === 'string') {
+    return false;
   }
 
   if (state[nextState]) {

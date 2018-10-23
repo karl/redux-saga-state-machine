@@ -1,5 +1,5 @@
 import { delay } from 'redux-saga';
-import { matchState } from 'redux-saga-state-machine';
+import { MachineDescription, matchState } from 'redux-saga-state-machine';
 import { put } from 'redux-saga/effects';
 import { createActions } from './createAction';
 
@@ -42,7 +42,7 @@ const initialState = {
   notificationMessage: '',
 };
 
-export const reducer = (state = initialState, { type, payload }: any) => {
+export const reducer = (state = initialState, { type, payload }) => {
   if (type === actions.setCurrentState.type) {
     return {
       ...state,
@@ -79,9 +79,9 @@ export const reducer = (state = initialState, { type, payload }: any) => {
 };
 
 export const selectors = {
-  selectRoot: (state: any) => state[reducerKey],
-  selectCurrentState: (state: any) => selectors.selectRoot(state).currentState,
-  selectNumPlayed: (state: any) => selectors.selectRoot(state).numPlayed,
+  selectRoot: (state) => state[reducerKey],
+  selectCurrentState: (state) => selectors.selectRoot(state).currentState,
+  selectNumPlayed: (state) => selectors.selectRoot(state).numPlayed,
   isNotificationVisible: (state) =>
     selectors.selectRoot(state).notificationVisible,
   notificationMessage: (state) =>
@@ -109,11 +109,11 @@ export const selectors = {
     ),
 };
 
-const onEntryApp = ({ dispatch }: { dispatch: any }) => {
+const onEntryApp = ({ dispatch }: { dispatch }) => {
   dispatch(actions.reset());
 };
 
-const isNext = ({ getState }: { getState: any }) => {
+const isNext = ({ getState }: { getState }) => {
   const numPlayed = selectors.selectNumPlayed(getState());
   return numPlayed < 5;
 };
@@ -132,7 +132,7 @@ const doSwitch = function*() {
   yield put(actions.startPlayback());
 };
 
-const startPlayback = function*(action: any): any {
+const startPlayback = function*(action) {
   // tslint:disable-next-line:no-console
   console.log('Start playback with action', action);
 };
@@ -142,7 +142,7 @@ const exitConfirm = () => {
   console.log('Hide confirm modal');
 };
 
-export const stateMachine = {
+export const stateMachine: MachineDescription = {
   key: 'player',
   // debug: true,
   setState: actions.setCurrentState,

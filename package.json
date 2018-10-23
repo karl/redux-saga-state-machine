@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "lerna run start --parallel",
+    "lint": "lerna run lint",
     "test": "jest",
     "test:ci": "jest --ci --runInBand --reporters=default --reporters=jest-junit",
     "build:ci": "lerna run build:ci",

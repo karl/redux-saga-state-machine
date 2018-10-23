@@ -1,30 +1,31 @@
-import { SagaIterator } from 'redux-saga';
+import * as redux from 'redux';
+import * as reduxSaga from 'redux-saga';
 import { fork, put, take } from 'redux-saga/effects';
-import { Machine } from 'xstate';
+import { Machine, State } from 'xstate';
+import * as xstateTypes from 'xstate/lib/types';
 import { toXstateConfig } from './toXstateConfig';
-
-type ActionCreator = (
-  state: any,
-) => {
-  type: string;
-};
-
-type StateMachineDescription = {
-  key: string;
-  debug?: boolean;
-  setState: ActionCreator;
-  selectState: (state: any) => string;
-  states: any;
-};
+import {
+  Action,
+  Activity,
+  GetState,
+  MachineDescription,
+  SagaFunction,
+} from './types';
 
 // tslint:disable-next-line:no-empty
 const noop = () => {};
 
+export const INIT = 'REDUX_SAGA_STATE_MACHINE/INIT';
+
+type Options = {
+  emit?: (obj: Record<string, any>) => void;
+};
+
 export const createStateMachineSaga = (
-  description: StateMachineDescription,
-  { emit = noop }: any = {},
-) => {
-  const logger = (obj: any) => {
+  description: MachineDescription,
+  { emit = noop }: Options = {},
+): SagaFunction => {
+  const logger = (obj: Record<string, any>) => {
     emit({
       ...obj,
       key: description.key,
@@ -41,35 +42,38 @@ export const createStateMachineSaga = (
     getState,
     dispatch,
   }: {
-    getState: any;
-    dispatch: any;
-  }): SagaIterator {
-    const activities: any[] = [];
+    getState: GetState;
+    dispatch: redux.Dispatch;
+  }): reduxSaga.SagaIterator {
+    const activities: Record<string, reduxSaga.Task> = {};
 
     const { setState } = description;
     const { xstateConfig, actionsMap } = toXstateConfig(description);
 
-    const runActions = function*(result: any, event: any) {
-      for (const action of result.actions as any[]) {
-        if (action.type === 'xstate.start') {
-          const actionFunc = actionsMap[action.data.type];
+    const runActions = function*(result: State, event: redux.Action) {
+      for (const action of result.actions) {
+        const actionObject = action as xstateTypes.ActionObject;
+        if (actionObject.type === 'xstate.start') {
+          const actionFunc = actionsMap[actionObject.data.type] as Activity;
           logger({
             type: 'STATE_MACHINE_START_ACTIVITY',
-            label: `Start activity ${action.data.type}`,
+            label: `Start activity ${actionObject.data.type}`,
             action,
             state,
           });
-          activities[action.data.type] = yield fork(actionFunc, event);
-        } else if (action.type === 'xstate.stop') {
+          activities[actionObject.data.type] = yield fork(actionFunc, event);
+        } else if (actionObject.type === 'xstate.stop') {
           logger({
             type: 'STATE_MACHINE_STOP_ACTIVITY',
-            label: `Stop activity ${action.data.type}`,
+            label: `Stop activity ${actionObject.data.type}`,
             action,
             state,
           });
-          activities[action.data.type].cancel();
+          activities[actionObject.data.type].cancel();
         } else {
-          const actionFunc: any = actionsMap[action];
+          const actionFunc = actionsMap[
+            action as xstateTypes.ActionType
+          ] as Action;
           logger({
             type: 'STATE_MACHINE_ACTION',
             label: `Action ${action}`,
@@ -101,8 +105,7 @@ export const createStateMachineSaga = (
       initial,
     });
     yield put(setState(state));
-    // Note: Initial activities are passed an empty action object (no type field!)
-    yield* runActions(initial, {});
+    yield* runActions(initial, { type: INIT });
 
     while (true) {
       const stateNodes = machine.getStateNodes(state);

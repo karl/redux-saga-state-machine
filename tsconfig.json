@@ -12,15 +12,15 @@
     "declarationMap": true, // when using project references jump to proper source
     "allowSyntheticDefaultImports": true, // allows import React from 'react' rather than import * as React from 'react'
     "downlevelIteration": true,
-    // "noImplicitAny": true,
+    "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "experimentalDecorators": true,
-    // "strict": true,
-    // "alwaysStrict": true,
+    "strict": true,
+    "alwaysStrict": true,
   },
-  "exclude": ["node_modules", "**/src/**/*.test.ts"],
+  "exclude": ["node_modules"],
   "compileOnSave": true
 }

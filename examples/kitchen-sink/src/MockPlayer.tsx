@@ -36,7 +36,7 @@ export const MockPlayer = ({
   isSwitching,
   isPlaying,
   isConfirmVisible,
-}: any) => {
+}) => {
   return (
     <Stage>
       {isInApp && <App>App</App>}
@@ -57,7 +57,7 @@ export const MockPlayer = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state) => {
   return {
     numPlayed: selectors.selectNumPlayed(state),
     isInApp: selectors.isInApp(state),

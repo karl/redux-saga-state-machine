@@ -14,7 +14,7 @@ const Player = ({
   onHideConfirm,
   onNext,
   onError,
-}: any) => {
+}) => {
   return (
     <div>
       <h2>Player</h2>
@@ -40,7 +40,7 @@ const Player = ({
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state) => {
   return {
     currentState: player.selectors.selectCurrentState(state),
     numPlayed: player.selectors.selectNumPlayed(state),
@@ -58,7 +58,7 @@ const mapDispatchToProps = {
   onError: player.actions.error,
 };
 
-export const ConnectedPlayer: any = connect(
+export const ConnectedPlayer = connect(
   mapStateToProps,
   mapDispatchToProps,
 )(Player);

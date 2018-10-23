@@ -1,17 +1,41 @@
-const objectMap = (object, mapFn) => {
+import {
+  MachineConfig,
+  SimpleOrCompoundStateNodeConfig,
+  TargetTransitionConfig,
+} from 'xstate/lib/types';
+import {
+  Action,
+  ActionsMap,
+  Activity,
+  MachineDescription,
+  StateNode,
+  Transition,
+} from './types';
+
+const objectMap = <S, T>(
+  object: Record<string, S>,
+  mapFn: (obj: S, key: string) => T,
+): Record<string, T> => {
+  const initial: Record<string, T> = {};
   return Object.keys(object).reduce((result, key) => {
     result[key] = mapFn(object[key], key);
     return result;
-  }, {});
+  }, initial);
 };
 
-const getKeyByValue = (object, value) => {
+const getKeyByValue = <T>(
+  object: Record<string, T>,
+  value: T,
+): string | undefined => {
   return Object.keys(object).find((key) => object[key] === value);
 };
 
 let id = 0;
 
-const getActionName = (actionsMap, action) => {
+const getActionOrActivityName = (
+  actionsMap: ActionsMap,
+  action: Action | Activity,
+) => {
   const existing = getKeyByValue(actionsMap, action);
   if (existing) {
     return existing;
@@ -32,13 +56,16 @@ const getActionName = (actionsMap, action) => {
   return `${action.name}-${id++}`;
 };
 
-export const toXstateConfig = (description) => {
-  const actionsMap: any = {};
+export const toXstateConfig = (
+  description: MachineDescription,
+): {
+  xstateConfig: MachineConfig;
+  actionsMap: ActionsMap;
+} => {
+  const actionsMap: ActionsMap = {};
 
-  const mapState = (state) => {
-    const newState = {
-      ...state,
-    };
+  const mapState = (state: StateNode) => {
+    const newState: SimpleOrCompoundStateNodeConfig = {};
 
     if (state.on) {
       newState.on = objectMap(state.on, (on) => {
@@ -46,8 +73,10 @@ export const toXstateConfig = (description) => {
           return on;
         }
 
-        const mapTransition = (transition) => {
-          const newTransition = { ...transition };
+        const mapTransition = (transition: Transition) => {
+          const newTransition: TargetTransitionConfig = {
+            ...transition,
+          };
 
           // TODO: In the future we will also map guards to strings
           // and pass xstate a map of guard names to functions.
@@ -59,9 +88,9 @@ export const toXstateConfig = (description) => {
           // }
 
           if (transition.actions) {
-            const newActions: any = [];
+            const newActions: string[] = [];
             for (const action of transition.actions) {
-              const name = getActionName(actionsMap, action);
+              const name = getActionOrActivityName(actionsMap, action);
               actionsMap[name] = action;
               newActions.push(name);
             }
@@ -71,17 +100,14 @@ export const toXstateConfig = (description) => {
           return newTransition;
         };
 
-        if (Array.isArray(on)) {
-          return on.map((transition) => mapTransition(transition));
-        }
-        return mapTransition(on);
+        return on.map((transition) => mapTransition(transition));
       });
     }
 
     if (state.onEntry) {
-      const newOnEntry: any = [];
+      const newOnEntry: string[] = [];
       for (const onEntry of state.onEntry) {
-        const name = getActionName(actionsMap, onEntry);
+        const name = getActionOrActivityName(actionsMap, onEntry);
         actionsMap[name] = onEntry;
         newOnEntry.push(name);
       }
@@ -89,9 +115,9 @@ export const toXstateConfig = (description) => {
     }
 
     if (state.onExit) {
-      const newOnExit: any = [];
+      const newOnExit: string[] = [];
       for (const onExit of state.onExit) {
-        const name = getActionName(actionsMap, onExit);
+        const name = getActionOrActivityName(actionsMap, onExit);
         actionsMap[name] = onExit;
         newOnExit.push(name);
       }
@@ -101,25 +127,36 @@ export const toXstateConfig = (description) => {
     if (state.activities) {
       const newActivities: string[] = [];
       for (const activity of state.activities) {
-        const name = getActionName(actionsMap, activity);
+        const name = getActionOrActivityName(actionsMap, activity);
         actionsMap[name] = activity;
         newActivities.push(name);
       }
       newState.activities = newActivities;
     }
 
+    if (state.initial) {
+      // @ts-ignore
+      newState.initial = state.initial;
+    }
+
+    if (state.parallel) {
+      // @ts-ignore
+      newState.parallel = state.parallel;
+    }
+
     if (state.states) {
+      // @ts-ignore
       newState.states = objectMap(state.states, (s) => mapState(s));
     }
 
     return newState;
   };
 
-  const { setState, selectState, ...config } = description;
-
   const xstateConfig = {
-    ...config,
-    states: objectMap(config.states, (state) => mapState(state)),
+    ...description,
+    key: description.key,
+    initial: description.initial,
+    states: objectMap(description.states, (state) => mapState(state)),
   };
 
   return {

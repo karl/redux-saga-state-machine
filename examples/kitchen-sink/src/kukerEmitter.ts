@@ -2,7 +2,7 @@ import { BaseEmitter } from 'kuker-emitters';
 import { toColor } from './toColor';
 
 const kukerEmit = BaseEmitter();
-const typeToIconMap: { [index: string]: string } = {
+const typeToIconMap = {
   STATE_MACHINE_START: 'fa-play-circle',
   STATE_MACHINE_INITIAL_STATE: 'fa-archive',
   STATE_MACHINE_LISTENING: 'fa-ellipsis-h',
@@ -14,7 +14,7 @@ const typeToIconMap: { [index: string]: string } = {
   STATE_MACHINE_ACTION: 'fa-circle',
 };
 
-export const emit = (emitted: any) => {
+export const emit = (emitted) => {
   kukerEmit({
     ...emitted,
     icon: typeToIconMap[emitted.type],

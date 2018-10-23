@@ -1,7 +1,7 @@
 import * as lolex from 'lolex';
 import { runSaga, Task } from 'redux-saga';
 
-type Harness = {
+export type Harness = {
   clock: lolex.Clock;
   state: {
     machineState: any;
