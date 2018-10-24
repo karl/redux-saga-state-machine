@@ -22,9 +22,11 @@ type Options = {
 };
 
 /** type guard for xstate Action interface */
-const isActionObject = (action: xstateTypes.Action): action is xstateTypes.ActionObject => {
-  return (<xstateTypes.ActionObject>action).type !== undefined;
-}
+const isActionObject = (
+  action: xstateTypes.Action,
+): action is xstateTypes.ActionObject => {
+  return (action as xstateTypes.ActionObject).type !== undefined;
+};
 
 export const createStateMachineSaga = (
   description: MachineDescription,
@@ -57,7 +59,7 @@ export const createStateMachineSaga = (
 
     const runActions = function*(result: State, event: redux.Action) {
       for (const action of result.actions) {
-        if (isActionObject(action)){
+        if (isActionObject(action)) {
           if (action.type === 'xstate.start') {
             const actionFunc = actionsMap[action.data.type] as Activity;
             logger({
@@ -75,7 +77,7 @@ export const createStateMachineSaga = (
               state,
             });
             activities[action.data.type].cancel();
-          }        
+          }
         } else {
           const actionFunc = actionsMap[
             action as xstateTypes.ActionType

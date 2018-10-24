@@ -64,8 +64,24 @@ export const toXstateConfig = (
 } => {
   const actionsMap: ActionsMap = {};
 
-  const mapState = (state: StateNode) => {
-    const newState: SimpleOrCompoundStateNodeConfig = {};
+  const mapState = (state: StateNode): SimpleOrCompoundStateNodeConfig => {
+    let newState: SimpleOrCompoundStateNodeConfig;
+
+    if (state.states) {
+      newState = {
+        states: objectMap(state.states, (s) => mapState(s)),
+      };
+    } else {
+      newState = {};
+    }
+
+    if (state.initial) {
+      newState.initial = state.initial;
+    }
+
+    if (state.parallel) {
+      newState.parallel = state.parallel;
+    }
 
     if (state.on) {
       newState.on = objectMap(state.on, (on) => {
@@ -132,21 +148,6 @@ export const toXstateConfig = (
         newActivities.push(name);
       }
       newState.activities = newActivities;
-    }
-
-    if (state.initial) {
-      // @ts-ignore
-      newState.initial = state.initial;
-    }
-
-    if (state.parallel) {
-      // @ts-ignore
-      newState.parallel = state.parallel;
-    }
-
-    if (state.states) {
-      // @ts-ignore
-      newState.states = objectMap(state.states, (s) => mapState(s));
     }
 
     return newState;
