@@ -2875,10 +2875,15 @@ command-exists@^1.2.6:
   resolved "https://registry.npmjs.org/command-exists/-/command-exists-1.2.7.tgz#16828f0c3ff2b0c58805861ef211b64fc15692a8"
   integrity sha512-doWDvhXCcW5LK0cIUWrOQ8oMFXJv3lEQCkJpGVjM8v9SV0uhqYXB943538tEA2CiaWqSyuYUGAm5ezDwEx9xlw==
 
-commander@*, commander@2.19.0, commander@^2.11.0, commander@^2.12.1, commander@^2.15.1, commander@^2.18.0:
+commander@*, commander@^2.11.0, commander@^2.12.1, commander@^2.15.1, commander@^2.18.0:
   version "2.19.0"
   resolved "https://registry.npmjs.org/commander/-/commander-2.19.0.tgz#f6198aa84e5b83c46054b94ddedbfed5ee9ff12a"
   integrity sha512-6tvAOO+D6OENvRAh524Dh9jcfKTYDQAqvqezbCW82xj5X0pSrcpxtvRKHLG0yBY6SD7PSDrJaj+0AiOcKVd1Xg==
+
+commander@2.18.0:
+  version "2.18.0"
+  resolved "https://registry.npmjs.org/commander/-/commander-2.18.0.tgz#2bf063ddee7c7891176981a2cc798e5754bc6970"
+  integrity sha512-6CYPa+JP2ftfRU2qkDK+UTVeQYosOg/2GbcjIcKPHfinyOLPVGXu/ovN86RP49Re5ndJK1N0kuiidFFuepc4ZQ==
 
 commander@~2.17.1:
   version "2.17.1"
@@ -10126,15 +10131,10 @@ semver-truncate@^1.0.0:
   dependencies:
     semver "^5.3.0"
 
-"semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", semver@^5.3.0, semver@^5.4.1, semver@^5.5, semver@^5.5.0:
+"semver@2 || 3 || 4 || 5", "semver@2.x || 3.x || 4 || 5", semver@5.5.1, semver@^5.3.0, semver@^5.4.1, semver@^5.5, semver@^5.5.0:
   version "5.5.1"
   resolved "https://registry.npmjs.org/semver/-/semver-5.5.1.tgz#7dfdd8814bdb7cabc7be0fb1d734cfb66c940477"
   integrity sha512-PqpAxfrEhlSUWge8dwIp4tZnQ25DIOthpiaHNIthsjEFQD6EvqUKUDM7L8O2rShkFccYo1VjJR0coWfNkCubRw==
-
-semver@5.6.0:
-  version "5.6.0"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-5.6.0.tgz#7e74256fbaa49c75aa7c7a205cc22799cac80004"
-  integrity sha512-RS9R6R35NYgQn++fkDWaOmqGoj4Ek9gGs+DPxNUZKuwE183xjJroKvyo1IzVFeXvUrvmALy6FWD5xrdJT25gMg==
 
 semver@^4.0.3:
   version "4.3.6"
@@ -10598,15 +10598,15 @@ stat-mode@^0.2.0:
   integrity sha1-5sgLYjEj19gM8TLOU480YokHJQI=
 
 state-machine-cat@^4.0.0:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/state-machine-cat/-/state-machine-cat-4.1.2.tgz#0e5420387bce6efe7031c0a5af3f47882e113ece"
-  integrity sha512-TPkKGvzMDSSjyKvR8OgkXadSP9OTHmF9Ymlw9yIkr4EFMaI4OXBvDi401pfKuo4aFyvAJ3XFU5wmQnoOPRdbIA==
+  version "4.1.0"
+  resolved "https://registry.npmjs.org/state-machine-cat/-/state-machine-cat-4.1.0.tgz#536c27b2ea1dc7e81921b4fd3d4e998c0d38aa91"
+  integrity sha512-q+/y03gGvjFqrlobqWYeVP2XWlzbfgNSFosQ4NDLnloxBIH34Iobzy5ZuzpdCQYunm99c30T8beduocvt77SEA==
   dependencies:
     ajv "6.5.4"
-    commander "2.19.0"
+    commander "2.18.0"
     handlebars "4.0.12"
     lodash.clonedeep "4.5.0"
-    semver "5.6.0"
+    semver "5.5.1"
     viz.js "1.8.2"
 
 static-eval@^2.0.0:
