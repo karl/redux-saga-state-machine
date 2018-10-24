@@ -21,6 +21,11 @@ type Options = {
   emit?: (obj: Record<string, any>) => void;
 };
 
+/** type guard for xstate Action interface */
+const isActionObject = (action: xstateTypes.Action): action is xstateTypes.ActionObject => {
+  return (<xstateTypes.ActionObject>action).type !== undefined;
+}
+
 export const createStateMachineSaga = (
   description: MachineDescription,
   { emit = noop }: Options = {},
@@ -52,24 +57,25 @@ export const createStateMachineSaga = (
 
     const runActions = function*(result: State, event: redux.Action) {
       for (const action of result.actions) {
-        const actionObject = action as xstateTypes.ActionObject;
-        if (actionObject.type === 'xstate.start') {
-          const actionFunc = actionsMap[actionObject.data.type] as Activity;
-          logger({
-            type: 'STATE_MACHINE_START_ACTIVITY',
-            label: `Start activity ${actionObject.data.type}`,
-            action,
-            state,
-          });
-          activities[actionObject.data.type] = yield fork(actionFunc, event);
-        } else if (actionObject.type === 'xstate.stop') {
-          logger({
-            type: 'STATE_MACHINE_STOP_ACTIVITY',
-            label: `Stop activity ${actionObject.data.type}`,
-            action,
-            state,
-          });
-          activities[actionObject.data.type].cancel();
+        if (isActionObject(action)){
+          if (action.type === 'xstate.start') {
+            const actionFunc = actionsMap[action.data.type] as Activity;
+            logger({
+              type: 'STATE_MACHINE_START_ACTIVITY',
+              label: `Start activity ${action.data.type}`,
+              action,
+              state,
+            });
+            activities[action.data.type] = yield fork(actionFunc, event);
+          } else if (action.type === 'xstate.stop') {
+            logger({
+              type: 'STATE_MACHINE_STOP_ACTIVITY',
+              label: `Stop activity ${action.data.type}`,
+              action,
+              state,
+            });
+            activities[action.data.type].cancel();
+          }        
         } else {
           const actionFunc = actionsMap[
             action as xstateTypes.ActionType
