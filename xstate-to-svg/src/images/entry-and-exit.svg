@@ -43,16 +43,16 @@
 <!-- home&#45;&gt;player -->
 <g id="edge2" class="edge">
 <title>home&#45;&gt;player</title>
-<path fill="none" stroke="#000000" d="M44.2117,-113.6958C40.4682,-108.2394 37.1173,-102.1986 35.097,-96 32.9039,-89.2714 33.2714,-82.331 35.1444,-75.6263"/>
-<polygon fill="#000000" stroke="#000000" points="38.5147,-76.6136 38.8429,-66.0239 31.9825,-74.0976 38.5147,-76.6136"/>
-<text text-anchor="start" x="36" y="-87" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PLAY &#160;&#160;</text>
+<path fill="none" stroke="#000000" d="M48.5889,-113.6609C45.5008,-108.1145 42.7305,-102.0451 41.097,-96 39.3132,-89.3987 39.5903,-82.5275 41.08,-75.8537"/>
+<polygon fill="#000000" stroke="#000000" points="44.4326,-76.8588 44.0315,-66.2716 37.7428,-74.7982 44.4326,-76.8588"/>
+<text text-anchor="start" x="42" y="-87" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">PLAY &#160;&#160;</text>
 </g>
 <!-- player&#45;&gt;home -->
 <g id="edge3" class="edge">
 <title>player&#45;&gt;home</title>
-<path fill="none" stroke="#000000" d="M69.3632,-66.0074C70.1682,-75.6687 70.5921,-86.253 70,-96 69.8532,-98.4157 69.6583,-100.907 69.4304,-103.4121"/>
-<polygon fill="#000000" stroke="#000000" points="65.9211,-103.3153 68.3471,-113.6287 72.8821,-104.0535 65.9211,-103.3153"/>
-<text text-anchor="start" x="70" y="-87" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">CLOSE &#160;&#160;</text>
+<path fill="none" stroke="#000000" d="M72.8953,-66.2965C74.3126,-75.869 75.0484,-86.334 74,-96 73.725,-98.5358 73.3569,-101.1445 72.9264,-103.7589"/>
+<polygon fill="#000000" stroke="#000000" points="69.4606,-103.2486 71.0212,-113.7279 76.3362,-104.5627 69.4606,-103.2486"/>
+<text text-anchor="start" x="74" y="-87" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">CLOSE &#160;&#160;</text>
 </g>
 </g>
 </svg>
