@@ -1,7 +1,9 @@
+import { Action } from 'redux';
 import { delay } from 'redux-saga';
 import { cancelled } from 'redux-saga/effects';
-import { createStateMachineSaga } from './createStateMachineSaga';
-import { createHarness } from './testing/createHarness';
+import { createStateMachineSaga, INIT } from './createStateMachineSaga';
+import { createHarness, Harness } from './testing/createHarness';
+import { SagaFunction } from './types';
 
 describe('createStateMachineSaga', () => {
   // Use this for debugging as it fully expands objects (the default console.log
@@ -31,7 +33,7 @@ describe('createStateMachineSaga', () => {
   const activityComplete = jest.fn();
   const condTrue = jest.fn(() => true);
   const condFalse = jest.fn(() => false);
-  const activity = function*(action) {
+  const activity = function*(action: Action) {
     try {
       activityStarted(action);
       yield delay(5000);
@@ -43,9 +45,9 @@ describe('createStateMachineSaga', () => {
     }
   };
 
-  let harness;
+  let harness: Harness;
   let stateMachine;
-  let saga;
+  let saga: SagaFunction;
   beforeEach(() => {
     jest.clearAllMocks();
     harness = createHarness();
@@ -89,9 +91,8 @@ describe('createStateMachineSaga', () => {
 
   it('run activities and onEntry for initial state', () => {
     harness.run(saga);
-    // Note: Initial activities and onEntry are passed an empty action object (no type field!)
-    expect(onEntryApp).toHaveBeenCalledWith(harness.actionArg, {});
-    expect(activityStarted).toHaveBeenCalledWith({});
+    expect(onEntryApp).toHaveBeenCalledWith(harness.actionArg, { type: INIT });
+    expect(activityStarted).toHaveBeenCalledWith({ type: INIT });
   });
 
   it('cancels activities when transitioning to a new state', () => {

@@ -22,7 +22,7 @@ const CloseButton = styled.button`
   vertical-align: text-top;
 `;
 
-export const Notification = ({ visible, message, onHide }: any) => {
+export const Notification = ({ visible, message, onHide }) => {
   if (!visible) {
     return null;
   }
@@ -33,7 +33,7 @@ export const Notification = ({ visible, message, onHide }: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state) => {
   return {
     visible: selectors.isNotificationVisible(state),
     message: selectors.notificationMessage(state),

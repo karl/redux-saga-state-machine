@@ -1,4 +1,5 @@
 import { delay } from 'redux-saga';
+import { MachineDescription } from 'redux-saga-state-machine';
 import { put } from 'redux-saga/effects';
 import { createActions } from './createAction';
 
@@ -24,7 +25,7 @@ const initialState = {
   currentState: null,
 };
 
-export const reducer = (state = initialState, { type, payload }: any) => {
+export const reducer = (state = initialState, { type, payload }) => {
   if (type === actions.setCurrentState.type) {
     return {
       ...state,
@@ -35,21 +36,21 @@ export const reducer = (state = initialState, { type, payload }: any) => {
 };
 
 export const selectors = {
-  selectRoot: (state: any) => state[reducerKey],
-  selectCurrentState: (state: any) => selectors.selectRoot(state).currentState,
+  selectRoot: (state) => state[reducerKey],
+  selectCurrentState: (state) => selectors.selectRoot(state).currentState,
 };
 
-const switchTimer = function*(): any {
+const switchTimer = function*() {
   yield delay(6000);
   yield put(actions.timer());
 };
 
-const pedSwitchTimer = function*(): any {
+const pedSwitchTimer = function*() {
   yield delay(2500);
   yield put(actions.pedTimer());
 };
 
-export const stateMachine = {
+export const stateMachine: MachineDescription = {
   key: 'traffic-lights',
   // debug: true,
   setState: actions.setCurrentState,
