@@ -45,7 +45,8 @@ jobs:
           command: |
             if [[ $(git status --short) ]]; then
               echo "It looks like some visualisations are not up to date!"
-              git status
+              git status --short
+              git diff
               exit 1
             fi
 
