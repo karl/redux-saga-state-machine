@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.9](https://github.com/karl/redux-saga-state-machine/compare/v0.10.8...v0.10.9) (2018-11-01)
+
+**Note:** Version bump only for package website
+
+
+
+
+
 ## [0.10.8](https://github.com/karl/redux-saga-state-machine/compare/v0.10.7...v0.10.8) (2018-10-24)
 
 **Note:** Version bump only for package website

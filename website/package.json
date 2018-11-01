@@ -1,7 +1,7 @@
 {
   "name": "website",
   "private": true,
-  "version": "0.10.8",
+  "version": "0.10.9",
   "scripts": {
     "examples": "docusaurus-examples",
     "start": "docusaurus-start",
@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "docusaurus": "^1.4.0",
-    "example-kitchen-sink": "^0.10.8"
+    "example-kitchen-sink": "^0.10.9"
   }
 }
