@@ -21,7 +21,7 @@
     "@types/react-redux": "6.0.9",
     "@types/styled-components": "4.0.3",
     "babel-plugin-styled-components": "1.8.0",
-    "bluebird": "3.5.2",
+    "bluebird": "3.5.3",
     "jest": "23.6.0",
     "jest-cli": "23.6.0",
     "jest-junit": "5.2.0",
