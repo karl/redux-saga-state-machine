@@ -19,7 +19,7 @@
     "@types/react": "16.7.6",
     "@types/react-dom": "16.0.9",
     "@types/react-redux": "6.0.9",
-    "@types/styled-components": "4.0.3",
+    "@types/styled-components": "4.1.12",
     "babel-plugin-styled-components": "1.8.0",
     "bluebird": "3.5.3",
     "jest": "23.6.0",
