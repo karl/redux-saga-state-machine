@@ -40,7 +40,7 @@
     "redux": "4.0.1",
     "redux-saga": "0.16.2",
     "redux-saga-state-machine": "^0.10.8",
-    "styled-components": "4.1.1",
+    "styled-components": "4.2.1",
     "xstate": "3.3.3"
   }
 }
