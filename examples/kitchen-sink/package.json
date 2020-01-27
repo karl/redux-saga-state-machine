@@ -29,7 +29,7 @@
     "parcel-bundler": "1.10.3",
     "prettier": "1.15.2",
     "react-hot-loader": "4.3.12",
-    "ts-jest": "23.10.4",
+    "ts-jest": "25.0.0",
     "xstate-to-svg": "^0.10.6"
   },
   "dependencies": {
