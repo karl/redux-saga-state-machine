@@ -13,7 +13,7 @@
     "redux": "4.0.1",
     "redux-saga": "0.16.2",
     "redux-saga-state-machine": "^0.10.8",
-    "xstate": "3.3.3"
+    "xstate": "4.8.0"
   },
   "devDependencies": {
     "parcel-bundler": "1.10.3"
