@@ -23,7 +23,7 @@
     "mkdirp": "0.5.1",
     "prettier": "1.15.2",
     "rimraf": "2.6.2",
-    "xstate": "3.3.3"
+    "xstate": "4.15.1"
   },
   "dependencies": {
     "@types/jest": "^23.3.0",
